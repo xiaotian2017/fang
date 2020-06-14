@@ -11,7 +11,7 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello world'
 			}
 		},
 		onLoad() {
@@ -23,7 +23,7 @@
 	}
 </script>
 
-<style>
+<style lang="less">
 	.content {
 		display: flex;
 		flex-direction: column;
