@@ -2,7 +2,7 @@
 	<view class="content">
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
-			<text class="title">{{title}}</text>
+			 <input class="uni-input" focus placeholder="自动" />
 		</view>
 	</view>
 </template>

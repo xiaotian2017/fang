@@ -3,7 +3,25 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "乐米选房",
+			}
+		},
+		{
+			"path": "pages/house/house",
+			"style": {
+				"navigationBarTitleText": "我要找房"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我要提问"
+			}
+		},
+		{
+			"path": "pages/question/question",
+			"style": {
+				"navigationBarTitleText": "我的"
 			}
 		}
 	],
@@ -11,33 +29,35 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		
 	},
 	"tabBar": {
 	    "color": "#7A7E83",
-	    "selectedColor": "#3cc51f",
+	    "selectedColor": "#1296db",
 	    "borderStyle": "black",
-	    "backgroundColor": "#ffffff",
+		"backgroundColor": "#ffffff",
 	    "list": [{
 	        "pagePath": "pages/index/index",
-	        "iconPath": "static/logo.png",
-	        "selectedIconPath": "static/logo.png",
+	        "iconPath": "static/tabBar/home.png",
+	        "selectedIconPath": "static/tabBar/home-active.png",
 	        "text": "首页"
 	    }, {
-	        "pagePath": "pages/index/index",
-	        "iconPath": "static/logo.png",
-	        "selectedIconPath": "static/logo.png",
+	        "pagePath": "pages/house/house",
+	        "iconPath": "static/tabBar/house.png",
+	        "selectedIconPath": "static/tabBar/house-active.png",
 	        "text": "我要找房"
 	    },{
-	        "pagePath": "pages/index/index",
-	        "iconPath": "static/logo.png",
-	        "selectedIconPath": "static/logo.png",
+	        "pagePath": "pages/question/question",
+	        "iconPath": "static/tabBar/question.png",
+	        "selectedIconPath": "static/tabBar/question-active.png",
 	        "text": "我要提问"
 	    },{
-	        "pagePath": "pages/index/index",
-	        "iconPath": "static/logo.png",
-	        "selectedIconPath": "static/logo.png",
+	        "pagePath": "pages/my/my",
+	        "iconPath": "static/tabBar/my.png",
+	        "selectedIconPath": "static/tabBar/my-active.png",
 	        "text": "我的"
-	    }]
+	    }
+		]
 	}
 }
