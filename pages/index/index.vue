@@ -1,15 +1,19 @@
 <template>
 	<view class="layer">
 		<search />
+		<banner />
 	</view>
+
 </template>
 
 <script>
-import Search from "../../components/search"
+	import Search from "@/comps/search"
+	import Banner from "@/comps/banner"
+
 	export default {
 		data() {
 			return {
-				title: 'Hello world'
+
 			}
 		},
 		onLoad() {
@@ -19,14 +23,12 @@ import Search from "../../components/search"
 
 		},
 		components: {
-			Search
+			Search,
+			Banner,
 		}
 	}
 </script>
 
-<style lang="less">
-@import url("../../common/less/common.less");
-.layer{
-	padding: 0 @gap;
-}
+<style lang="scss">
+
 </style>
