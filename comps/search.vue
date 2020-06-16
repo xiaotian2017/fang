@@ -11,6 +11,8 @@
 
 <script>
 import uniIcons from "@/components/uni-icons/uni-icons.vue";
+	
+	
 	export default {
 		data() {
 			return {
@@ -37,7 +39,7 @@ $hei: 70rpx;
 $top: 30rpx;
 
 .search-box{
-	height:$hei; position:relative; margin-top: $top; border-radius: 4rpx; box-shadow: 0 0 6rpx 0 rgba(0,0,0,.2);
+	height:$hei; position:relative; border-radius: 4rpx; box-shadow: 0 0 6rpx 0 rgba(0,0,0,.2);
 	.search-box{
 		line-height: $hei;
 	}

@@ -14,8 +14,10 @@
 
 <style lang="scss">
 /*每个页面公共css */
+@import './common/css/common.scss';
+
 .layer{
-	padding: 0 $gap; font-size: 28rpx;
+	padding: 0 $gap; font-size: 28rpx; background: #f6f8fa; min-height: 100vh;
 }
 
 </style>

@@ -1,3 +1,11 @@
 .pol{
     position: absolute; left:0;
 }
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}

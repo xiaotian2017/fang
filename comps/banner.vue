@@ -1,6 +1,6 @@
 <template>
-	<view>
-		<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+	<view class="banner-box">
+		<swiper class="swiper" :circular=true :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
 			<swiper-item>
 				<image src="../static/list/product1.jpg"></image>
 			</swiper-item>
@@ -31,5 +31,7 @@
 </script>
 
 <style>
-
+.banner-box{
+	margin-top: 30rpx;
+}
 </style>
