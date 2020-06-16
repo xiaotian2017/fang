@@ -12,6 +12,9 @@
 		</view>
 		
 		<lead-news />
+		<recommend-layer />
+
+		<article-list />
 	</view>
 </template>
 
@@ -19,6 +22,8 @@
 	import Search from "@/comps/search"
 	import Banner from "@/comps/banner"
 	import LeadNews from "./lead-news.vue"
+	import RecommendLayer from "./recommend-layer"
+	import ArticleList from "@/comps/article-list"
 
 	export default {
 		data() {
@@ -49,7 +54,7 @@
 		components: {
 			Search,
 			Banner,
-			LeadNews
+			LeadNews,RecommendLayer, ArticleList
 		}
 	}
 </script>
@@ -70,7 +75,7 @@
 			font-size: 40rpx; color: #fff; font-weight: 500;
 		}
 		.tit{
-			
+			margin-top: 10rpx;
 		}
 	}
 }

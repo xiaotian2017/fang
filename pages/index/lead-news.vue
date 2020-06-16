@@ -1,8 +1,8 @@
 <template>
-	<view class="lead-news"  >
+	<view class="lead-news">
 		<uni-icons  type="sound" color="#666" size="12" @click="close" />
 		<views class="news-list" :style="{top: top+'rpx'}">
-			<view class="new" v-for="(item, index) in news" :key=index >
+			<view class="new" v-for="(item, index) in news" :key="index" >
 				{{item.txt}}
 			</view>	
 		</views>
@@ -56,12 +56,12 @@
 
 <style lang="scss">
 .lead-news{
-	height: 80rpx; overflow: hidden; line-height: 80rpx; background: #fff;
-	border-radius: 4rpx; position: relative;
+	height: 80rpx; overflow: hidden; line-height: 80rpx; background: #fff; padding-left:20rpx;
+	border-radius: 4rpx; position: relative; margin-top: 30rpx; border-radius: 4px;
 	.news-list{
 		position: absolute; 
 		.new{
-			padding-left:40rpx;
+			padding-left:20rpx;
 		}
 	}
 }

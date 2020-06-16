@@ -85,3 +85,11 @@ $gap: 30rpx;
 @mixin top-center {
     transform: translateY(-50%); top: 50%;
 }
+
+@mixin line($width) {
+    overflow:hidden; 
+    text-overflow:ellipsis;
+    display:-webkit-box; 
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:$width; 
+}
