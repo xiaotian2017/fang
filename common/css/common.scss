@@ -1,3 +1,6 @@
+.layer{
+	padding: 0 $gap; font-size: 28rpx; background: #fafafa; min-height: 100vh;
+}
 .pol{
     position: absolute; left:0;
 }
@@ -16,3 +19,6 @@
 .full{
   width: 100%; height: 100%;
 }
+.mt30{ margin-top: 30rpx; }
+.mt20{ margin-top: 20rpx; }
+.mt10{ margin-top: 10rpx; }

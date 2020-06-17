@@ -1,7 +1,7 @@
 <template>
 	<view class="layer">
 		<search />
-		<banner />
+		<banner :list="bannerList" />
 		
 		<view class="nav-list clearfix">
 			<view class="n-list" v-for="(nav,ni) in navList" :key="ni">
@@ -13,8 +13,9 @@
 		
 		<lead-news />
 		<recommend-layer />
-
-		<article-list />
+		<banner :list="advList" height=130  />
+		<latest-article />
+		
 	</view>
 </template>
 
@@ -23,7 +24,7 @@
 	import Banner from "@/comps/banner"
 	import LeadNews from "./lead-news.vue"
 	import RecommendLayer from "./recommend-layer"
-	import ArticleList from "@/comps/article-list"
+	import LatestArticle from "./latest-article.vue"
 
 	export default {
 		data() {
@@ -42,19 +43,31 @@
 					{ name:'乐米生活', icon: 'contact' },
 					{ name:'我要加群', icon: 'contact' },
 				],
+				bannerList: [],
+				advList: []
 				
 			}
 		},
 		onLoad() {
-
+			this._initData()
+			console.log(this.advList)
 		},
 		methods: {
-
+			_initData() {
+				this.bannerList = [
+					{ src: '../static/list/product1.jpg' },
+					{ src: '../static/list/product2.png' },
+					{ src: '../static/list/product1.jpg' },
+				]
+				this.advList = [
+					{ src: '../static/list/adv.png' }
+				]
+			}
 		},
 		components: {
 			Search,
 			Banner,
-			LeadNews,RecommendLayer, ArticleList
+			LeadNews,RecommendLayer,LatestArticle
 		}
 	}
 </script>

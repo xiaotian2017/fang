@@ -4,7 +4,7 @@
             <image class="full" src="../static/list/product1.jpg" />
         </view>
         <view class="text-w">
-            <view class="sub-tit">我是文章标我是文章标题我是文章标题我是文章标题我我是文章标我是文章标题我是文章标题我是文章标题我是文章标题我是文章标题题是文章标题我是文章标题题</view>
+            <view class="sub-tit">我是文章标我是是文章标题我是文章标题我我是文章</view>
             <view class="sub-p">我是小标题呀</view>
         </view>
     </view>
@@ -18,7 +18,7 @@ export default {
 
 <style lang="scss" scoped>
 .article-list{
-    display: flex; background: #fff;
+    display: flex; background: #fff; margin-bottom: 20rpx;
     .img-w{
         width: 200rpx; height: 140rpx; 
     }
