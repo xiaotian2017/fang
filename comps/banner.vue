@@ -1,14 +1,8 @@
 <template>
 	<view class="banner-box">
-		<swiper class="swiper" :circular=true :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-			<swiper-item>
-				<image src="../static/list/product1.jpg"></image>
-			</swiper-item>
-			<swiper-item>
-				<image src="../static/list/product2.png"></image>
-			</swiper-item>
-			<swiper-item>
-				<image src="../static/list/product1.jpg"></image>
+		<swiper class="swiper" :style="{height: imgHei}" :circular=true :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+			<swiper-item v-for="(item, i) in listes" :key="i">
+				<image :src="item.src" :style="{height: imgHei}"></image>
 			</swiper-item>
 		</swiper>
 	</view>
@@ -16,6 +10,13 @@
 
 <script>
 	export default {
+		props: {
+			list: {
+				default: () => []
+			},
+			height: {},
+			type: {}
+		},
 		data() {
 			return {
 				indicatorDots: true,
@@ -26,12 +27,39 @@
 		},
 		methods: {
 
+		},
+		computed: {
+			imgHei() {
+				if(this.height) {
+					return this.height+'rpx' 
+				}
+				return this.type == "adv" ? '130rpx' : '350rpx'
+			},
+			listes() {
+				if(this.list.length > 0) {
+					return this.list
+				}
+				if(this.type == "adv") {
+					return [
+						{ src: '../static/list/adv.png' },
+						{ src: '../static/list/adv.png' }
+					]
+				}else{
+					return [
+						{ src: '../static/list/product1.jpg' },
+						{ src: '../static/list/product2.png' },
+						{ src: '../static/list/product1.jpg' },
+					]
+				}
+			}
 		}
 	}
 </script>
 
-<style>
+<style lang="scss">
 .banner-box{
-	margin-top: 30rpx;
+	image{
+		height: 300rpx; width: 100%;
+	}
 }
 </style>

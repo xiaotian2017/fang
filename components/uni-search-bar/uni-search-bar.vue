@@ -55,6 +55,10 @@
 			maxlength: {
 				type: [Number, String],
 				default: 100
+			},
+			focus: {
+				type: Boolean,
+				default: 100
 			}
 		},
 		data() {
@@ -69,6 +73,18 @@
 				this.$emit("input", {
 					value: this.searchVal
 				})
+			},
+			focus: {
+				immediate: true,
+				handler(val) {
+					console.log(val)
+					if(val) {
+						this.$nextTick(() => {
+							this.showSync = true;
+							console.log(this.showSync)
+						})
+					}
+				}
 			}
 		},
 		methods: {

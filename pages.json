@@ -3,14 +3,19 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "乐米选房",
-				"titleAlign": "left"
+				"navigationBarTitleText": "乐米选房"
+			}
+		},
+		{
+			"path": "pages/house/findHouse",
+			"style": {
+				"navigationBarTitleText": "我要找房"
 			}
 		},
 		{
 			"path": "pages/house/house",
 			"style": {
-				"navigationBarTitleText": "我要找房"
+				"navigationBarTitleText": "房子公用列表"
 			}
 		},
 		{
@@ -26,7 +31,92 @@
 			}
 		}
 	   
-    ],
+        ,{
+            "path" : "pages/search/search",
+            "style" : {
+				"navigationBarTitleText": "搜索"
+			}
+        }
+        ,{
+            "path" : "pages/detail/detail",
+            "style" : {
+				"navigationBarTitleText": "页面详情"
+			}
+        }
+        ,{
+            "path" : "pages/detail/imgShow",
+            "style" : {
+				"navigationBarTitleText": "房子图片展示"
+			}
+        }
+        ,{
+            "path" : "pages/detail/buildingLayout",
+            "style" : {
+				"navigationBarTitleText": "房型图"
+			}
+        },
+		{
+		    "path" : "pages/detail/buildingTrends",
+		    "style" : {
+				"navigationBarTitleText": "楼盘动态"
+			}
+		}
+        ,{
+            "path" : "pages/detail/swingResult",
+            "style" : {
+				"navigationBarTitleText": "摇号结果"
+			}
+        }
+        ,{
+            "path" : "pages/detail/contactConsultant",
+            "style" : {
+				"navigationBarTitleText": "联系置业顾问"
+			}
+        }
+        ,{
+            "path" : "pages/detail/consultantList",
+            "style" : {
+				"navigationBarTitleText": "置业顾问列表"
+			}
+		}
+		,{
+            "path" : "pages/detail/swingHistory",
+            "style" : {
+				"navigationBarTitleText": "历史摇号"
+			}
+        },{
+			"path" : "pages/index/excellentDeveloper",
+			"style" : {
+				"navigationBarTitleText": "优秀开发商"
+			}
+		},{
+			"path" : "pages/detail/commentPage",
+			"style" : {
+				"navigationBarTitleText": "评论页面"
+			}
+		},{
+			"path" : "pages/detail/commenting",
+			"style" : {
+				"navigationBarTitleText": "评论时页面"
+			}
+		},{
+			"path" : "pages/detail/joinGroup",
+			"style" : {
+				"navigationBarTitleText": "我要加群"
+			}
+		}
+	],
+	"subPackages": [{
+		"root":	"hand",
+		"pages": [
+			{
+				"path" : "price/checkPrice",
+				"style" : {
+					"navigationBarTitleText": "二手房查价"
+				}
+			}
+		]
+	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -44,7 +134,7 @@
 	        "selectedIconPath": "static/tabBar/home-active.png",
 	        "text": "首页"
 	    }, {
-	        "pagePath": "pages/house/house",
+	        "pagePath": "pages/house/findHouse",
 	        "iconPath": "static/tabBar/house.png",
 	        "selectedIconPath": "static/tabBar/house-active.png",
 	        "text": "我要找房"
@@ -66,7 +156,7 @@
 		"list": [
 			{
 				"name": "", //模式名称
-				"path": "", //启动页面，必选
+				"path": "hand/price/checkPrice", //启动页面，必选
 				"query": "" //启动参数，在页面的onLoad函数里面得到
 			}
 		]

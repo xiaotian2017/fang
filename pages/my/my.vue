@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	import list from "../../comps/product-list.vue"
+	import list from "@/comps/list/house-list.vue"
 	export default {
 		data() {
 			return {
