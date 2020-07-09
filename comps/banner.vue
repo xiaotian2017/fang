@@ -1,7 +1,7 @@
 <template>
 	<view class="banner-box">
 		<swiper class="swiper" :style="{height: imgHei}" :circular=true :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-			<swiper-item v-for="(item, i) in list" :key="i">
+			<swiper-item v-for="(item, i) in listes" :key="i">
 				<image :src="item.src" :style="{height: imgHei}"></image>
 			</swiper-item>
 		</swiper>
@@ -11,10 +11,11 @@
 <script>
 	export default {
 		props: {
-			list: {},
-			height: {
-				default: 350
-			}
+			list: {
+				default: () => []
+			},
+			height: {},
+			type: {}
 		},
 		data() {
 			return {
@@ -29,7 +30,27 @@
 		},
 		computed: {
 			imgHei() {
-				return this.height+'rpx'
+				if(this.height) {
+					return this.height+'rpx' 
+				}
+				return this.type == "adv" ? '130rpx' : '350rpx'
+			},
+			listes() {
+				if(this.list.length > 0) {
+					return this.list
+				}
+				if(this.type == "adv") {
+					return [
+						{ src: '../static/list/adv.png' },
+						{ src: '../static/list/adv.png' }
+					]
+				}else{
+					return [
+						{ src: '../static/list/product1.jpg' },
+						{ src: '../static/list/product2.png' },
+						{ src: '../static/list/product1.jpg' },
+					]
+				}
 			}
 		}
 	}
@@ -37,7 +58,6 @@
 
 <style lang="scss">
 .banner-box{
-	margin-top: 20rpx;
 	image{
 		height: 300rpx; width: 100%;
 	}

@@ -1,5 +1,11 @@
 .layer{
-	padding: 0 $gap; font-size: 28rpx; background: #fafafa; min-height: 100vh;
+	padding: 0 $gap; font-size: $font; background: bg; min-height: 100vh; color:#666;
+}
+.gap{
+  padding: 0 $gap; font-size: $font; color:#333;
+}
+.fz{
+  font-size: $font; color:#333;
 }
 .pol{
     position: absolute; left:0;
@@ -12,7 +18,9 @@
 .clearfix:after {
   clear: both;
 }
-
+.clear{
+	clear: both;
+}
 .fz36{
   font-size: 36rpx;
 }
@@ -22,3 +30,37 @@
 .mt30{ margin-top: 30rpx; }
 .mt20{ margin-top: 20rpx; }
 .mt10{ margin-top: 10rpx; }
+.mb30{ margin-bottom: 30rpx; }
+.mb20{ margin-bottom: 20rpx; }
+.mb10{ margin-bottom: 10rpx; }
+
+.pb120{ padding-bottom: 120rpx; }
+.fr{ float:right; }
+.fl{ float:left; }
+
+.abs{ position: absolute; left: 0; right:0; bottom:0; top:0; margin:auto; }
+
+.hr20{ height: 20rpx; }
+.hr30{ height: 30rpx; }
+
+.hl10{ height: 10rpx; background: $gray;}
+.hl20{ height: 20rpx; background: $gray;}
+
+button{
+  font-size: 28rpx;display: inline-block;
+}
+
+.detail-tit{
+	font-size: 36rpx; font-weight: bold; margin: 25rpx 0; line-height: 50rpx;
+	.more{
+		font-size: 28rpx; color: #999; float: right;
+	}
+}
+.detail-btn{
+	color: $theme; background: $blue_bg;
+	width: 100%;  height: 70rpx; line-height: 70rpx;  
+	border-bottom: 1px solid $theme;
+	&::after{
+		border:0px none;
+	}
+}

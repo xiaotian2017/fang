@@ -1,24 +1,28 @@
 <template>
     <view class="article-list">
         <view class="img-w">
-            <image class="full" src="../static/list/product1.jpg" />
+            <image class="full" src="../../static/list/product1.jpg" />
         </view>
         <view class="text-w">
             <view class="sub-tit">我是文章标我是是文章标题我是文章标题我我是文章</view>
-            <view class="sub-p">我是小标题呀</view>
+            <view class="sub-p">
+                {{type=='time'?"2020-05-05":'我是小标题呀'}}
+            </view>
         </view>
     </view>
 </template>
 
 <script>
 export default {
-    props: {}
+    props: {
+        type: {}
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 .article-list{
-    display: flex; background: #fff; margin-bottom: 20rpx;
+    display: flex; background: #fff; margin-bottom: 30rpx;
     .img-w{
         width: 200rpx; height: 140rpx; 
     }
