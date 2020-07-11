@@ -18,15 +18,20 @@ const options = {
         }
     },
     grid: {
-        right: '20%'
+        right: '5%'
     },
-    toolbox: {
-        feature: {
-            dataView: {show: true, readOnly: false},
-            restore: {show: true},
-            saveAsImage: {show: true}
-        }
-    },
+    dataZoom: [
+            {
+                show: true,
+                start: 94,
+                end: 100
+            },
+            {
+                type: 'inside',
+                start: 94,
+                end: 100
+            }
+        ],
     legend: {
         data: ['蒸发量', '降水量', '平均温度']
     },
@@ -35,6 +40,13 @@ const options = {
             type: 'category',
             axisTick: {
                 alignWithLabel: true
+            },
+            silent: false,
+            splitLine: {
+                show: false
+            },
+            splitArea: {
+                show: false
             },
             data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
         }
@@ -91,7 +103,8 @@ const options = {
         {
             name: '蒸发量',
             type: 'bar',
-            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            large: true
         },
         {
             name: '降水量',
@@ -153,7 +166,7 @@ export default {
 
 <style lang="scss" scoped>
 .ec-canvas{
-	width: 700rpx; height: 400rpx; display:block; background: #000;
+	width: 700rpx; height: 700rpx; display:block; 
 }
 </style>
 
