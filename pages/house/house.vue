@@ -9,14 +9,7 @@
 		
 		<filter-box />
 		<wrap>
-			<house-list />
-			<house-list />
-			<house-list />
-			<house-list />
-			<house-list />
-			<house-list />
-			<house-list />
-			<house-list />
+			<house-list  v-for="(item,i) in houselist" :key="i" :house=item  />
 		</wrap>
 	</view>
 </template>
@@ -26,23 +19,28 @@ import TopSearch from "@/comps/top-search"
 import Banner from "@/comps/banner"
 import FilterBox from "./house/filter-box"
 import HouseList from "@/comps/list/house-list.vue"
-import { mapActions } from 'vuex'
+
+import { getHouseList } from "@/api"
 
 export default {
 	data() {
 		return {
-
+			houselist: [
+				
+			]
 		}
 	},
 	methods: {
-		...mapActions(['getHouseList'])
+		
 	},
 	computed: {
-
+		
 	},
 	onLoad(e) {
-		console.log(e)
-		this.getHouseList()
+		getHouseList().then(data=>{
+			console.log(data);
+			this.houselist = data.record
+		})
 	},
 	components: {
 		Banner,FilterBox,TopSearch,HouseList

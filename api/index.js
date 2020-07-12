@@ -3,7 +3,7 @@ import { fetch } from "./fetch"
 export const getAdv = fetch('advert/get', {
     detail: 'banner广告'
 })
-export const adviserList = fetch('adviser/list', {
+export const getAdviserList = fetch('adviser/list', {
     detail: '优秀顾问推荐列表--'
 })
 export const areaList = fetch('area/list', {

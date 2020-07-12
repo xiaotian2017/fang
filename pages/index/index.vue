@@ -25,6 +25,7 @@
 		<banner :list="advList" height=130  />
 		<!-- 最新文章 -->
 		<latest-article />
+
 	</view>
 </template>
 

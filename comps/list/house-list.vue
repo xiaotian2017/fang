@@ -3,56 +3,67 @@
 
 		<ImgMask></ImgMask>
 		<view class="text-w">
-			<view class="tit">{{houseName}}</view>
+			<view class="tit">{{house.name}}</view>
 			<view class="pricearea">
-				<text class="price">{{price}}</text>
-				<text class="area">{{area}}</text>
+				<text class="price">{{house.minPrice}}-{{house.maxPrice}}元/m²</text>
+				<text class="area">{{house.minArea}}-{{house.maxArea}}m²</text>
 			</view>
 			<view class="local">
-				<text>{{location}}</text>
-				<text class="block">{{block}}</text>
+				<text>{{house.district}}</text>
+				<text class="block">{{house.block}}</text>
 			</view>
 			<view class="label">
 				<text v-for="(item,index) in labels " :style="{color:item.color,background:item.bg}" :key="index">{{item.title}}</text>
 			</view>
-			<!-- <view class="desc">{{desc}}</view> -->
+			 <view class="desc">{{house.remark}}</view> 
 		</view>
 	</view>
 </template>
 
 <script>
 	import ImgMask from "./img-mask.vue"
-	export default {
+
+	const STATUS_MAP = {
+		0: '即将开盘',
+		1: '正在公示',
+		2: '正在登记',
+		3: '摇号查询'
+	}
+
+	const COLOR_MAP = {
+		green: { color: '#4cd961', bg: 'rgba(76, 217, 97,0.2)' },
+		blue: { color: '#4985c9', bg: 'rgba(73, 133, 201,0.2)' } ,
+		gray: { color: '#999999', bg: 'rgba(153, 153, 153,0.2)' } ,
+		red: { color: '#e64340', bg: 'rgba(230, 67, 64,0.2)' } ,
+	}
+
+	export default {		
 		data() {
-			return {
-				id:"999",
-				houseName: "时代滨江悦府1",
-				price: "30089-46788元/m²",
-				area: "88-99m²",
-				location: "滨江区",
-				block: "高薪开发区",
-				labels: [{
-						title: "即将开盘",
-						color: "#4cd961",
-						bg: "rgba(76, 217, 97,0.2)"
-					},
-					{
-						title: "意向登记表",
-						color: "#4985c9",
-						bg: "rgba(73, 133, 201,0.2)"
-					},
-					{
-						title: "地铁口",
-						color: "#999999",
-						bg: "rgba(153, 153, 153,0.2)"
-					},
-					{
-						title: "热门商圈",
-						color: "#e64340",
-						bg: "rgba(230, 67, 64,0.2)"
+			return {}
+		},
+		props:{	
+			house:{
+				type: Object,
+				default: () => {
+					return {
+						id:0,//	integer($int64)
+						name:"",//	string	楼盘名称
+						nameEn:"",//	string 	楼盘名称（英文）
+						averagePrice:0	,//number	平均单价
+						maxPrice:0,//number		最高单价
+						minPrice:0,//number		最低单价
+						
+						buildingArea:"",//	integer($int32)	建筑面积
+						maxArea:"",//number	最大户型面积
+						minArea:"",//number	最小户型面积
+						
+						district:"",//	string	区
+						block:"",//	string	板块
+						remark:"",//string	备注（短评）
+						tag:"",//	string	楼盘标签（逗号隔开
+						saleStatus: "" //等等
 					}
-				],
-				desc: "好山好水好分光，這又是一處美麗的樓盤，臨近地鐵口，熱門商圈，不可錯過的好家圓。",
+				}
 			}
 		},
 		components: {
@@ -66,6 +77,25 @@
 					animationType:'pop-in'
 				})
 			},
+		},
+		computed: {
+			//楼盘状态 + 楼盘表情
+			labels() {
+				let { saleStatus, tag } = this.house,
+					ret = tag && tag.split(',') || [],
+					{ green, gray } = COLOR_MAP
+
+				ret = ret.map(item => {
+					return { 
+						color: gray.color, 
+						title: item, 
+						bg: gray.bg 
+					}
+				})
+				
+				ret.unshift({ title: STATUS_MAP[ saleStatus ], color: green.color, bg: green.bg })
+				return ret
+			}
 		}
 	}
 </script>

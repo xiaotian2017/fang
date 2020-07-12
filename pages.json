@@ -104,6 +104,11 @@
 			"style" : {
 				"navigationBarTitleText": "我要加群"
 			}
+		},{
+			"path" : "pages/article/article",
+			"style" : {
+				"navigationBarTitleText": "公众号文章"
+			}
 		}
 	],
 	"subPackages": [{
@@ -156,7 +161,7 @@
 		"list": [
 			{
 				"name": "", //模式名称
-				"path": "hand/price/checkPrice", //启动页面，必选
+				"path": "page/index/index", //启动页面，必选
 				"query": "" //启动参数，在页面的onLoad函数里面得到
 			}
 		]

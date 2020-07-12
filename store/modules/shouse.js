@@ -12,8 +12,7 @@ const store = {
     },
     mutations: {
         [types.HOUSE_LIST]: (state, list) => {
-            state.searchKey = searchKey
-            state.bannerList = bannerList
+            state.houselist = list
         }
     },
     actions: {
