@@ -1,32 +1,35 @@
 <template>
-	<view class="layer">
+	<view class="layer" :class="{cut: !isShowDown}">
 		<view class="search-box">
 			<uni-icons class="search-icon" color="#999999" size="18" type="search" />
 			<input class="search-input" :focus="true" :placeholder="placeHolder" v-model="query"  />
 			<view class="confirm" @click="confirmSearch">确定</view>
 			
-			<text class="tip">温馨提示：可按照楼盘名称和楼盘拼音首字母搜索</text>
+			<text class="tip" v-if="isShowDown">温馨提示：可按照楼盘名称和楼盘拼音首字母搜索</text>
 		</view>
-		<banner :list="advList" height=130 />
-		
-		<view class="lastest-box">
-			<view class="sub-tit">最近在搜</view>
-			<view class="list-con">
-				<view class="list" v-for="(item, i) in lastestList" @click="labelClick(item)" :key="i">
-					{{item.label}}
-				</view>
-				<div class="clear"></div>
-			</view> 
-		</view>
-		
-		<view class="top-box">
-			<view class="sub-tit">大家都在搜</view>
-			<view class="list-con">
-				<view class="list" v-for="(item, i) in topList" @click="labelClick(item)" :key="i">
-					{{item.label}}
-				</view>
-			</view> 
-		</view>
+
+		<template v-if="isShowDown">
+			<banner :list="advList" height=130 />
+			
+			<view class="lastest-box">
+				<view class="sub-tit">最近在搜</view>
+				<view class="list-con">
+					<view class="list" v-for="(item, i) in lastestList" @click="labelClick(item)" :key="i">
+						{{item.label}}
+					</view>
+					<div class="clear"></div>
+				</view> 
+			</view>
+			
+			<view class="top-box">
+				<view class="sub-tit">大家都在搜</view>
+				<view class="list-con">
+					<view class="list" v-for="(item, i) in topList" @click="labelClick(item)" :key="i">
+						{{item.label}}
+					</view>
+				</view> 
+			</view>
+		</template>
 	</view>
 </template>
 
@@ -40,16 +43,17 @@ export default {
 			placeHolder: 'A楼盘',
 			lastestList: [],
 			topList: [],
-			query: ""
+			query: "",
+			isShowDown: true
 		}
 	},
 	methods: {
 		confirmSearch() {
 			let key = this.query || this.placeHolder
 			
-			uni.navigateTo({
-				url: `/pages/house/house?query=${key}`,
-			})
+			this.isShowDown = false
+
+			this.$emit('confirmSearch', key)
 		},
 		labelClick(item) {
 			this.query = item.label
@@ -77,7 +81,7 @@ export default {
 			]
 		}
 	},
-	onLoad() {
+	created() {
 		this._initData()
 
 		this.$ADV_API.getSearch().then(data => {
@@ -92,9 +96,6 @@ export default {
 </script>
 
 <style lang="scss">
-.layer{
-	padding-top: 10rpx;
-}
 .search-box{
 	background: #eee; margin: 0 0 55rpx; height: 80rpx; position: relative;line-height: 80rpx;
 	.search-input{
@@ -114,6 +115,13 @@ export default {
 		position:absolute; top: 85rpx; line-height: 36rpx; color: #999; font-size: 24rpx;
 	}
 }
+.layer{
+	padding-top: 10rpx;
+	&.cut{
+		height: 100rpx; min-height: auto;
+	}
+}
+
 .sub-tit{
 	color: #999; margin: 30rpx 0;
 }

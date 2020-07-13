@@ -4,7 +4,7 @@ const TYPE_MAP = {
     homeTop: 1,
     homeBot: 2,
     search: 3,
-    hotHouse: 4,
+    hot: 4,
     detail: 5,
     //即将开盘
     opening: 6,

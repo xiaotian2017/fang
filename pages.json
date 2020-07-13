@@ -7,6 +7,12 @@
 			}
 		},
 		{
+			"path": "pages/house/searchList",
+			"style": {
+				"navigationBarTitleText": "搜索列表"
+			}
+		},
+		{
 			"path": "pages/house/findHouse",
 			"style": {
 				"navigationBarTitleText": "我要找房"

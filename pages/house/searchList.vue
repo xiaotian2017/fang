@@ -1,12 +1,7 @@
 <template>
 	<view class="house-layout fz">
-		<wrap>
-			<top-search class="gap"  :searchKey=searchKey  />
-			<view class="hr20" />
-			<banner type='adv' :list=bannerList />
-		</wrap>
+		<search-box @confirmSearch="confirmSearch" />
 		
-		<filter-box />
 		<wrap>
 			<house-list  v-for="(item,i) in houselist" :key="i" :house=item  />
 		</wrap>
@@ -34,7 +29,6 @@ export default {
 	},
 	methods: {
 		confirmSearch(key) {
-			console.log(key)
 			this.keyword = key
 		},
 		_getList() {
