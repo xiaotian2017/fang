@@ -1,9 +1,10 @@
 <template>
 	<view class="house-layout fz">
+		<search />
 		<wrap>
-			<top-search />
+			<top-search :searchKey=searchKey />
 			<view class="hr20" />
-			<banner type='adv' />
+			<banner type='adv' :list=bannerList />
 		</wrap>
 		
 		
@@ -19,31 +20,61 @@ import TopSearch from "@/comps/top-search"
 import Banner from "@/comps/banner"
 import FilterBox from "./house/filter-box"
 import HouseList from "@/comps/list/house-list.vue"
+import Search from "./house/search"
 
 import { getHouseList } from "@/api"
 
 export default {
 	data() {
 		return {
-			houselist: [
-				
-			]
+			bannerList: [],
+			searchKey: "",
+			houselist: [],
+			total: 0
 		}
 	},
 	methods: {
-		
+		_getList() {
+			getHouseList(this.searchParams).then(data=>{
+				let { totalNum, pageSize, record } = data
+
+				if(this.total == 0) this.maxPages = Math.ceil(totalNum/pageSize)
+
+				this.houselist = this.houselist.concat(record)
+			})
+		},
+		getAdv() {
+			this.$ADV_API.getList(this.pageType).then(data => {
+				this.bannerList = data.adverts
+				this.searchKey = data.serachbar.projectName
+			})
+		}
 	},
 	computed: {
 		
 	},
+	onReachBottom() {
+		if(this.searchParams.pageNum < this.maxPages) {
+			this.searchParams.pageNum++
+			this._getList()
+		}
+	},
 	onLoad(e) {
-		getHouseList().then(data=>{
-			console.log(data);
-			this.houselist = data.record
-		})
+		let { type } = e
+
+		this.pageType = type
+
+		this.searchParams = {
+			pageType: type,
+			pageNum: 1,
+			pageSize: 4
+		}
+		this._getList()
+
+		this.getAdv()
 	},
 	components: {
-		Banner,FilterBox,TopSearch,HouseList
+		Banner,FilterBox,TopSearch,HouseList,Search
 	}
 }
 </script>

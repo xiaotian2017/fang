@@ -1,5 +1,5 @@
 const baseUrl = 'http://47.111.155.35:8081/lmhouse/api/'
-const IS_TEST = true
+const IS_TEST = false
 
 export const fetch = (url, opts) => {
     return params => { 
@@ -7,6 +7,8 @@ export const fetch = (url, opts) => {
             params = { 
                 type: 1
             }
+        }else{
+            params = { ...params, type: 1 }
         }
         return new Promise((resolve, reject) => {
             uni.request({

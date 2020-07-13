@@ -24,9 +24,8 @@ import uniIcons from "@/components/uni-icons/uni-icons.vue";
 		},
 		methods: {
 			toSearch(e) {
-				e.preventDefault()
 				uni.navigateTo({
-					url: '/pages/search/search',
+					url: '/pages/house/house',
 					fail: (err) => {
 						console.log(err)
 					}

@@ -13,7 +13,6 @@
 
 <script>
 import uniIcons from "@/components/uni-icons/uni-icons.vue";
-import { mapState } from 'vuex'
 
 export default {
 	props: {
@@ -37,11 +36,6 @@ export default {
 				}
 			})
 		}
-	},
-	computed: {
-		...mapState([
-			'shome'
-		])
 	},
 	components: {
 		uniIcons	

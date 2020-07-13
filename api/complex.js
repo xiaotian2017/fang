@@ -12,7 +12,8 @@ const TYPE_MAP = {
     showing: 7,
     //正在登记
     checking: 8,
-    swing: 9,
+    //少了一个不限购 unlimitedPurchase
+    swingSearch: 9,
     hand: 10
 }
 
@@ -29,5 +30,14 @@ export const ADV_API =  {
     },
     getHomeBot() {
         return this._getList(TYPE_MAP.homeBot)
+    },
+    getSearch() {
+        return this._getList(TYPE_MAP.search)
+    },
+    /*  获取页面的配置信息   
+        页面类型 =》 banner类型  保持一致
+    */
+    getList(pageType) {
+        return this._getList(TYPE_MAP[ pageType ])
     }
 }

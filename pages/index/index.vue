@@ -1,6 +1,6 @@
 <template>
 	<view class="layer">
-		<top-search />
+		<top-search :searchKey="searchKey" />
 		
 		<view class="hr20" />
 		
@@ -8,7 +8,7 @@
 		
 		<view class="nav-list clearfix">
 			<!--这里找四个icon-->
-			<view class="n-list" v-for="(nav,ni) in navList" :key="ni" @tap="toHouse(nav)">
+			<view class="n-list" v-for="(nav,ni) in navList" :key="ni" @tap="toHouseList(nav)">
 				<uni-icons v-if="nav.icon" class="icon" color="#1296db" size="26" :type="nav.icon" />
 				<view v-else class="number" :style="{background: nav.color}">{{nav.number}}</view>
 				<view class="tit">{{nav.name}}</view>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-	import TopSearch from "@/comps/top-search"
+	import TopSearch from "./home/top-search"
 	import Banner from "@/comps/banner"
 	import LeadNews from "./home/lead-news.vue"
 	import RecommendLayer from "./home/recommend-layer"
@@ -38,18 +38,21 @@
 	import HotHouse from "./home/hot-house"
 
 	import { mapActions } from 'vuex'
+	import { LIST_TYPE } from "common/js/config"
 
 	export default {
 		data() {
 			return {
 				navList: [
-					{ name:'热门楼盘', number: '90', color: "#f34949" },
-					{ name:'即将开盘', number: '80', color: "#495df3d1"},
-					{ name:'正在公示', number: '23', color: "#19be6b"},
-					{ name:'正在登记', number: '36', color: '#beb219' },
-					{ name:'摇号查询', icon: 'contact' },
-					{ name:'二手房查价', icon: 'contact' },
-					{ name:'不限购房产', icon: 'contact' },
+					{ name:'热门楼盘', number: '90', color: "#f34949", type: 'hot' },
+					{ name:'即将开盘', number: '80', color: "#495df3d1", type: 'opening'},
+					{ name:'正在公示', number: '23', color: "#19be6b", type: 'showing'},
+					{ name:'正在登记', number: '36', color: '#beb219' , type: 'checking'},
+
+					{ name:'摇号查询', icon: 'contact', type: 'swingSearch' },
+					{ name:'二手房查价', icon: 'contact' , type: 'hand'},
+					{ name:'不限购房产', icon: 'contact' , type: 'unlimitedPurchase'},
+					
 					{ name:'乐米文章', icon: 'contact' },
 					{ name:'乐米家居', icon: 'contact' },
 					{ name:'乐米金融', icon: 'contact' },
@@ -58,14 +61,20 @@
 				],
 				bannerList: [],
 				advList: [],
-				test_type: 1
+				test_type: 1,
+				searchKey: ""
 			}
 		},
 		onLoad() {
 			this._initData()
-			this.getHomeAdv()
-			this.getHomeBrandList()
-			this.getNewsList()
+
+			this.$ADV_API.getHomeTop().then(data => {
+				this.bannerList = data.adverts
+				this.searchKey = data.serachbar.projectName
+			})
+			this.$ADV_API.getHomeBot().then(data => {
+				this.advList = data.adverts
+			})
 		},
 		methods: {
 			getWeChatInfo(e) {
@@ -81,14 +90,11 @@
 					{ src: '../static/list/adv.png' }
 				]
 			},
-			toHouse(item) {
+			toHouseList(item) {
 				uni.navigateTo({
-					url: '/pages/house/house'
+					url: `/pages/house/house?type=${LIST_TYPE[item.type]}`
 				})
 			},
-			...mapActions([
-                'getHomeAdv', 'getHomeBrandList','getNewsList'
-            ])
 		},
 		components: {
 			TopSearch,

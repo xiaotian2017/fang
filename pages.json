@@ -16,6 +16,7 @@
 			"path": "pages/house/house",
 			"style": {
 				"navigationBarTitleText": "房子公用列表"
+				// "enablePullDownRefresh": true
 			}
 		},
 		{
@@ -30,13 +31,6 @@
 				"navigationBarTitleText": "我的"
 			}
 		}
-	   
-        ,{
-            "path" : "pages/search/search",
-            "style" : {
-				"navigationBarTitleText": "搜索"
-			}
-        }
         ,{
             "path" : "pages/detail/detail",
             "style" : {
@@ -161,7 +155,7 @@
 		"list": [
 			{
 				"name": "", //模式名称
-				"path": "page/index/index", //启动页面，必选
+				"path": "pages/index/index", //启动页面，必选
 				"query": "" //启动参数，在页面的onLoad函数里面得到
 			}
 		]
