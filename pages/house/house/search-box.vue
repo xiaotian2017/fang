@@ -49,11 +49,13 @@ export default {
 	},
 	methods: {
 		confirmSearch() {
-			let key = this.query || this.placeHolder
+
+			if(!this.query) {
+				this.query = this.placeHolder
+			}
 			
 			this.isShowDown = false
-
-			this.$emit('confirmSearch', key)
+			this.$emit('confirmSearch', this.query)
 		},
 		labelClick(item) {
 			this.query = item.label
@@ -81,12 +83,19 @@ export default {
 			]
 		}
 	},
+	watch: {
+		query(val) {
+			if(!val) {
+				this.isShowDown = true
+			}
+		}
+	},
 	created() {
 		this._initData()
 
 		this.$ADV_API.getSearch().then(data => {
 			this.advList = data.adverts
-			this.query = data.serachbar.projectName
+			this.placeHolder = data.serachbar.projectName
 		})
 	},
 	components: {

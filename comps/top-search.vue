@@ -31,7 +31,7 @@ export default {
 		toSearch() {
 			//e.preventDefault()
 			uni.navigateTo({
-				url: '/pages/house/house',
+				url: '/pages/house/searchList',
 				fail: (err) => {
 					console.log(err)
 				}

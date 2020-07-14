@@ -1,3 +1,28 @@
 <template>
-    <web-view  src="https://mp.weixin.qq.com/s/4JaAfgF0TZjtVLaDEsPgkA" />
+    <web-view  src="https://uniapp.dcloud.io/static/web-view.html" />
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            src: ""
+        }
+    },
+    onLoad(e) {
+        let { url, title } = e
+
+        console.log(e)
+
+        this.src = url
+        uni.setNavigationBarTitle({
+            title,
+        })
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>
+

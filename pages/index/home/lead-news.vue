@@ -1,9 +1,9 @@
 <template>
-	<view class="lead-news">
+	<view class="lead-news" v-if="newsList.length>0">
 		<uni-icons  type="sound" color="#666" size="12" @click="close" />
 		<views class="news-list" :style="{top: top+'rpx'}">
-			<view class="new" v-for="(item, index) in news" :key="index" >
-				{{item.txt}}
+			<view class="new" v-for="(item, index) in newsList" :key="index" @tap="toArticle(item)">
+				{{item.title}}
 			</view>	
 		</views>
 	</view>
@@ -11,23 +11,23 @@
 
 <script>
 import { mapState } from 'vuex'
+import { homeTopNews } from "@/api"
 
 export default {
 	data() {
 		return {
-			news: [
-				{ txt: '新城区低门槛上新，总价300万，基础产业' },
-				{ txt: '主城区低门槛上新，总价300万，基础产业' },
-				{ txt: '老城区低门槛上新，总价300万，基础产业' },
-				{ txt: '新城区低门槛上新，总价300万，基础产业' },
-				{ txt: '主城区低门槛上新，总价300万，基础产业' }
-			],
+			newsList: [],
 			top: -80
 		};
 	},
 	methods: {
+		toArticle(item) {
+			uni.navigateTo({
+				url : `/pages/article/article?url=${item.redirectUrl}&title=1`
+			}) 
+		},
 		scroll() {
-			let len = this.news.length - 1
+			let len = this.newsList.length - 1
 
 			this.timer = setInterval(() => {
 				if(this.top <= - 80*len) {
@@ -55,7 +55,14 @@ export default {
 	},
 	mounted() {
 		
-		this.scroll()
+	},
+	created() {
+		homeTopNews().then(data => {
+			this.newsList = data 
+			this.$nextTick(() => {
+				this.scroll()
+			})
+		})
 	}
 	
 }
@@ -68,7 +75,7 @@ export default {
 	.news-list{
 		position: absolute; 
 		.new{
-			padding-left:20rpx;
+			padding-left:20rpx; @include line(1);
 		}
 	}
 }

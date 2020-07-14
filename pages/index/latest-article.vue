@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ArticleList from "@/comps/article-list"
+import ArticleList from "@/comps/list/article-list"
 
 export default {
 	data() {

@@ -23,12 +23,12 @@ $gray: #eee;
     transform: translateY(-50%); top: 50%;
 }
 
-@mixin line($width) {
+@mixin line($len) {
     overflow:hidden; 
     text-overflow:ellipsis;
     display:-webkit-box; 
     -webkit-box-orient:vertical;
-    -webkit-line-clamp:$width; 
+    -webkit-line-clamp:$len; 
 }
 
 @mixin graybg{

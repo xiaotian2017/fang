@@ -34,3 +34,11 @@ export const getHouseModel = fetch('project/models', {
 export const getHouseNews = fetch('project/news', {
     detail: '项目动态'
 })
+
+export const setAuth = fetch('user/auth', {
+    detail: '授权'
+})
+
+export const homeTopNews = fetch('/news/top/list', {
+    detail: '首页头条'
+})

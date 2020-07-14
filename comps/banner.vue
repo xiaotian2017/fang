@@ -27,7 +27,6 @@
 		},
 		methods: {
 			toPage() {
-				console.log('xxxx')
 				uni.navigateTo({url: '/pages/article/article'})
 			}
 		},
@@ -40,7 +39,6 @@
 			},
 			listes() {
 				if(this.list.length > 0) {
-					console.log('xxx')
 					return this.list
 				}
 				if(this.type == "adv") {

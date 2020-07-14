@@ -3,7 +3,8 @@
 		<search-box @confirmSearch="confirmSearch" />
 		
 		<wrap>
-			<house-list  v-for="(item,i) in houselist" :key="i" :house=item  />
+			<view v-if="houselist.length==0">数据为空，换个关键词搜索看看</view>
+			<house-list v-else v-for="(item,i) in houselist" :key="i" :house=item  />
 		</wrap>
 	</view>
 </template>
@@ -30,9 +31,18 @@ export default {
 	methods: {
 		confirmSearch(key) {
 			this.keyword = key
+			this.houselist = [] 
+			this.pageNum = 1
+			this._getList()
 		},
 		_getList() {
-			getHouseList(this.searchParams).then(data=>{
+			let params = {
+				pageType: this.pageType,
+				pageNum: this.pageNum,
+				keyword: this.keyword,
+				pageSize: 4
+			}
+			getHouseList(params).then(data=>{
 				let { totalNum, pageSize, record } = data
 
 				if(this.total == 0) this.maxPages = Math.ceil(totalNum/pageSize)
@@ -63,11 +73,8 @@ export default {
 
 		this.pageType = type
 
-		this.searchParams = {
-			pageType: type,
-			pageNum: 1,
-			pageSize: 4
-		}
+		this.pageSize = 10
+		this.pageNum = 1
 		this._getList()
 
 		this.getAdv()

@@ -6,14 +6,8 @@
 		
 		<banner :list="bannerList" />
 		
-		<view class="nav-list clearfix">
-			<!--这里找四个icon-->
-			<view class="n-list" v-for="(nav,ni) in navList" :key="ni" @tap="toHouseList(nav)">
-				<uni-icons v-if="nav.icon" class="icon" color="#1296db" size="26" :type="nav.icon" />
-				<view v-else class="number" :style="{background: nav.color}">{{nav.number}}</view>
-				<view class="tit">{{nav.name}}</view>
-			</view>
-		</view>
+		<nav-part />
+		
 		<!-- 头条滚动新闻 -->
 		<lead-news />
 		<!-- 推荐图层 -->
@@ -26,48 +20,45 @@
 		<!-- 最新文章 -->
 		<latest-article />
 
+		<auth-dialog v-if="authDialogVisible" />
+
 	</view>
 </template>
 
 <script>
-	import TopSearch from "./home/top-search"
-	import Banner from "@/comps/banner"
-	import LeadNews from "./home/lead-news.vue"
-	import RecommendLayer from "./home/recommend-layer"
-	import LatestArticle from "./home/latest-article.vue"
-	import HotHouse from "./home/hot-house"
+import TopSearch from "@/comps/top-search"
+import Banner from "@/comps/banner"
+import LeadNews from "./home/lead-news.vue"
+import RecommendLayer from "./home/recommend-layer"
+import LatestArticle from "./home/latest-article.vue"
+import HotHouse from "./home/hot-house"
+import NavPart from "./home/nav-part"
 
-	import { mapActions } from 'vuex'
-	import { LIST_TYPE } from "common/js/config"
+import { mapActions } from 'vuex'
 
-	export default {
-		data() {
-			return {
-				navList: [
-					{ name:'热门楼盘', number: '90', color: "#f34949", type: 'hot' },
-					{ name:'即将开盘', number: '80', color: "#495df3d1", type: 'opening'},
-					{ name:'正在公示', number: '23', color: "#19be6b", type: 'showing'},
-					{ name:'正在登记', number: '36', color: '#beb219' , type: 'checking'},
+import AuthDialog from "./home/auth-dialog"
+import { dealAuth } from "./js/auth"
 
-					{ name:'摇号查询', icon: 'contact', type: 'swingSearch' },
-					{ name:'二手房查价', icon: 'contact' , type: 'hand'},
-					{ name:'不限购房产', icon: 'contact' , type: 'unlimitedPurchase'},
-					
-					{ name:'乐米文章', icon: 'contact' },
-					{ name:'乐米家居', icon: 'contact' },
-					{ name:'乐米金融', icon: 'contact' },
-					{ name:'乐米生活', icon: 'contact' },
-					{ name:'我要加群', icon: 'contact' },
-				],
-				bannerList: [],
-				advList: [],
-				test_type: 1,
-				searchKey: ""
-			}
-		},
-		onLoad() {
-			this._initData()
+export default {
+	data() {
+		return {
+			bannerList: [],
+			advList: [],
+			test_type: 1,
+			searchKey: "",
+			authDialogVisible: false
+		}
+	},
+	onLoad() {
+		this._initData()
 
+		dealAuth().catch(() => {
+			this.authDialogVisible = true
+		})
+		this.getAdv()
+	},
+	methods: {
+		getAdv() {
 			this.$ADV_API.getHomeTop().then(data => {
 				this.bannerList = data.adverts
 				this.searchKey = data.serachbar.projectName
@@ -76,55 +67,21 @@
 				this.advList = data.adverts
 			})
 		},
-		methods: {
-			getWeChatInfo(e) {
-				console.log(e)
-			},
-			_initData() {
-				this.bannerList = [
-					{ src: '../static/list/product1.jpg' },
-					{ src: '../static/list/product2.png' },
-					{ src: '../static/list/product1.jpg' },
-				]
-				this.advList = [
-					{ src: '../static/list/adv.png' }
-				]
-			},
-			toHouseList(item) {
-				uni.navigateTo({
-					url: `/pages/house/house?type=${LIST_TYPE[item.type]}`
-				})
-			},
+		getWeChatInfo() {
+			
 		},
-		components: {
-			TopSearch,
-			Banner,
-			LeadNews, RecommendLayer, LatestArticle, HotHouse
-		}
+		_initData() {
+			
+		},
+	},
+	components: {
+		TopSearch,
+		Banner,
+		LeadNews, RecommendLayer, LatestArticle, HotHouse, AuthDialog, NavPart
 	}
+}
 </script>
 
-<style lang="scss">
-.layer{
-	padding-top: 30rpx;
-}
-.nav-list{
-	margin-top: 40rpx;
-	.n-list{
-		width: 25%; float:left;  text-align: center; margin: 12rpx 0;
-		.icons{
-			font-size: 20rpx;
-		}
-		.number{
-			width: 100rpx; height: 100rpx; line-height: 100rpx; border-radius: 100%;  display: inline-block; 
-			font-size: 40rpx; color: #fff; font-weight: 500;
-		}
-		.tit{
-			margin-top: 10rpx;
-		}
-	}
-}
-</style>
 <style lang="scss">
 .index-tit{
 	font-size: 40rpx; color: #333; margin: 20rpx 0; font-weight: bold;
