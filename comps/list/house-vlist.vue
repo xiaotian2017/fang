@@ -1,13 +1,13 @@
 <template>
 	<view @click="toDetail" class="p-list">
 
-		<ImgMask></ImgMask>
+		<ImgMask :house="house"></ImgMask>
 		<view class="text-w">
-			<view class="tit">{{houseName}}</view>
+			<view class="tit">{{house.name}}</view>
 			
 			<view class="local">
-				<text>{{location}}</text>
-				<text class="block">{{block}}</text>
+				<text>{{house.district}}</text>
+				<text class="block">{{house.block}}</text>
 			</view>
 			<view class="lable">
 				<text v-for="(item,index) in labels " :style="{color:item.color,background:item.bg}" :key="index">{{item.title}}</text>
@@ -17,41 +17,15 @@
 </template>
 
 <script>
-	import ImgMask from "./img-mask.vue"
-	export default {
-		data() {
-			return {
-				id:"",
-				houseName: "时代滨江悦府",
-				location: "滨江区",
-				block: "高薪开发区",
-				labels: [{
-						title: "即将开盘",
-						color: "#4cd961",
-						bg: "rgba(76, 217, 97,0.2)"
-					},
-					{
-						title: "地铁口",
-						color: "#999999",
-						bg: "rgba(153, 153, 153,0.2)"
-					},
-				],
-				desc: "好山好水好分光，這又是一處美麗的樓盤，臨近地鐵口，熱門商圈，不可錯過的好家圓。",
-			}
-		},
-		components: {
-			ImgMask
-		},
-		methods: {
-toDetail() {
-				uni.navigateTo({
-					url: `../../pages/detail/detail?id=${this.id}`,
-					animationDuration:300,
-					animationType:'pop-in'
-				})
-			},
-		}
+import { houseMixin } from "./js/list-mixin"
+import ImgMask from "./img-mask.vue"
+
+export default {		
+	mixins: [ houseMixin ],
+	components: {
+		ImgMask
 	}
+}
 </script>
 
 <style lang="scss">

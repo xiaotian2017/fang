@@ -1,13 +1,28 @@
 <template>
 	<view class="img-w">
-		<image src="../../static/list/product2.png"></image>
+		<image :src="house.iconImgUrl" />
 		<view class="mask"></view>
 		<view class="eye-num">
 			<uni-icons class="icon" color="#cccccc" size="15" type="eye" />
-			<text>191.7w</text>
+			<text>{{house.browseNum}}</text>
 		</view>
 	</view>
 </template>
+
+<script>
+export default {
+	props: {
+		house: {
+			default: () => {
+				return {
+					iconImgUrl: '../../static/list/product2.png',
+					browseNum: '192.2w'
+				}
+			}
+		}
+	}
+}
+</script>
 
 
 <style lang="scss">

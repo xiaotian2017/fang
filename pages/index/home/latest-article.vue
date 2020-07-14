@@ -7,14 +7,13 @@
 					@click="tabClick(i)"
 					class="tab-list scroll-view-item">{{tab.text}}</view>
 		</scroll-view>
-		<article-list />
-		<article-list />
-		<article-list />
+		<article-list v-for="(item, i) in tabList[activeIndex].listData" :key="i" />
 	</view>
 </template>
 
 <script>
 import ArticleList from "@/comps/list/article-list"
+import { getNewsType, getNewsList } from "@/api"
 
 export default {
 	data() {
@@ -33,7 +32,24 @@ export default {
 	methods: {
 		tabClick(index) {
 			this.activeIndex = index
+			this.getList()
+		},
+		getTypes() {
+			getNewsType().then(data => {
+				this.tabList = data
+				this.getList()
+			})
+		},
+		getList() {
+			if(!this.tabList[this.activeIndex].listData) {
+				getNewsList().then(data => {
+					this.tabList[this.activeIndex].listData = data.record
+				})
+			}
 		}
+	},
+	created() {
+		this.getTypes()
 	},
 	components:{
 		 ArticleList
