@@ -5,7 +5,7 @@
 					:class="{active: i==activeIndex}" 
 					:key="i" :id="tab.id"  
 					@click="tabClick(i)"
-					class="tab-list scroll-view-item">{{tab.text}}</view>
+					class="tab-list scroll-view-item">{{tab.name}}</view>
 		</scroll-view>
 		<article-list v-for="(item, i) in tabList[activeIndex].listData" :key="i" />
 	</view>
@@ -19,12 +19,12 @@ export default {
 	data() {
 		return {
 			tabList: [
-				{ text: '最新文章', id: 'd1'},
-				{ text: '摇号指南', id: 'd2'},
-				{ text: '乐米问答', id: 'd3'},
-				{ text: '乐米评盘', id: 'd4'},
-				{ text: '乐米情报', id: 'd5'},
-				{ text: '最新文章', id: 'd6'},
+				{ name: '最新文章', value: 'd1'},
+				{ name: '摇号指南', value: 'd2'},
+				{ name: '乐米问答', value: 'd3'},
+				{ name: '乐米评盘', value: 'd4'},
+				{ name: '乐米情报', value: 'd5'},
+				{ name: '最新文章', value: 'd6'},
 			],
 			activeIndex: 0
 		};

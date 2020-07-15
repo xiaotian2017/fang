@@ -11,11 +11,13 @@
 		<template v-if="isShowDown">
 			<banner :list="advList" height=130 />
 			
-			<view class="lastest-box">
+			<view class="lastest-box" v-if="lastestList.length>0">
 				<view class="sub-tit">最近在搜</view>
+				<uni-icons @tap="clearAll" class="clear-icon" type="close" color="#666" size="14" />
+
 				<view class="list-con">
 					<view class="list" v-for="(item, i) in lastestList" @click="labelClick(item)" :key="i">
-						{{item.label}}
+						{{item}}
 					</view>
 					<div class="clear"></div>
 				</view> 
@@ -24,8 +26,8 @@
 			<view class="top-box">
 				<view class="sub-tit">大家都在搜</view>
 				<view class="list-con">
-					<view class="list" v-for="(item, i) in topList" @click="labelClick(item)" :key="i">
-						{{item.label}}
+					<view class="list" v-for="(item, i) in hotList" @click="labelClick(item.name)" :key="i">
+						{{item.name}}
 					</view>
 				</view> 
 			</view>
@@ -35,43 +37,50 @@
 
 <script>
 import Banner from "@/comps/banner"
+import SearchHistory from "./js/searchHistory"
+import { getHotList } from "@/api"
 
 export default {
 	data() {
 		return {
 			advList : [],
 			placeHolder: 'A楼盘',
-			lastestList: [],
-			topList: [],
+			lastestList: SearchHistory.list,
+			hotList: [],
 			query: "",
-			isShowDown: true
+			isShowDown: true,
+			lastestVisible: true
 		}
 	},
 	methods: {
 		confirmSearch() {
-
 			if(!this.query) {
 				this.query = this.placeHolder
 			}
+			this.lastestList = []
+			SearchHistory.add(this.query)
+			this.lastestList = SearchHistory.list
 			
 			this.isShowDown = false
 			this.$emit('confirmSearch', this.query)
 		},
+		clearAll() {
+			this.lastestList = []
+		},
 		labelClick(item) {
-			this.query = item.label
+			this.query = item
 			this.confirmSearch()
+		},
+		_getHotList() {
+			getHotList().then(data => {
+				this.hotList = data
+			})
 		},
 		_initData() {
 			this.advList = [
 				{ src: '../static/list/adv.png' }
 			]
-			this.lastestList = [
-				{ label: '楼盘名称A' },
-				{ label: '楼盘名称B' },
-				{ label: '楼盘名称C' },
-				{ label: '楼盘名称D' },
-			]
-			this.topList = [
+			this.hotList = [
 				{ label: '楼盘名称top1' },
 				{ label: '楼盘名称top2' },
 				{ label: '楼盘名称top3' },
@@ -81,6 +90,7 @@ export default {
 				{ label: '楼盘名称top7' },
 				{ label: '楼盘名称top8' },
 			]
+			this._getHotList()
 		}
 	},
 	watch: {
@@ -125,12 +135,18 @@ export default {
 	}
 }
 .layer{
-	padding-top: 10rpx;
+	padding-top: 10rpx; position:fixed; top:0;width:calc(100% - 60rpx); height: 100%; left: 0; z-index: 10; 
 	&.cut{
-		height: 100rpx; min-height: auto;
+		height: 100rpx; min-height: auto; position: relative; 
 	}
 }
-
+					
+.lastest-box{
+	position:relative;
+	.clear-icon{
+		position: absolute; top: 10rpx; right: 0rpx;
+	}
+}
 .sub-tit{
 	color: #999; margin: 30rpx 0;
 }

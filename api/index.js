@@ -46,6 +46,7 @@ export const getNewsList = fetch('/news/list', {
     //projectId: 楼盘id
     detail: '文章列表'
 })
+
 export const getNewsType = fetch('/news/type/list', {
     detail: '文章列表数据字典'
 })

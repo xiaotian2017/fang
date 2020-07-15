@@ -1,5 +1,5 @@
 .layer{
-	padding: 0 $gap; font-size: $font; background: bg; min-height: 100vh; color:#666;
+	padding: 0 $gap; font-size: $font; background: $bg; min-height: 100vh; color:#666;
 }
 .gap{
   padding: 0 $gap; font-size: $font; color:#333;
@@ -39,6 +39,8 @@
 .fl{ float:left; }
 
 .abs{ position: absolute; left: 0; right:0; bottom:0; top:0; margin:auto; }
+.por{ position: absolute; left: 0; right:0 }
+.pr{ position: relative; }
 
 .hr20{ height: 20rpx; }
 .hr30{ height: 30rpx; }
