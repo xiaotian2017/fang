@@ -2,7 +2,7 @@
 	<view class="banner-box">
 		<swiper class="swiper" :style="{height: imgHei}" :circular=true :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
 			<swiper-item v-for="(item, i) in listes" :key="i">
-				<image class="img" :src="item.imgUrl" :style="{height: imgHei}"  @tap="toPage"></image>
+				<image class="img" :src="item.imgUrl||item" :style="{height: imgHei}"  @tap="toPage"></image>
 			</swiper-item>
 		</swiper>
 	</view>
@@ -38,6 +38,7 @@
 				return this.type == "adv" ? '130rpx' : '350rpx'
 			},
 			listes() {
+				console.log(this.list)
 				if(this.list.length > 0) {
 					return this.list
 				}

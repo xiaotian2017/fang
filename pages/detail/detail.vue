@@ -74,7 +74,7 @@ import SwingList from "./swing/swing-list"
 import CommentBox from "./detail/comment-box"
 import ArticleComment from "./detail/article-comment"
 import BotBtns from "./detail/bot-btns"
-
+import { mapActions } from "vuex"
 
 export default {
 	data() {
@@ -113,12 +113,16 @@ export default {
 				{ label: '物业费用：', val: '1.8/m2' },
 				{ label: '总户数：', val: '100' },
 			]
-		}
+		},
+		...mapActions([ 'getDeatilInfo' ])
 	},
 	onLoad(option) {
 		console.log(" option ",option.id)
-		this.houseId = option.id;
+		this.houseId = option.id || 1;
+
 		this._initData()
+
+		this.getDeatilInfo(1)
 	},
 	components:{
 		DetailTop, 

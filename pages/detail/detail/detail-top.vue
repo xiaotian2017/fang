@@ -1,7 +1,7 @@
 <template>
 	<view class="main">
 		<view class="pic-box">
-			<banner />
+			<banner :list="bannerList" />
 
 			<view class="t-left">
 				<view class="left-video">云视频</view>
@@ -48,84 +48,89 @@
 </template>
 
 <script>
-	import Banner from "@/comps/banner"
-	export default {
-		data() {
-			return {
-				picNum:89,
-				videoNum:77,
-				labels: [{
-						title: "即将开盘",
-						color: "#4cd961",
-						bg: "rgba(76, 217, 97,0.2)"
-					},
-					{
-						title: "意向登记表",
-						color: "#4985c9",
-						bg: "rgba(73, 133, 201,0.2)"
-					},
-					{
-						title: "地铁口",
-						color: "#999999",
-						bg: "rgba(153, 153, 153,0.2)"
-					},
-					{
-						title: "热门商圈",
-						color: "#e64340",
-						bg: "rgba(230, 67, 64,0.2)"
-					}
-				],
-				blocks: [{
-						title: "户型图",
-						src: "../../../static/detail/hux.png",
-						color: "#F0AD4E",
-						path: '/pages/detail/buildingLayout'
-					},
-					{
-						title: "楼盘动态",
-						src: "../../../static/detail/dyment.png",
-						color: "#4CD964",
-						path: '/pages/detail/buildingTrends'
-					},
-					{
-						title: "楼盘详情",
-						src: "../../../static/detail/detail.png",
-						color: " #007AFF",
-						
-					},
-					{
-						title: "一房一价",
-						src: "../../../static/detail/calc.png",
-						color: "#DD524D",
-						path: '/pages/detail/buildingLayout?type=1'
-					}
-				],
-			};
-		},
-		components: {
-			Banner
-		},
-		onReady() {
-			this._initData()
-		},
-		methods: {
-			_initData() {
-			},
-			toImgShow(type) {
-				uni.navigateTo({
-					url: '/pages/detail/imgShow?id=1'
-				})
-			},
-			onBlockTap(item) {
-				if(item.path) {
-					uni.navigateTo({
-						url: item.path
-					})
-				}
-			},
-		},
+import Banner from "@/comps/banner"
+import { mapGetters } from "vuex"
 
+export default {
+	data() {
+		return {
+			picNum:89,
+			videoNum:77,
+			labels: [{
+					title: "即将开盘",
+					color: "#4cd961",
+					bg: "rgba(76, 217, 97,0.2)"
+				},
+				{
+					title: "意向登记表",
+					color: "#4985c9",
+					bg: "rgba(73, 133, 201,0.2)"
+				},
+				{
+					title: "地铁口",
+					color: "#999999",
+					bg: "rgba(153, 153, 153,0.2)"
+				},
+				{
+					title: "热门商圈",
+					color: "#e64340",
+					bg: "rgba(230, 67, 64,0.2)"
+				}
+			],
+			blocks: [{
+					title: "户型图",
+					src: "../../../static/detail/hux.png",
+					color: "#F0AD4E",
+					path: '/pages/detail/buildingLayout'
+				},
+				{
+					title: "楼盘动态",
+					src: "../../../static/detail/dyment.png",
+					color: "#4CD964",
+					path: '/pages/detail/buildingTrends'
+				},
+				{
+					title: "楼盘详情",
+					src: "../../../static/detail/detail.png",
+					color: " #007AFF",
+					
+				},
+				{
+					title: "一房一价",
+					src: "../../../static/detail/calc.png",
+					color: "#DD524D",
+					path: '/pages/detail/buildingLayout?type=1'
+				}
+			],
+		};
+	},
+	components: {
+		Banner
+	},
+	onReady() {
+		this._initData()
+	},
+	methods: {
+		_initData() {
+		},
+		toImgShow(type) {
+			uni.navigateTo({
+				url: '/pages/detail/imgShow?id=1'
+			})
+		},
+		onBlockTap(item) {
+			if(item.path) {
+				uni.navigateTo({
+					url: item.path
+				})
+			}
+		},
+	},
+	computed: {
+		...mapGetters('sDetail',['bannerList']),
 	}
+
+}
 </script>
 
 <style lang="scss">
