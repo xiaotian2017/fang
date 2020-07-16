@@ -1,32 +1,32 @@
 <template>
 	<view class="detail-info">
 		<view class="tabs-top">
-			<view class="active">1#</view>
-			<view>2#</view>
+			<view class="tab active">1#</view>
+			<view class="tab">2#</view>
 		</view>
 		<view class="tit ">摇号指南</view>
 		<view class="guide-t">
-			<view>
+			<view class="row">
 				<text class="guide-title">所在模块：</text>
 				<text class="guide-content">{{guideData.block}}</text>
 			</view>
-			<view>
+			<view class="row">
 				<text class="guide-title">均 &nbsp;&nbsp; 价：</text>
 				<text class="guide-content">{{guideData.price}}</text>
 			</view>
-			<view>
+			<view class="row">
 				<text class="guide-title">楼 &nbsp;&nbsp; 栋：</text>
 				<text class="guide-content">{{guideData.buildNum}}</text>
 			</view>
-			<view>
+			<view class="row">
 				<text class="guide-title">房源面积：</text>
 				<text class="guide-content">{{guideData.area}}</text>
 			</view>
-			<view>
+			<view class="row">
 				<text class="guide-title">摇号门槛：</text>
 				<text class="guide-content">{{guideData.allowIn}}</text>
 			</view>
-			<view>
+			<view class="row">
 				<text class="guide-title">登记时间：</text>
 				<text class="guide-content">{{guideData.registerTime}}</text>
 			</view>
@@ -38,8 +38,8 @@
 		<simple-table :headers="houseTypeHeaders" :datas="houseTypeData" />
 
 		<view class="btns">
-			<button>公示方案</button>
-			<button @tap="toResult">摇号结果</button>
+			<button class="mbtn">公示方案</button>
+			<button class="mbtn" @tap="toResult">摇号结果</button>
 		</view>
 	</view>
 </template>
@@ -129,7 +129,7 @@ export default {
 		height: 70rpx; line-height: 70rpx; margin:0 -30rpx;
 		font-size: 32rpx;
 		display: flex;  text-align:center;
-		view{ 
+		.tab{ 
 			flex: 1; border-right: 2rpx solid $border; 
 			border-bottom: 1px solid $border;
 			&:last-child{
@@ -150,7 +150,7 @@ export default {
 
 		.guide-t {
 			font-size: 26rpx;
-			view {
+			.row {
 				margin-top: 10rpx;
 				.guide-title {
 					color: #999; width: 130rpx; display: inline-block;
@@ -167,35 +167,10 @@ export default {
 			height: 100rpx;
 			white-space: nowrap;
 		}
-
-		.proce-w {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: nowrap;
-
-			.proce {
-				padding-left: 15rpx;
-				padding-right: 15rpx;
-				padding-top: 10rpx;
-				padding-bottom: 10rpx;
-				margin-right: 20rpx;
-				background-color: #FCFCFC;
-				height: 100rpx;
-				view {
-					color: #000;
-					height: 40rpx;
-					line-height: 40rpx;
-				}
-			}
-			.proce-sel {
-				background-color: #FFDF25;
-			}
-		}
-
 	}
 	.btns{
 		margin-top: 20rpx;
-		button{
+		.mbtn{
 			background: $theme; color: #fff;
 			height: 60rpx; line-height: 60rpx; margin-right: 10rpx; padding:0 30rpx;
 		}

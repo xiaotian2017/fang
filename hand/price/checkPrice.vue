@@ -1,12 +1,12 @@
 <template>
     <!--二手房查价-->
     <view class="check-price">
-        <mpvue-echarts class="ec-canvas"  :echarts=echarts @onInit="lineInit" canvasId="line" ref="lineChart" />
+        <!-- <mpvue-echarts class="ec-canvas"  :echarts=echarts @onInit="lineInit" canvasId="line" ref="lineChart" /> -->
     </view>
 </template>
 
 <script>
-const echarts = require('./echarts.min.js');
+// const echarts = require('./echarts.min.js');
 const colors = ['#5793f3', '#d14a61', '#675bba']
 const options = {
     color: colors,

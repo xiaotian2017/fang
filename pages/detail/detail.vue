@@ -75,6 +75,7 @@ import CommentBox from "./detail/comment-box"
 import ArticleComment from "./detail/article-comment"
 import BotBtns from "./detail/bot-btns"
 
+
 export default {
 	data() {
 		return {

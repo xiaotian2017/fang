@@ -43,8 +43,8 @@
                 </view>
             </view>
             <view class="tab-btn">
-                <button class="reset">重置</button>
-                <button class="confirm">确定</button>
+                <button class="reset mbtn">重置</button>
+                <button class="confirm mbtn">确定</button>
             </view>
         </view>
 
@@ -208,7 +208,7 @@ export default {
 	.tab-btn{
 		display: flex; padding: $gap;
 		@include gray-shadow;background: #fff;
-		button{
+		.mbtn{
 			height: 90rpx; line-height:90rpx; font-size: 34rpx;
 		}
 		.reset{

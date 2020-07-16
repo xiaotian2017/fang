@@ -1,10 +1,10 @@
 <template>
 	<view class="img-w">
-		<image :src="house.iconImgUrl" />
+		<image class="img" :src="house.iconImgUrl" />
 		<view class="mask"></view>
 		<view class="eye-num">
 			<uni-icons class="icon" color="#cccccc" size="15" type="eye" />
-			<text>{{house.browseNum}}</text>
+			<text class="txt">{{house.browseNum}}</text>
 		</view>
 	</view>
 </template>
@@ -31,7 +31,7 @@ export default {
 		height: 170rpx;
 		position: relative;
 
-		image {
+		.img {
 			border-radius: 10rpx;
 			width: 100%;
 			height: 100%;
@@ -52,7 +52,7 @@ export default {
 			bottom: 10rpx;
 			left: 10rpx;
 
-			text {
+			.txt {
 				font-size: 15rpx;
 				color: #cccccc;
 				margin-left: 5rpx;

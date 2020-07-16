@@ -6,11 +6,11 @@
 			<view class="tit">{{house.name}}</view>
 			
 			<view class="local">
-				<text>{{house.district}}</text>
+				<text class="txt">{{house.district}}</text>
 				<text class="block">{{house.block}}</text>
 			</view>
 			<view class="lable">
-				<text v-for="(item,index) in labels " :style="{color:item.color,background:item.bg}" :key="index">{{item.title}}</text>
+				<text class="txt" v-for="(item,index) in labels " :style="{color:item.color,background:item.bg}" :key="index">{{item.title}}</text>
 			</view>
 		</view>
 	</view>
@@ -58,7 +58,7 @@ export default {
 
 			.local {
 
-				text {
+				.txt {
 					font-size: 23rpx;
 					color: #555555;
 				}
@@ -69,7 +69,7 @@ export default {
 			}
 
 			.lable {
-				text {
+				.txt {
 					margin-right: 10rpx;
 					font-size: 20rpx;
 					padding-left: 5rpx;

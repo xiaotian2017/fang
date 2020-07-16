@@ -6,8 +6,8 @@
                 <uni-icons :type="focusConfig.type" size="16" :color="focusConfig.color" />
                 <view>{{focusConfig.txt}}</view>
             </view>
-            <button class="consult" v-if="item.type=='consult'" @tap="toConsult" :key="i">咨询顾问</button>
-            <button class="share" v-if="item.type=='share'" :key="i">我要分享</button>
+            <button class="consult mybtn" v-if="item.type=='consult'" @tap="toConsult" :key="i">咨询顾问</button>
+            <button class="share mybtn" v-if="item.type=='share'" :key="i">我要分享</button>
         </template>
     </view>
 </template>
@@ -67,7 +67,7 @@ export default {
 	position:fixed; width: 100%;  display: flex; bottom: 0rpx;  left: 0;
     background: #fff; padding: 15rpx 15rpx; box-sizing:border-box;
     @include gray-shadow;
-	button{
+	.mybtn{
 		flex: 1; margin: 0 5px; height: 80rpx; line-height: 80rpx; color: #fff;font-size: 30rpx;
 		&.consult{
 			background: $orange;

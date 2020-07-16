@@ -1,5 +1,5 @@
 <template>
-    <web-view  src="https://uniapp.dcloud.io/static/web-view.html" />
+    <web-view  :src="src" />
 </template>
 
 <script>
@@ -12,11 +12,9 @@ export default {
     onLoad(e) {
         let { url, title } = e
 
-        console.log(e)
-
         this.src = url
         uni.setNavigationBarTitle({
-            title,
+            title: '文章详情'
         })
     }
 }

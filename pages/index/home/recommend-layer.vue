@@ -4,30 +4,30 @@
             <view class="third full" @tap="toDeveloper">
                 <view class="mask"></view>
                 <view class="text">优质开发商品牌展</view>
-                <image src="../../../static/list/product1.jpg" />
+                <image class="img" src="../../../static/list/product1.jpg" />
             </view>
             <view class="third">
                 <view class="mask"></view>
                 <view class="text">乐米云看房</view>
-                <image src="../../../static/list/product2.png" />
+                <image class="img" src="../../../static/list/product2.png" />
             </view>
         </view>
     
         <view class="row">
             <view class="third">
                 <view class="mask"></view>
-                <view class="text"><view>乐米推荐</view>改善楼盘</view>
-                <image src="../../../static/list/product1.jpg" />
+                <view class="text"><view class="txt">乐米推荐</view>改善楼盘</view>
+                <image class="img" src="../../../static/list/product1.jpg" />
             </view>
             <view class="third">
                 <view class="mask"></view>
-                <view class="text"><view>乐米推荐</view>顶级豪宅</view>
-                <image src="../../../static/list/product1.jpg" />
+                <view class="text"><view class="txt">乐米推荐</view>顶级豪宅</view>
+                <image class="img" src="../../../static/list/product1.jpg" />
             </view>
             <view class="third">
                 <view class="mask"></view>
-                <view class="text"><view>乐米推荐</view>刚需楼盘</view>
-                <image src="../../../static/list/product2.png" />
+                <view class="text"><view class="txt">乐米推荐</view>刚需楼盘</view>
+                <image class="img" src="../../../static/list/product2.png" />
             </view>
         </view>
         
@@ -53,7 +53,7 @@ export default {
         .third{
             position: relative;  margin: 0 10rpx 20rpx;; height: 140rpx; flex: 1;
         }
-        image{
+        .img{
             width: 100%; height: 100%; border-radius: 4px; 
         }
         
@@ -63,7 +63,7 @@ export default {
         .text{
             color: #fff; font-size:34rpx; font-weight: bold; position: absolute; @include top-center; z-index: 1;
             text-align: center; width: 100%;
-            view{
+            .txt{
                 font-size: 28rpx; margin-bottom: 10rpx;
             }
         }

@@ -1,5 +1,5 @@
 <template>
-    <image :src=url :mode="mode" :class="{radius: status=='radius'}">
+    <image class="img" :src=url :mode="mode" :class="{radius: status=='radius'}">
 </template>
 
 <script>
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-image{
+.img{
     width: 100%; height: 100%; display: inline-block;
     &.radius{
         border-radius: 100%;

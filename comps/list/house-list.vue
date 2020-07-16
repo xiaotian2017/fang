@@ -9,11 +9,11 @@
 				<text class="area">{{house.minArea}}-{{house.maxArea}}m²</text>
 			</view>
 			<view class="local">
-				<text>{{house.district}}</text>
-				<text class="block">{{house.block}}</text>
+				<text class="txt">{{house.district}}</text>
+				<text class="block txt">{{house.block}}</text>
 			</view>
 			<view class="label">
-				<text v-for="(item,index) in labels " :style="{color:item.color,background:item.bg}" :key="index">{{item.title}}</text>
+				<text class="txt" v-for="(item,index) in labels " :style="{color:item.color,background:item.bg}" :key="index">{{item.title}}</text>
 			</view>
 			 <view class="desc">{{house.remark}}</view> 
 		</view>
@@ -67,7 +67,7 @@ export default {
 			}
 
 			.local {
-				text {
+				.txt {
 					font-size: 23rpx;
 					color: #555555;
 				}
@@ -78,7 +78,7 @@ export default {
 
 			.label {
 				margin-top: 6rpx;
-				text {
+				.txt {
 					margin-right: 10rpx;
 					font-size: 22rpx;
 					padding-left: 5rpx;

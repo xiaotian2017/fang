@@ -25,7 +25,7 @@
 				<view class="tit">时代滨江悦府1</view>
 
 				<view class="lable">
-					<text v-for="(item,index) in labels " :style="{color:item.color,background:item.bg}" :key="index">{{item.title}}</text>
+					<text class="txt" v-for="(item,index) in labels " :style="{color:item.color,background:item.bg}" :key="index">{{item.title}}</text>
 				</view>
 				<view class="location">
 					<uni-icons class="address-icon" color="#1296db" size="14" type="location-filled" />
@@ -37,7 +37,7 @@
 			<view class="house-block ">
 				<view v-for="(item,index) in blocks " :key="index" @tap="onBlockTap(item)">
 					<view class="block-icon" :style="{background:item.color}">
-						<image class="abs" :src="item.src" />
+						<image class="abs img" :src="item.src" />
 					</view>
 					<view class="b-t">{{item.title}}</view>
 				</view>
@@ -209,7 +209,7 @@
 			font-weight: bold;
 		}
 		.lable {
-			text {
+			.txt {
 				margin-right: 10rpx;
 				font-size: 24rpx;
 				padding: 5rpx;
@@ -236,7 +236,7 @@
 				position: relative;
 				height: 80rpx;
 				border-radius: 30rpx;
-				image {
+				.img {
 					width: 40rpx;
 					height: 40rpx;
 				}

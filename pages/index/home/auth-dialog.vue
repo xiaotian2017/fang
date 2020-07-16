@@ -1,7 +1,7 @@
 <template>
     <uni-popup ref="popup" type="dialog" class="dialog">
         <view class="auth-box">
-            <text>请授权登录小程序</text>
+            <text class="txt">请授权登录小程序</text>
             <view class="tips">取消则会退出小程序</view>
             <view class="bot-btns">
                 <navigator class="btn" target="miniProgram" open-type="exit">取消</navigator>
@@ -38,7 +38,7 @@ export default {
 .auth-box{
     width: 500rpx;  border-radius: 20rpx; background: #fff;
     text-align:center; padding-top: 40rpx; 
-    text{
+    .txt{
         display: inline-block; font-size: 36rpx; 
     }
     .tips{

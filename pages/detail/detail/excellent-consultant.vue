@@ -48,7 +48,7 @@ export default {
         text-align:center;
         .avatar{
             width: 110rpx; height: 110rpx;display: block;
-            /deep/ image{
+            /deep/ .img{
                  border-radius: 100%;
             }
         }

@@ -11,6 +11,7 @@ export const dealAuth = () => {
             provider:"weixin",
             success(e) {
                 let { userInfo } = e
+                // console.log(userInfo)
                 wx.login({
                     success: (res) => {
                         getOpenId(res.code).then(openid => {
