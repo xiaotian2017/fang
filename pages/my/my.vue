@@ -1,11 +1,14 @@
 <template>
 	<view>
-		<list></list>
+		<top-info></top-info>
+		<my-con></my-con>
+		
 	</view>
 </template>
 
 <script>
-	import list from "@/comps/list/house-list.vue"
+	import TopInfo from "./my/topInfo.vue"
+	import MyCon from "./my/mycon.vue"
 	export default {
 		data() {
 			return {
@@ -13,7 +16,8 @@
 			}
 		},
 		components:{
-			list,
+			TopInfo,
+			MyCon,
 		},
 		methods: {
 			

@@ -28,13 +28,16 @@
 		{
 			"path": "pages/my/my",
 			"style": {
-				"navigationBarTitleText": "我要提问"
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#4DB0E4"
 			}
 		},
 		{
 			"path": "pages/question/question",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "我要提问"
+				
+				
 			}
 		}
         ,{
@@ -110,7 +113,13 @@
 				"navigationBarTitleText": "公众号文章"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/my/userinfo",
+            "style" : {
+				"navigationBarTitleText": "用户详情"
+			}
+        }
+    ],
 	"subPackages": [{
 		"root":	"hand",
 		"pages": [
