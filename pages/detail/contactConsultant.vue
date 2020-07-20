@@ -1,9 +1,9 @@
 <template>
 	<view class="contact-consultant layer">
 		<view class="main-box">
-			<view class="name">张恒</view>
-			<view class="item"><text>电话：</text>13245677654</view>
-			<view class="item"><text>主营楼盘：</text> 中云天望</view>
+			<view class="name">{{adviserInfo.name}}</view>
+			<view class="item"><text>电话：</text>{{adviserInfo.phone}}</view>
+			<view class="item"><text>主营楼盘：</text>{{adviserInfo.projectName}}</view>
 			<view class="qr">加他微信：</view>
 	
 			<img-box type="qrcode.jpg" class="qrcode" />
@@ -23,8 +23,15 @@ export default {
 			botbtns: [
                 { type: 'focus' },
                 { type: 'share' }
-            ]
+			],
+			adviserInfo: {},
+			listApi: getAdviseres
 		};
+	},
+	onLoad(e) {
+		let { item } = e
+
+		this.adviserInfo = JSON.parse(item)
 	},
 	components: {
 		BotBtns

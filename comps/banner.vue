@@ -38,7 +38,6 @@
 				return this.type == "adv" ? '130rpx' : '350rpx'
 			},
 			listes() {
-				console.log(this.list)
 				if(this.list.length > 0) {
 					return this.list
 				}

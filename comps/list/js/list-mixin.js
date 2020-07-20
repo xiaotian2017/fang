@@ -1,11 +1,4 @@
-import { HOUSE_STATUS } from "common/js/config"
-
-const COLOR_MAP = {
-	green: { color: '#4cd961', bg: 'rgba(76, 217, 97,0.2)' },
-	blue: { color: '#4985c9', bg: 'rgba(73, 133, 201,0.2)' } ,
-	gray: { color: '#999999', bg: 'rgba(153, 153, 153,0.2)' } ,
-	red: { color: '#e64340', bg: 'rgba(230, 67, 64,0.2)' } ,
-}
+import { concatLabels } from "common/js/util"
 
 export const houseMixin = {
     data() {
@@ -48,24 +41,9 @@ export const houseMixin = {
 	computed: {
 		//楼盘状态 + 楼盘表情
 		labels() {
-			let { saleStatus, tag } = this.house,
-				ret = tag && tag.split(',') || [],
-				{ green, gray } = COLOR_MAP
-
-			ret = ret.map(item => {
-				return { 
-					color: gray.color, 
-					title: item, 
-					bg: gray.bg 
-				}
-			})
-			
-			ret.unshift({ 
-				title: HOUSE_STATUS[ saleStatus ], 
-				color: green.color, 
-				bg: green.bg 
-			})
-			return ret
+			let { saleStatus, tag } = this.house
+				
+			return concatLabels(saleStatus, tag)
 		}
 	}
 }

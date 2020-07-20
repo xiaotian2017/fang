@@ -7,12 +7,19 @@
 				</view>
 			</view>
 		</scroll-view>
-		<scroll-view class="main-con" @touchstart="mainTouch" id="main-con" scroll-y="true" scroll-with-animation :show-scrollbar=false @scroll="mainScroll" :scroll-into-view="scrollingId">
+		<scroll-view class="main-con" 
+					@touchstart="mainTouch" 
+					id="main-con" 
+					scroll-y="true" 
+					scroll-with-animation 
+					:show-scrollbar=false
+					@scroll="mainScroll" 
+					scroll-into-view="scrollingId">
 			<wrap>
 				<view class="img-item" v-for="(item,i) in tabs" :key="i" :class="{active:i==activeIndex}" :id="item.id">
 					<text class="tit">{{item.label}}</text>
 					<view class="item-box">
-						<image v-for="(img, ii) in imgList" :key="ii" @tap="onImgTap(ii)" :src="img.src" />
+						<image v-for="(img, ii) in item.list" :key="ii" @tap="onImgTap(ii)" :src="img.mediaUrl" />
 						<view class="clear" />
 					</view>
 				</view>
@@ -29,24 +36,25 @@
 <script>
 import ImgSwiper from "./imgShow/img-swiper"
 import BotBtns from "./detail/bot-btns"
+import { mapGetters } from "vuex"
 
 export default {
 	data() {
 		return {
-			tabs: [
-				{ label: '云视频(2)', id: 'tab_0', sid: 'tab_11' },
-				{ label: '楼盘概况(5)', id: 'tab_1', sid: 'tab_12' },
-				{ label: '跑盘实拍(10)', id: 'tab_2' , sid: 'tab_13'},
-				{ label: '地理交通(10)', id: 'tab_3' , sid: 'tab_14'},
-			],
-			imgList: [
-				{ src: '../../static/list/product1.jpg' },
-                { src: '../../static/list/adv.png' },
-                { src: '../../static/list/product2.png' },
-				{ src: '../../static/list/adv.png' },
-				{ src: '../../static/list/product2.png' },
-				{ src: '../../static/list/product1.jpg' },
-			],
+			// tabs: [
+			// 	{ label: '云视频(2)', id: 'tab_0', sid: 'tab_11' },
+			// 	{ label: '楼盘概况(5)', id: 'tab_1', sid: 'tab_12' },
+			// 	{ label: '跑盘实拍(10)', id: 'tab_2' , sid: 'tab_13'},
+			// 	{ label: '地理交通(10)', id: 'tab_3' , sid: 'tab_14'},
+			// ],
+			// imgList: [
+			// 	{ src: '../../static/list/product1.jpg' },
+            //     { src: '../../static/list/adv.png' },
+            //     { src: '../../static/list/product2.png' },
+			// 	{ src: '../../static/list/adv.png' },
+			// 	{ src: '../../static/list/product2.png' },
+			// 	{ src: '../../static/list/product1.jpg' },
+			// ],
 			activeIndex: 0,
 			scrollingId: 'tab_0',
 			isMainScroll: true
@@ -88,7 +96,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				let query = uni.createSelectorQuery().in(this);
 				query.select(selector + '').boundingClientRect(data => {
-					resolve(data.top)
+					resolve(data && data.top)
 				}).exec();
 			})
 		},
@@ -108,13 +116,37 @@ export default {
 			})
 		},
 	},
+	computed: {
+		...mapGetters('sDetail',['medias']),
+		tabs() {
+			let ret = []
+			if(this.medias) {
+				this.medias.forEach((item,i) =>{ 
+					ret.push({
+						label: `${item.categoryName}(${item.list.length})`,
+						id: `tab_${i}`,
+						sid: `tan_1${i+1}`,
+						list: item.list
+					})
+				})
+			}
+
+			this.$nextTick(() => {
+				this.getElementTop()
+			})
+
+			console.log(ret)
+
+			return ret
+		}
+	},
 	onLoad(e) {
 		uni.setNavigationBarTitle({
 		　　title:'乐米选房-悦府'
 		})
 	},
 	mounted() {
-		this.getElementTop()
+		
 	},
 	components: {
 		ImgSwiper, BotBtns

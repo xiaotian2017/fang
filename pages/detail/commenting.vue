@@ -1,11 +1,38 @@
 <template>
     <view class="commenting">
         <view class="detail-tit">万象城</view>
-        <textarea placeholder="请输入评论" />
+        <textarea placeholder="请输入评论" v-model="content" />
 
-        <button class="detail-btn">提交</button>
+        <button class="detail-btn" @tap="onSubmit">提交</button>
     </view>
 </template>
+
+<script>
+import { mapState } from "vuex"
+import { addComment } from "@/api"
+
+export default {
+    data() {
+        return {
+            content: ""
+        }
+    },
+    methods: {
+        onSubmit() {
+            let params = {
+                content: this.content,
+                projectId: this.projectId
+            }
+           addComment(params).then(data => {
+               console.log(data)
+           })
+        }
+    },
+    computed: {
+        ...mapState('sDetail', ['projectId'])
+    },
+}
+</script>
 
 <style lang="scss" scoped>
 

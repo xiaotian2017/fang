@@ -1,22 +1,23 @@
 <template>
 	<view class="consultant-list layer">
 		<!--点击查看顾问详情-->
-		<view class="er-item" v-for="(item,i) in arr" :key="i">
+		<view class="er-item" v-for="(item,i) in dataList" :key="i">
 			<view class="top">
 				<view class="t-l fl">
 					<img-box class="avatar" mode="aspectFill" />
 					<view class="txt-w">
-						<view>{{temp.name}}</view>
-						<view>电话{{temp.tel}}</view>
+						<view>{{item.projectName}}</view>
+						<view>电话{{item.phone}}</view>
 					</view>
 				</view>
 				<view class="ranking fr">
-					NO.{{i+1}}
+					<!-- NO.{{i+1}} -->
+					{{item.level}}
 				</view>
 				<view class="clear"></view>
 			</view>
 			<view class="bot">
-				<view class="tel">
+				<view class="tel" @tap="call(item)">
 					<uni-icons type="phone" class="icon" />
 					打电话	
 				</view>
@@ -30,6 +31,10 @@
 </template>
 
 <script>
+import { getAdviseres } from "@/api"
+import ListMixins from "common/js/listMixins"
+import { mapState } from "vuex"
+
 //关注
 export default {
 	data() {
@@ -40,12 +45,25 @@ export default {
 				name: "张恒",
 				tel:"13456789876",
 				building: '中大恒福',
-			}
+			},
+			listApi: getAdviseres
 		}
 	},
+	mixins: [ ListMixins ],
 	methods: {
-		
-	}
+		call(item) {
+			uni.makePhoneCall({
+				phoneNumber: item.phone
+			})
+		}
+	},
+	computed: {
+		...mapState('sDetail', ['projectId'])
+	},
+	onLoad() {
+		this.addParams = { projectId: 1 }
+		this._getList()
+	},
 }
 </script>
 

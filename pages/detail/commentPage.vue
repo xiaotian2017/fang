@@ -1,6 +1,6 @@
 <template>
     <view class="comment-page">
-        <house-list />
+        <house-list :house="houseInfo" />
         <view class="hr10"></view>
         <view class="comment-con">
             <comment-list />
@@ -16,6 +16,7 @@
 <script>
 import CommentList from "./comment/comment-list.vue"
 import HouseList from "@/comps/list/house-list"
+import { mapGetters } from "vuex"
 
 export default {
     methods: {
@@ -24,6 +25,9 @@ export default {
                 url: '/pages/detail/commenting'
             })
         }
+    },
+    computed: {
+         ...mapGetters('sDetail', ['houseInfo'])
     },
     components: {
         CommentList,HouseList

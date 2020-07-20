@@ -42,7 +42,7 @@ export default {
 		},
 		getList() {
 			if(!this.tabList[this.activeIndex].listData) {
-				getNewsList().then(data => {
+				getNewsList({type:1}).then(data => {
 					this.tabList[this.activeIndex].listData = data.record
 				})
 			}
