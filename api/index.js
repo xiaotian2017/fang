@@ -80,3 +80,15 @@ export const getCommentList = fetch('/user/comment/list', {
 export const zanComment = fetch('/user/comment/thumbup', {
     detail: '评论点赞'
 })
+export const getAreaList = fetch('/area/list', {
+    detail: '获取区域信息'
+})
+export const getTrafficRoutes = fetch('/traffic/routes', {
+    detail: '地铁线路'
+})
+export const getTrafficStations = fetch('/traffic/stations', {
+    detail: '地铁站点'
+})
+
+///api/
+
