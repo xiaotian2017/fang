@@ -30,7 +30,7 @@ export default {
                 content: this.content,
                 toId: this.projectId,
                 fromId: id,
-                realatedId: this.realatedId
+                realatedId: parseInt(this.realatedId)
             }
             
             addComment(params).then(data => {
