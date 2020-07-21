@@ -4,7 +4,7 @@
             评论
             <view class="more" @tap="toCommentPage">更多评论></view>
         </view>
-        <comment-list />
+        <comment-list :listdata="houseDetail.userComment" />
 
         <button class="detail-btn" @tap="toCommenting">评论</button>
     </view>
@@ -29,7 +29,7 @@ export default {
         }
     },
     computed: {
-        ...mapState('sDetail', ['projectId']),
+        ...mapState('sDetail', ['projectId','houseDetail']),
        
     },
     created() {

@@ -10,9 +10,8 @@
         </view>
 
         <view class="filter-con" v-show="showDropbox" >
-            <view class="tab-con" :class="{more: isMoreType}">
-				<template v-if="!isMoreType">
-
+            <view class="tab-con" >
+				<template v-if="titIndex==0">
 					<view class="row-first">
 						<div class="first-item" 
 							v-for="(first, oi) in firstOpts" 
@@ -24,7 +23,7 @@
 					</view>
 
 					<view class="row-second">
-						<template v-if="titIndex==0">
+						
 							<filter-check-box v-if="firstIndex==0" :options=secondOpts @changedVal="getCityAreaVal" />	
 
 							<view v-else class="second-item" 
@@ -34,7 +33,7 @@
 								:key="si">
 								{{second.name}}
 							</view>
-						</template>
+					
 						
 
 						<view v-if="titIndex==1" class="area-box">
@@ -48,6 +47,8 @@
 						<filter-check-box :options=thirdOpts />
 					</view>
 				</template>
+
+					
 				<template v-else>
 					<view class="more-type" v-for="(first, oi) in firstOpts" :key="oi">
 						<view class="title">{{first.name}}</view>
@@ -187,11 +188,14 @@ export default {
 	},
 	watch: {
 		titIndex(newVal, oldVal) {
-			this.storageStatus[oldVal] = this.firstIndex
+			this.storageStatus[oldVal] = {
+				firstIndex: this.firstIndex,
+				secondIndex: this.secondIndex,
+
+			}
 
 			let existFindex = this.storageStatus[newVal]
 
-			console.log(existFindex)
 			if(existFindex) {
 				this.firstIndex = existFindex
 			}else{

@@ -1,6 +1,9 @@
 <template>
     <view class="commenting">
-        <view class="detail-tit">万象城</view>
+        <view class="detail-tit">
+            {{realatedId ? `回复${realtedName}` : `评论${houseInfo.name}`}}
+            
+        </view>
         <textarea placeholder="请输入评论" v-model="content" />
 
         <button class="detail-btn" @tap="onSubmit">提交</button>
@@ -8,13 +11,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapGetters, mapState } from "vuex"
 import { addComment } from "@/api"
 
 export default {
     data() {
         return {
-            content: ""
+            content: "",
+            realatedId: null,
+            realtedName: ""
         }
     },
     methods: {
@@ -23,39 +28,25 @@ export default {
                 { headImgUrl, id, type } = userInfo
             let params = {
                 content: this.content,
-                projectId: this.projectId,
-                createTime: new Date(),
-                fromIcon:  headImgUrl,
+                toId: this.projectId,
                 fromId: id,
-                fromType: 1,
-                //评论他人回复时候
-                relatedId: null,
+                realatedId: this.realatedId
             }
-            /**
-             * thumbupNum	integer($int32)
-                点赞数量
-
-                toIcon	string
-                被评论者icon
-
-                toId	integer($int64)
-                被评论者id
-
-                toName	string
-                被评论者名称
-
-                toType	integer($int32)
-                被评论者类型（0：楼盘；1：用户；2：官方；3：置业顾问）
-             */
-
-            console.log(params)
+            
             addComment(params).then(data => {
                console.log(data)
             })
         }
     },
+    onLoad(e) {
+        let { realatedId,realtedName } = e
+
+        this.realtedName = realtedName
+        this.realatedId = realatedId
+    },
     computed: {
-        ...mapState('sDetail', ['projectId'])
+        ...mapState('sDetail', ['projectId']),
+        ...mapGetters('sDetail',['houseInfo'])
     },
 }
 </script>
