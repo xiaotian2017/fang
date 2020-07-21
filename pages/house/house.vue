@@ -1,7 +1,7 @@
 <template>
 	<view class="house-layout fz">
 		<wrap>
-			<top-search class="gap"  :searchKey=searchKey  />
+			<top-search :searchKey=searchKey  />
 			<view class="hr20" />
 			<banner type='adv' :list=bannerList />
 		</wrap>

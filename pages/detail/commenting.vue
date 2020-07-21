@@ -19,13 +19,39 @@ export default {
     },
     methods: {
         onSubmit() {
+            let userInfo = uni.getStorageSync('userInfo'),
+                { headImgUrl, id, type } = userInfo
             let params = {
                 content: this.content,
-                projectId: this.projectId
+                projectId: this.projectId,
+                createTime: new Date(),
+                fromIcon:  headImgUrl,
+                fromId: id,
+                fromType: 1,
+                //评论他人回复时候
+                relatedId: null,
             }
-           addComment(params).then(data => {
+            /**
+             * thumbupNum	integer($int32)
+                点赞数量
+
+                toIcon	string
+                被评论者icon
+
+                toId	integer($int64)
+                被评论者id
+
+                toName	string
+                被评论者名称
+
+                toType	integer($int32)
+                被评论者类型（0：楼盘；1：用户；2：官方；3：置业顾问）
+             */
+
+            console.log(params)
+            addComment(params).then(data => {
                console.log(data)
-           })
+            })
         }
     },
     computed: {
