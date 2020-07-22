@@ -22,14 +22,14 @@
 
 		<wrap>
 			<view class="info-box">
-				<view class="tit">时代滨江悦府1</view>
+				<view class="tit">{{houseInfo.name}}</view>
 
 				<view class="lable">
 					<text class="txt" v-for="(item,index) in labels " :style="{color:item.color,background:item.bg}" :key="index">{{item.title}}</text>
 				</view>
 				<view class="location">
 					<uni-icons class="address-icon" color="#1296db" size="14" type="location-filled" />
-					<text>广东省深圳市南山区大学城坪山一路</text>
+					<text>{{houseInfo.address}}</text>
 					<text>></text>
 				</view>
 			</view>
@@ -50,33 +50,14 @@
 <script>
 import Banner from "@/comps/banner"
 import { mapGetters } from "vuex"
-
+import { concatLabels } from "common/js/util"
+import { getHtmlTop } from "common/js/dom"
+ 
 export default {
 	data() {
 		return {
 			picNum:89,
 			videoNum:77,
-			labels: [{
-					title: "即将开盘",
-					color: "#4cd961",
-					bg: "rgba(76, 217, 97,0.2)"
-				},
-				{
-					title: "意向登记表",
-					color: "#4985c9",
-					bg: "rgba(73, 133, 201,0.2)"
-				},
-				{
-					title: "地铁口",
-					color: "#999999",
-					bg: "rgba(153, 153, 153,0.2)"
-				},
-				{
-					title: "热门商圈",
-					color: "#e64340",
-					bg: "rgba(230, 67, 64,0.2)"
-				}
-			],
 			blocks: [{
 					title: "户型图",
 					src: "../../../static/detail/hux.png",
@@ -123,11 +104,22 @@ export default {
 				uni.navigateTo({
 					url: item.path
 				})
+			}else{
+				getHtmlTop('#house-detail-info').then(top => {
+					uni.pageScrollTo({
+						scrollTop: top
+					})
+				})
 			}
 		},
 	},
 	computed: {
-		...mapGetters('sDetail',['bannerList']),
+		...mapGetters('sDetail',['bannerList','houseInfo']),
+		labels() {
+			let { saleStatus, tag } = this.houseInfo
+			console.log( concatLabels(saleStatus, tag), saleStatus, this.houseInfo)
+			return concatLabels(saleStatus, tag)
+		}
 	}
 
 }

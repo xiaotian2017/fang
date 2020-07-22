@@ -23,7 +23,7 @@ export default {
 	methods: {
 		toArticle(item) {
 			uni.navigateTo({
-				url : `/pages/article/article?url=${item.redirectUrl}&title=1`
+				url : `/pages/article/article?url=${item.redirectUrl}&title=${item.title}`
 			}) 
 		},
 		scroll() {

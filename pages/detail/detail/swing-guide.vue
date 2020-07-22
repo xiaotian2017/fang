@@ -1,8 +1,7 @@
 <template>
 	<view class="detail-info">
 		<view class="tabs-top">
-			<view class="tab active">1#</view>
-			<view class="tab">2#</view>
+			<view class="tab active" v-for="(tab, i) in lotteryGuides" :key="i" :class="{active: i==tabIndex}">{{tab.building}}</view>
 		</view>
 		<view class="tit ">摇号指南</view>
 		<view class="guide-t">
@@ -12,23 +11,23 @@
 			</view>
 			<view class="row">
 				<text class="guide-title">均 &nbsp;&nbsp; 价：</text>
-				<text class="guide-content">{{guideData.price}}</text>
+				<text class="guide-content">{{guideData.priceRemark}}</text>
 			</view>
 			<view class="row">
 				<text class="guide-title">楼 &nbsp;&nbsp; 栋：</text>
-				<text class="guide-content">{{guideData.buildNum}}</text>
+				<text class="guide-content">{{guideData.building}}</text>
 			</view>
 			<view class="row">
 				<text class="guide-title">房源面积：</text>
-				<text class="guide-content">{{guideData.area}}</text>
+				<text class="guide-content">{{guideData.areaRemark}}</text>
 			</view>
 			<view class="row">
 				<text class="guide-title">摇号门槛：</text>
-				<text class="guide-content">{{guideData.allowIn}}</text>
+				<text class="guide-content">{{guideData.limitRemark}}</text>
 			</view>
 			<view class="row">
 				<text class="guide-title">登记时间：</text>
-				<text class="guide-content">{{guideData.registerTime}}</text>
+				<text class="guide-content">{{guideData.regStartTime}}</text>
 			</view>
 		</view>
 
@@ -47,52 +46,13 @@
 <script>
 import Step from "./step.vue"
 import SimpleTable from "./simple-table"
+import { mapGetters } from "vuex"
 
 export default {
 	data() {
 		return {
+			tabIndex: 0,
 			houseTypeHeaders: [],
-			houseTypeData: [],
-			guideData: {
-				block: "之江",
-				price: "53619元/m² (含5500元/m²装修标准)",
-				buildNum: "14#",
-				area: "166-186m²",
-				allowIn: "首套300万 ,二套500万",
-				registerTime: "2020年05月16-18日"
-			},
-			processTimes: [
-				{
-					process: "预售",
-					time: "2020.06.10",
-					status: true,
-				},
-				{
-					process: "登记",
-					time: "2020.06.10",
-					status: true,
-				},
-				{
-					process: "补交资料",
-					time: "2020.06.10",
-					status: false,
-				},
-				{
-					process: "意向公示",
-					time: "2020.06.10-06.25",
-					status: false,
-				},
-				{
-					process: "摇号",
-					time: "2020.06.10",
-					status: false,
-				},
-				{
-					process: "选房",
-					time: "待定",
-					status: false,
-				}
-			],
 			activeIndex: 0
 		}
 	},
@@ -105,14 +65,37 @@ export default {
 				{ label: '无房', key: 'hasnt' },
 				{ label: '有房', key: 'has' },
 			]
-			this.houseTypeData = [
-				{ type: '房源套数', all: '40', person: '8', hasnt: '8', has: '24' }
-			]
 		},
 		toResult() {
 			uni.navigateTo({
 				url:'/pages/detail/swingResult'
 			})
+		}
+	},
+	computed: {
+		...mapGetters('sDetail', ['lotteryGuides']),
+		guideData() {
+			return this.lotteryGuides[this.tabIndex].guide
+		},
+		houseTypeData() {
+			return [
+				{ 	type: '房源套数', 
+					all: this.guideData.totalHouseNum, 
+					person: this.guideData.talentHouseNum, 
+					has: this.guideData.secondHouseNum, 
+					hasnt: this.guideData.firstHouseNum 
+				}
+			]
+		},
+		processTimes() {
+			return [
+				{ process: "预售", time: "待定", status: false, },
+				{ process: "登记", time: "待定", status: false, },
+				{ process: "补交资料", time: "待定", status: false, },
+				{ process: "意向公示", time: "待定", status: false, },
+				{ process: "摇号", time: "待定", status: false, },
+				{ process: "选房", time: "待定", status: false, }
+			]
 		}
 	},
 	created() {

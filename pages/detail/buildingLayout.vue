@@ -13,23 +13,27 @@
 			</view>
 
 			<view class="layout-con">
-				<view class="layout-list" v-for="(item, i) in tabList" :key="i">
+				<view class="layout-list" v-for="(item, i) in listData" :key="i">
 					<view class="img-w">
 						<img-box />
 					</view>
-					<ul class="txt-w" v-if="tabIndex==0">
-						<li><text>户型名称：</text> 一室一厅一卫</li>
-						<li><text>户型编号：</text>：A1</li>
-						<li><text>房型：</text>高层</li>
-						<li><text>建筑面积：</text>60㎡</li>
-					</ul>
-
-					<ul class="txt-w" v-else>
-						<li><text>登记时间：</text> 2020：05：16</li>
-						<li><text>房源：</text>：</li>
-						<li><text>房源面积：</text>260㎡</li>
-						<li><text>均价：</text>29000元/㎡</li>
-					</ul>
+					<template v-if="tabIndex==0">
+						<ul class="txt-w">
+							<li><text>户型名称：</text> {{item.name}}</li>
+							<li><text>户型编号：</text>{{item.model}}</li>
+							<li><text>房型：</text>{{item.houseType}}</li>
+							<li><text>建筑面积：</text>{{item.area}}</li>
+						</ul>
+					</template>
+					
+					<template v-else>
+						<ul class="txt-w">
+							<li><text>登记时间：</text> {{price}}</li>
+							<li><text>房源：</text>：</li>
+							<li><text>房源面积：</text>260㎡</li>
+							<li><text>均价：</text>29000元/㎡</li>
+						</ul>
+					</template>
 				</view>
 			</view>
 
@@ -40,6 +44,9 @@
 
 <script>
 import BotBtns from "./detail/bot-btns"
+import { getHouseModels, getHousePrice } from "@/api"
+import { mapState } from "vuex"
+
 export default {
 	data() {
 		return {
@@ -51,7 +58,8 @@ export default {
 				{ txt: '一室', num: 1 },
 				{ txt: '二室', num: 3 },
 				{ txt: '三室', num: 4 }
-			]
+			],
+			listData: [],
 		};
 	},
 	methods: {
@@ -60,7 +68,22 @@ export default {
 		},
 		onLabelChange(index) {
 			this.labelIndex = index
+		},
+		getLayouts() {
+			getHouseModels({ projectId: this.projectId }).then(data => {
+				this.listData = data.list
+
+				
+			})
+		},
+		getPriceList() {
+			getHousePrice({ projectId: this.projectId }).then(data => {
+				this.listData = data
+			})
 		}
+	},
+	computed: {
+		...mapState('sDetail', ['projectId'])
 	},
 	onLoad(e) {
 		uni.setNavigationBarTitle({
@@ -68,7 +91,10 @@ export default {
 		})
 		if(e.type == 1 ) {
 			this.tabIndex = 1
+		}else{
+			this.getLayouts()
 		}
+		
 	},
 	components: {
 		BotBtns

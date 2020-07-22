@@ -1,12 +1,12 @@
 <template>
-    <view class="article-list">
+    <view class="article-list" @tap="toArticle">
         <view class="img-w">
-            <image class="full" src="../../static/list/product1.jpg" />
+            <image class="full" :src="listdata.iconImgUrl" />
         </view>
         <view class="text-w">
-            <view class="sub-tit">我是文章标我是是文章标题我是文章标题我我是文章</view>
+            <view class="sub-tit">{{listdata.title}}</view>
             <view class="sub-p">
-                {{type=='time'?"2020-05-05":'我是小标题呀'}}
+                {{type=='time'?listdata.publishTime:'我是小标题呀'}}
             </view>
         </view>
     </view>
@@ -15,7 +15,15 @@
 <script>
 export default {
     props: {
-        type: {}
+        type: {},
+        listdata:{}
+    },
+    methods: {
+        toArticle(item) {
+			uni.navigateTo({
+				url : `/pages/article/article?url=${item.redirectUrl}&title=${item.title}`
+			}) 
+		}
     }
 }
 </script>

@@ -5,15 +5,17 @@
 
         <view class="clear"></view>
         <view class="consultant-con">
-            <view class="consultant-list" v-for="(item, i) in arr" :key="i">
-                <img-box class="avatar" mode="aspectFill" />
-                <view class="name">张珩</view>
-                <button class="btn" @tap="toContact">咨询</button>
+            <view class="consultant-list" v-for="(item, i) in advisers" :key="i">
+                <img-box class="avatar" mode="aspectFill" status="radius" :src="item.headImgUrl" />
+                <view class="name">{{item.name}}</view>
+                <button class="btn" @tap="toContact(item)">咨询</button>
             </view>
         </view>
     </view>
 </template>
 <script>
+import { mapGetters } from "vuex"
+
 export default {
     data() {
         return {
@@ -21,9 +23,9 @@ export default {
         }
     },
     methods:{
-        toContact() {
+        toContact(item) {
             uni.navigateTo({
-                url: '/pages/detail/contactConsultant'
+                url: `/pages/detail/contactConsultant?item=${JSON.stringify(item)}`
             })
         },
         toMore() {
@@ -32,6 +34,9 @@ export default {
             })
         }
     },
+    computed: {
+        ...mapGetters('sDetail', [ 'advisers' ])
+    }
 }
 </script>
 <style lang="scss" scoped>

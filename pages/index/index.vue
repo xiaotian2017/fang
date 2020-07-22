@@ -34,8 +34,6 @@ import LatestArticle from "./home/latest-article.vue"
 import HotHouse from "./home/hot-house"
 import NavPart from "./home/nav-part"
 
-import { mapActions } from 'vuex'
-
 import AuthDialog from "./home/auth-dialog"
 import { dealAuth } from "./js/auth"
 

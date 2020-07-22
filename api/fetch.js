@@ -1,4 +1,4 @@
-const baseUrl = 'http://47.111.155.35:8081/lmhouse/api/'
+const baseUrl = 'http://121.196.10.149:8081/lmhouse/api/'
 const IS_TEST = false
 
 export const fetch = (url, opts) => {

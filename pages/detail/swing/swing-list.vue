@@ -1,31 +1,33 @@
 <template>
     <view class="swing-list fz gap">
         <view class="row row1">
-            <view class="title">{{temp.title}}</view>
-            <view class="price">{{temp.price}}</view>
+            <view class="title">{{listdata.projectName}}</view>
+            <view class="price">{{listdata.priceRemark}}</view>
         </view>
         <view class="row">
-            <text>摇号范围：</text> {{temp.rang}}
+            <text>摇号范围：</text> {{listdata.limitRemark}}
         </view>
         <view class="row">
             <view>
-                <text>摇号时间：</text> {{temp.date}}
+                <text>摇号时间：</text> {{date}}
             </view>
             <view>
-                <text>建面：</text> {{temp.area}}
+                <text>建面：</text> {{listdata.areaRemark}}
             </view>
         </view>
         <view class="row row-last">
-            <view>总套数：{{temp.sum}}</view>
-            <view>摇中率： 无房：{{temp.noneRate}} &nbsp;&nbsp;有房：{{temp.hasRate}}</view>
+            <view>总套数：{{listdata.houseNum}}</view>
+            <view>摇中率： 无房：{{listdata.firstRate}} &nbsp;&nbsp;有房：{{listdata.secondRate}}</view>
         </view>
     </view>
 </template>
 
 <script>
+import { getFormatDate } from "common/js/util"
+
 export default {
     props: {
-        temp: {
+        listdata: {
             default: () => {
                 return {
                     title: '城北万象城',
@@ -39,6 +41,11 @@ export default {
                 }
             }
         }
+    },
+    computed: {
+        date() {
+            return getFormatDate(this.listdata.lotteryTime, "yyyy-MM-dd")
+        }
     }
 }
 </script>
@@ -47,7 +54,7 @@ export default {
 .swing-list{
     line-height: 50rpx; margin-bottom: 30rpx;
     .row{
-        display:flex; justify-content: space-between;
+        display:flex; justify-content: space-between; font-size: 25rpx;
     }
     .row1{
         font-size: 32rpx; font-weight: bold; line-height: 70rpx; 

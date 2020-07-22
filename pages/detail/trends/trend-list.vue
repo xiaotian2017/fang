@@ -1,26 +1,37 @@
 <template>
     <view class="trend-list fz" >
             <view class="dot"></view>
-            <view class="data-wrod">{{temp.dateWord}}</view>
-            <view class="title">{{temp.title}}</view>
-            <view class="desc">{{temp.title}}</view>
+            <view class="data-wrod">{{date}} 置业顾问{{listdata.author}}</view>
+            <view class="content">
+                <view class="title">{{listdata.title}}</view>
+                <view class="desc">{{listdata.content}}</view>
+            </view>
             <view class="img-w">
-                <img-box  />
+                <img-box :src="listdata.imgUrl"  />
             </view>
     </view>
     
 </template>
 
 <script>
+import { getFormatDate } from "common/js/util"
+
 export default {
     props: {
-        temp: {
+        listdata: {
             default: () => {
                 return {
                     dateWord: '2020年2月20日 置业顾问-静静',
                     title: '悦府交付在即',
                     title: '即将交付啦'
                 }
+            }
+        }
+    },
+    computed: {
+        date() {
+            if(this.listdata) {
+                return getFormatDate(this.listdata.publishTime, 'yyyy年MM月dd日')
             }
         }
     }
@@ -34,11 +45,14 @@ export default {
         width: 20rpx;height:20rpx; border-radius:100%;background: $theme;
         position: absolute;top:10rpx; left:0; 
     }
+    .content{
+        
+    }
     .data-word{
         color: #666; 
     }
     .title{
-        color: #333; font-size: 32rpx; margin: 10rpx 0;
+        color: #333; font-size: 32rpx; margin: 10rpx 0; 
     }
     .desc{
         color: #666; margin-bottom: 20rpx;

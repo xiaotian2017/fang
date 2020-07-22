@@ -14,7 +14,7 @@ export default {
 
         this.src = url
         uni.setNavigationBarTitle({
-            title: '文章详情'
+            title: title
         })
     }
 }

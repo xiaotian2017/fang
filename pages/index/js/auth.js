@@ -15,16 +15,12 @@ export const dealAuth = () => {
                 wx.login({
                     success: (res) => {
                         getOpenId(res.code).then(openid => {
-                            let { avatarUrl,  nickName } = userInfo
-
-                            uni.setStorageSync('userInfo', { userId: 1 })
                             
                             setAuth({
                                 ...userInfo, 
-                                unionId: openid
+                                openId: openid
                             }).then(data => {
-
-                                //console.log(data)
+                                uni.setStorageSync('userInfo', data)   
                             })
                         })
                     }

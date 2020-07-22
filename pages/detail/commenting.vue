@@ -1,11 +1,67 @@
 <template>
     <view class="commenting">
-        <view class="detail-tit">万象城</view>
-        <textarea placeholder="请输入评论" />
+        <view class="detail-tit">
+            {{realatedId ? `回复${realtedName}` : `评论${houseInfo.name}`}}
+            
+        </view>
+        <textarea placeholder="请输入评论" v-model="content" />
 
-        <button class="detail-btn">提交</button>
+        <button class="detail-btn" @tap="onSubmit">提交</button>
     </view>
 </template>
+
+<script>
+import { mapGetters, mapState } from "vuex"
+import { addComment } from "@/api"
+
+export default {
+    data() {
+        return {
+            content: "",
+            realatedId: null,
+            realtedName: ""
+        }
+    },
+    methods: {
+        onSubmit() {
+            let userInfo = uni.getStorageSync('userInfo'),
+                { headImgUrl, id, type } = userInfo,
+                realatedId = parseInt(this.realatedId)
+            let params = {
+                content: this.content,
+                toId: realatedId || this.projectId,
+                fromId: id,
+                realatedId
+            }
+            
+            addComment(params).then(data => {
+                uni.showToast({
+                    title: '标题',
+                    duration: 2000,
+                    icon: 'success'
+                });
+                uni.navigateBack()
+            }).catch(err => {
+                uni.showToast({
+                    title: '错误信息',
+                    duration: 2000,
+                    icon: 'success'
+                });
+            })
+        }
+    },
+    onLoad(e) {
+        let { realatedId,realtedName } = e
+
+        this.realtedName = realtedName
+        this.realatedId = realatedId
+    },
+    computed: {
+        ...mapState('sDetail', ['projectId']),
+        ...mapGetters('sDetail',['houseInfo'])
+    },
+}
+</script>
 
 <style lang="scss" scoped>
 
