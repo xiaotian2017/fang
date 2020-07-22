@@ -12,7 +12,7 @@
 
         <view class="row-second">
             
-            <filter-check-box v-if="firstIndex==0" :options=secondOpts @changedVal="getCityAreaChecked" />
+            <filter-check-box v-if="firstIndex==0&&isReseted" :options=secondOpts @changedVal="getCityAreaChecked" />
             <view v-else class="second-item list-item" 
                 v-for="(second, si) in secondOpts" 
                 :class="{active: si==secondIndex}"
@@ -22,7 +22,7 @@
             </view>
 
         </view>
-        <view class="row-third" v-if="thirdOpts.length>0">
+        <view class="row-third" v-if="thirdOpts.length>0&&isReseted">
             <filter-check-box :options=thirdOpts @changedVal="getStationChecked" />
         </view>
    </view>
@@ -37,7 +37,8 @@ export default {
         return {
             firstIndex: 0,
             secondIndex: 0,
-            areaData: []
+            areaData: [],
+            isReseted: true
         }
     },
     methods: {
@@ -51,8 +52,12 @@ export default {
             //城区接口
             let ret = null
             if(this.firstIndex == 0) {
+                let val = this.cityAreaModel && this.cityAreaModel.join(',')
                 ret = {
-                    cityArea: this.cityAreaModel.join(',')
+                    params: {
+                        district: val
+                    },
+                    txtName: val                    
                 }
             }else{
                 //线路-站点
@@ -60,7 +65,10 @@ export default {
                     subwayRoute = this.stationModel.map(item => route+'-'+item).join(',')
 
                 ret = {
-                    subwayRoute
+                    params: {
+                        subwayRoute: subwayRoute
+                    },
+                    txtName: subwayRoute 
                 }
             }
             return ret
@@ -90,7 +98,6 @@ export default {
 					this.stationOpts.push({ name: route })
 				})
 			})
-			
         },
         _initData() {
             this.cityAreaOpts = [
@@ -106,6 +113,15 @@ export default {
             ]
             
             this._getCityArea()
+        },
+        reset() {
+            this.firstIndex = 0
+            this.secondIndex = 0
+            this.isReseted = false
+
+            setTimeout(() => {
+                this.isReseted = true
+            }, 100)
         }
     },
     computed: {

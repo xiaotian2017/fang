@@ -18,8 +18,6 @@ export default {
     data() {
         return {
             myModel: {},
-            active_0: new Array(10),
-            active_1: new Array(10),
 
             active: {
                 0: { 0: null, 1: null, 2: null, 3:null, 4:null },
@@ -33,32 +31,50 @@ export default {
             let flag = !activeObj[index]
 
             activeObj[index] = flag
-
-            //console.log(flag, item, this.active)
-
+            
             let curVal = this.myModel[key]
-
 
             if(flag) {
                 if(curVal) {
-                    this.myModel[key].push(item.value) 
+                    this.myModel[key] = this.myModel[key]+','+item.value
+
+                    this.txtName = this.txtName+',' + item.name
                 }else{
-                    this.myModel[key] = [item.value]
+                    this.myModel[key] = item.value
+                    this.txtName = item.name
                 }
             }else{
+                curVal = curVal.split(',')
+                let txtName = this.txtName.spilt(',')
+
                 curVal.find((val,i) => {
                     let flag = item.value == val
                     if(flag) {
-                        this.myModel[key].splice(i, 1)
+                        curVal.splice(i, 1)
+                        txtName.splice(i, 1)
                     }
                     return flag
                 })
-            }
 
-            console.log(this.myModel)
+                this.myModel[key] = curVal.join(',')
+                this.txtName = txtName.join(',')
+            }
         },
         getModel() {
-            return this.myModel
+            return {
+                params: {
+                    ...this.myModel
+                },
+                txtName: this.txtName
+            }
+        },
+        reset() {
+            this.txtName = ""
+            this.myModel = {}
+            this.active = {
+                0: { 0: null, 1: null, 2: null, 3:null, 4:null },
+                1: { 0: null, 1: null, 2: null, 3:null, 4:null },
+            }
         }
     },
     computed: {

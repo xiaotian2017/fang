@@ -6,7 +6,7 @@
 			<banner type='adv' :list=bannerList />
 		</wrap>
 		
-		<filter-box />
+		<filter-box @getFilterParmas="getFilterParmas" />
 		<wrap>
 			<house-list  v-for="(item,i) in houselist" :key="i" :house=item  />
 		</wrap>
@@ -33,12 +33,16 @@ export default {
 		}
 	},
 	methods: {
+		getFilterParmas(params) {
+			this.filterParams = params
+			this._getList()
+		},
 		confirmSearch(key) {
 			console.log(key)
 			this.keyword = key
 		},
 		_getList() {
-			getHouseList(this.searchParams).then(data=>{
+			getHouseList({ ...this.searchParams, ...this.filterParams }).then(data=>{
 				let { totalNum, pageSize, record } = data
 
 				if(this.total == 0) this.maxPages = Math.ceil(totalNum/pageSize)
@@ -74,6 +78,9 @@ export default {
 			pageNum: 1,
 			pageSize: 4
 		}
+
+		//搜索框
+		this.filterParams = {}
 		this._getList()
 
 		this.getAdv()

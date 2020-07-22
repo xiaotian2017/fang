@@ -41,14 +41,23 @@ export default {
     },
     methods: {
         getModel() {
-            let ret = {}
-            if(this.minPrice >= 0) {
+            let ret = {},
+                txtName = "不限"
+            if(this.minPrice > 0 || this.minPrice === 0) {
                 ret.minPrice = this.minPrice
+                txtName = ret.minPrice
             }
-            if(this.maxPrice >= 0) {
+            if(this.maxPrice > 0) {
                 ret.maxPrice = this.maxPrice
+                txtName = ret.maxPrice
             }
-            return ret
+            if(this.minPrice > 0 && this.maxPrice > 0) {
+                txtName = ret.maxPrice+'-'+ret.minPrice
+            }
+            return {
+                params: ret,
+                txtName
+            }
         },
         onFItemClick( item, index, type) {
             if(type == "first") {
@@ -56,6 +65,10 @@ export default {
             }else{
                 this.secondIndex = index
             }
+        },
+        reset() {
+            this.minPrice = ""
+            this.maxPrice = ""
         }
     },
     computed: {
