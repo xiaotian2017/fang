@@ -25,16 +25,28 @@ export default {
     methods: {
         onSubmit() {
             let userInfo = uni.getStorageSync('userInfo'),
-                { headImgUrl, id, type } = userInfo
+                { headImgUrl, id, type } = userInfo,
+                realatedId = parseInt(this.realatedId)
             let params = {
                 content: this.content,
-                toId: this.projectId,
+                toId: realatedId || this.projectId,
                 fromId: id,
-                realatedId: parseInt(this.realatedId)
+                realatedId
             }
             
             addComment(params).then(data => {
-               console.log(data)
+                uni.showToast({
+                    title: '标题',
+                    duration: 2000,
+                    icon: 'success'
+                });
+                uni.navigateBack()
+            }).catch(err => {
+                uni.showToast({
+                    title: '错误信息',
+                    duration: 2000,
+                    icon: 'success'
+                });
             })
         }
     },

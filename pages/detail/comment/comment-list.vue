@@ -8,11 +8,11 @@
 				<text class="nick">{{listdata.fromName}}</text>
 				<text>{{listdata.createTime}}</text>
 				<view class="fr">
-					<uni-icons type="heart" color="#666" @tap="onZan" size="16" />
+					<uni-icons type="heart" :color="zanIconColor" @tap="onZan" size="16" />
 					<template v-if="listdata.thumbupNum">
-						({{listdata.thumbupNum}})
+						({{listdata.thumbupNum}}) 
 					</template>
-					<uni-icons type="compose" v-if="userId!=listdata.id" @tap="toCommenting" color="#666" size="16" class="icon-comment" />
+					<uni-icons type="compose" v-if="userId!=listdata.fromId" @tap="toCommenting" color="#666" size="16" class="icon-comment" />
 				</view>
 			</view>
             
@@ -43,7 +43,8 @@ export default {
 	},
 	data() {
 		return {
-			userId: uni.getStorageSync('userInfo').id
+			userId: uni.getStorageSync('userInfo').id,
+			zanStatus: 0
 		}
 	},
 	methods: {
@@ -52,13 +53,26 @@ export default {
 				id: this.listdata.id,
 				userId: this.userId
 			}).then(() => {
-
+				this.zanStatus = this.zanStatus == 0 ? 1 : 0
 			})
 		},
 		toCommenting() {
 			uni.navigateTo({
                 url: `/pages/detail/commenting?realatedId=${this.listdata.id}&realtedName=${this.listdata.fromName}`
             })
+		}
+	},
+	watch: {
+		listdata(obj){
+			this.zanStatus = obj.thumbupStatus
+		}
+	},
+	created() {
+		this.zanStatus = this.listdata.thumbupStatus
+	},
+	computed: {
+		zanIconColor() {
+			return this.zanStatus == 0 ? '#666' : 'red'
 		}
 	}
 }

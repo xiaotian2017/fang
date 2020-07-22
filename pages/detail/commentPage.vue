@@ -31,12 +31,15 @@ export default {
             })
         },
     },
-    
     computed: {
         ...mapGetters('sDetail', ['houseInfo']),
         ...mapState('sDetail', ['projectId']),
     },
-    created() {
+    onShow() {
+        this.pageNum = 1
+        this._getList()
+    },
+    onLoad() {
         this.addParams = {
             projectId: 1
         }
