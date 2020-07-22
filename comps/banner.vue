@@ -62,6 +62,7 @@
 <style lang="scss">
 .banner-box{
 	.img{
+		margin-top: 30rpx;
 		height: 300rpx; width: 100%;
 	}
 }

@@ -119,6 +119,24 @@
 				"navigationBarTitleText": "用户详情"
 			}
         }
+        ,{
+            "path" : "pages/my/modifyNikeName",
+            "style" : {
+				"navigationBarTitleText": "修改昵称"
+			}
+        }
+        ,{
+            "path" : "pages/my/modifyNote",
+            "style" : {
+					"navigationBarTitleText": "修改个性签名"
+			}
+        }
+        ,{
+            "path" : "pages/my/myPay",
+            "style" : {
+				"navigationBarTitleText": "续费"
+			}
+        }
     ],
 	"subPackages": [{
 		"root":	"hand",

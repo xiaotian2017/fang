@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="house-block ">
-			<view v-for="(item,index) in blocks " :key="index">
+			<view v-for="(item,index) in blocks " :key="index" @tap="toPage(item)" >
 				<view class="block-icon" :style="{background:item.color}">
 					<uni-icons class="abs img" :type="item.type" size="50rpx" color="#ffffff"></uni-icons>
 				</view>
@@ -13,7 +13,7 @@
 
 
 		<view class="house-block ">
-			<view v-for="(item,index) in infoList " :key="index">
+			<view v-for="(item,index) in infoList " :key="index" @tap="toPage(item)" >
 				<view class="block-icon2" :style="{background:item.color}">
 					<view class="abs c-t">{{item.title}}</view>
 				</view>
@@ -31,18 +31,19 @@
 						title: "我的关注",
 						type: "heart-filled",
 						color: "#F34949",
-						path: '/pages/detail/buildingLayout'
+						path: "/pages/my/myPay",
 					},
 					{
 						title: "我的问答",
 						type: "chatboxes-filled",
 						color: "#4CD964",
-						path: '/pages/detail/buildingTrends'
+						path: "/pages/my/myPay",
 					},
 					{
 						title: "我要续费",
 						type: "shop",
 						color: " #007AFF",
+						path: "/pages/my/myPay",
 
 					}
 				],
@@ -50,24 +51,34 @@
 						title: "我要入驻",
 						type: "heart-filled",
 						color: "#36A9CE",
-						path: '/pages/detail/buildingLayout'
+						path: "/pages/my/myPay",
 					},
 					{
 						title: "我要反馈",
 						type: "chatboxes-filled",
 						color: "#36A9CE",
-						path: '/pages/detail/buildingTrends'
+						path: "/pages/my/myPay",
 					},
 					{
 						title: "官方公众号",
 						type: "shop",
 						color: " #36A9CE",
-
+						path: "/pages/my/myPay",
 					}
 				],
 			}
 		},
-		methods: {},
+		methods: {
+			toPage(item){
+				let url=item.path;
+				uni.navigateTo({
+					url:url,
+					animationDuration:300,
+					animationType:'pop-in'
+				})
+			}
+			
+		},
 		computed: {}
 	}
 </script>
