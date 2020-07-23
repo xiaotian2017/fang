@@ -12,7 +12,8 @@
 					<template v-if="listdata.thumbupNum">
 						({{listdata.thumbupNum}}) 
 					</template>
-					<uni-icons type="compose" v-if="userId!=listdata.fromId" @tap="toCommenting" color="#666" size="16" class="icon-comment" />
+					<!-- v-if="userId!=listdata.fromId" -->
+					<uni-icons type="compose"  @tap="toCommenting" color="#666" size="16" class="icon-comment" />
 				</view>
 			</view>
             
@@ -57,8 +58,10 @@ export default {
 			})
 		},
 		toCommenting() {
+			let { fromId, fromName, id} = this.listdata
+
 			uni.navigateTo({
-                url: `/pages/detail/commenting?realatedId=${this.listdata.id}&realtedName=${this.listdata.fromName}`
+                url: `/pages/detail/commenting?fromId=${fromId}&fromName=${fromName}&realatedId=${id}`
             })
 		}
 	},

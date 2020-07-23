@@ -101,7 +101,7 @@ export default {
 .house-layout{
 	padding-top: 30rpx; 
 	&.fixed{
-		position: fixed;
+		position: fixed; width: 100%;
 	}
 	.top-search{
 		margin: 0 $gap;

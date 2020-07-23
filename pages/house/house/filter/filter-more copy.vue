@@ -6,7 +6,7 @@
                 <view   class="list" 
                         v-for="(second, si) in first.options" 
                         :key="si" 
-                        :class="{active:si == active[oi]}" 
+                        :class="{active:active[oi][si]}" 
                         @tap="onItemTap(second,oi, si, first.key)">
                         {{second.name}}
                 </view>
@@ -25,44 +25,24 @@ export default {
     data() {
         return {
             myModel: {},
-            active: {
-                0: -1,
-                1: -1,
-                2: -1,
-                3: -1,
-                4: -1,
-                5: -1,
-                6: -1,
-                7: -1,
-                8: -1,
-                9: -1,
-                10: -1,
-                11: -1,
-                12: -1,
-                13: -1,
-                14: -1,
-                15: -1,
-                16: -1,
-                17: -1,
-                18: -1,
-            }
+            _active: {
+                0: { 0: null, 1: null, 2: null, 3:null, 4:null },
+                1: { 0: null, 1: null, 2: null, 3:null, 4:null },
+                2: { 0: null, 1: null, 2: null, 3:null, 4:null },
+                3: { 0: null, 1: null, 2: null, 3:null, 4:null },
+                4: { 0: null, 1: null, 2: null, 3:null, 4:null },
+                5: { 0: null, 1: null, 2: null, 3:null, 4:null },
+                6: { 0: null, 1: null, 2: null, 3:null, 4:null },
+                7: { 0: null, 1: null, 2: null, 3:null, 4:null },
+                8: { 0: null, 1: null, 2: null, 3:null, 4:null },
+            },
+            active: new Array(20)
         }
     },
     methods: {
-        onItemTap(item, findex, index, key) {
+        onItemTap({item, findex, index, key}) {
+            this.active[fIndex] = !flag
             
-            console.log(this.active)
-
-            if(this.active[findex] != index) {
-                this.active[findex] = index
-                this.myModel[key] = item.value
-                this.txtName = item.value
-            }else{
-                this.active[findex] = null
-
-                this.myModel[key] = ""
-                
-            }
         },
         _onItemTap(item,fIndex, index, key) {
             let activeObj = this.active[fIndex]

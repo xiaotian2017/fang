@@ -3,6 +3,7 @@ import { setAuth } from "@/api"
 export const dealAuth = () => {
     return new Promise((resolve, reject) => {
 
+        return
         if(uni.getStorageSync('userInfo')) {
             return 
         }

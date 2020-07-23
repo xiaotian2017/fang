@@ -17,15 +17,15 @@ export default {
 
                 record = record || data
     
-                if(this.total == 0) this.maxPages = Math.ceil(totalNum/pageSize)
+                if(!this.maxPages) this.maxPages = Math.ceil(totalNum/pageSize)
     
                 this.dataList = this.dataList.concat(record)
             })
         },
     },
-    ReachBottom() {
-		if(this.searchParams.pageNum < this.maxPages) {
-			this.searchParams.pageNum++
+    onReachBottom() {
+		if(this.pageNum < this.maxPages) {
+			this.pageNum++
 			this._getList()
 		}
     },

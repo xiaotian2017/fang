@@ -1,11 +1,9 @@
 <template>
     <view class="filter-box" :class="{open: showDropbox}">
-        <view class="mask" @tap="showDropbox=false"></view>
-
         <view class="title">条件筛选</view>
 
         <view class="filter-con" :class="{hidden:!showDropbox}" >
-            <filter-more  class=“filter-con-wrap” ref="filterLayout" :otherData=filterData />
+            <filter-more  class=“filter-con-wrap” ref="filter" find="find" :otherData=filterData />
 
             <view class="tab-btn">
                 <button class="reset mbtn" @tap="reset">重置</button>
@@ -33,7 +31,9 @@ export default {
 	methods: {
 		confirm() {
 			
-
+            this.formModel = this.$refs.filter.getModel()
+            
+            console.log(this.formModel)
 			this.$emit('getFilterParmas', params)
 			this.showDropbox = false
 		},
@@ -57,7 +57,7 @@ export default {
 		_initData() {
 			this.filterData = [
                  {
-                    name: '区域',
+                    name: '区域', key: 'district',
                     options: [
                         { name: '50万', value: '0' },
                         { name: '50万', value: '0' },
@@ -67,37 +67,42 @@ export default {
                     ]
                 },
                 {
-                    name: '总价',
+                    name: '总价', key: 'minTotalPrice',
                     options: [
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
+                        { name: '100万', value: 100 },
+                        { name: '200万', value: 200 },
+                        { name: '300万', value: 300 },
+                        { name: '400万', value: 400 },
+                        { name: '500万', value: 500 },
+                        { name: '800万', value: 800 },
+                        { name: '1000万', value: 1000 },
                     ]
                 },
                 {
-                    name: '单价',
+                    name: '单价', key: 'unitPrice',
                     options: [
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
+                        { name: '1万以下', value: { minPrice:1 } },
+                        { name: '1-2万', value: { minPrice:1, maxPrice: 2} },
+                        { name: '2-3万', value: { minPrice:2, maxPrice: 3 } },
+                        { name: '3-4万', value: { minPrice:3, maxPrice:4 } },
+                        { name: '4-5万', value: { minPrice:4, maxPrice:5 } },
+                        { name: '5万以上', value: { maxPrice:1 } },
                     ]
                 },
                 {
-                    name: '面积',
+                    name: '面积', key: 'projectAreaType',
                     options: [
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
+                        { name: '50以下', value: 0 },
+                        { name: '50-70', value: 1 },
+                        { name: '70-90', value: 2 },
+                        { name: '90-110', value: 3 },
+                        { name: '110-130', value: 4 },
+                        { name: '130-150', value: 5 },
+                        { name: '150以上', value: 6 },
                     ]
                 },
                 {
-                    name: '户型',
+                    name: '户型', key: 'houseType',
                     options: [
                         { name: '50万', value: '0' },
                         { name: '50万', value: '0' },
@@ -143,11 +148,11 @@ export default {
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 .filter-box{
-   position:relative; width: 100%;  font-size: $font;
+   position:relative; width: 100%; font-size: $font; background: #fff;
     &.open{
-        min-height: 100vh; position:fixed; z-index:10;
+        min-height: 100vh; z-index:10;
     }
 	.title{
         height: 100rpx; line-height: 100rpx;
@@ -164,8 +169,8 @@ export default {
 		}
 	}
 	.tab-btn{
-		display: flex; padding: $gap; 
-		@include gray-shadow;background: #fff;
+		display: flex; padding: $gap; position: fixed; width: 100%; bottom: 0;
+		@include gray-shadow;background: #fff; box-sizing: border-box;
 		.mbtn{
 			height: 90rpx; line-height:90rpx; font-size: 34rpx;
 		}
@@ -181,13 +186,13 @@ export default {
     }
 }
 
-.filter-con-wrap{
+.filter-con{
     &.hidden{
         display: none;
     }
-    /deep/ .filter-tab-con{
-        height: 800rpx; overflow: auto; 
-    }
+    
+    
 }
 
-</style>>
+
+</style>

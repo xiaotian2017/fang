@@ -1,7 +1,7 @@
 <template>
     <view class="commenting">
         <view class="detail-tit">
-            {{realatedId ? `回复${realtedName}` : `评论${houseInfo.name}`}}
+            {{fromName ? `回复${fromName}` : `评论${houseInfo.name}`}}
             
         </view>
         <textarea placeholder="请输入评论" v-model="content" />
@@ -18,8 +18,7 @@ export default {
     data() {
         return {
             content: "",
-            realatedId: null,
-            realtedName: ""
+            fromName: null
         }
     },
     methods: {
@@ -27,13 +26,25 @@ export default {
             let userInfo = uni.getStorageSync('userInfo'),
                 { headImgUrl, id, type } = userInfo,
                 realatedId = parseInt(this.realatedId)
+
             let params = {
                 content: this.content,
-                //一级评论  传入一级评论realatedId  楼盘： 传入楼盘id
-                toId: realatedId || this.projectId,
                 fromId: id,
-                //一级评论id
-                realatedId
+            }
+
+            if(realatedId) {
+                params = {
+                    ...params,
+                    //一级评论的id
+                    realatedId: this.realatedId,
+                    //一级评论的用户id
+                    toId: this.fromId
+                }
+            }else{
+                params = {
+                    ...params,
+                    toId: this.projectId
+                }
             }
             
             addComment(params).then(data => {
@@ -53,12 +64,12 @@ export default {
         }
     },
     onLoad(e) {
-        let { realatedId,realtedName } = e
+        let{ fromId, fromName, realatedId } = e
 
-        this.realtedName = realtedName
+        this.fromName = fromName
+        this.fromId = fromId
         this.realatedId = realatedId
-
-        
+        console.log(fromId,fromName,realatedId)
     },
     computed: {
         ...mapState('sDetail', ['projectId']),
