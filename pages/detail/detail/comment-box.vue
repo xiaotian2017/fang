@@ -33,14 +33,6 @@ export default {
        
     },
     created() {
-        let params = {
-            pageNum:1,
-            pageSize:10,
-            projectId: this.projectId
-        }
-        getCommentList(params).then(data => {
-            console.log(params)
-        })
     },
     components: {
         CommentList

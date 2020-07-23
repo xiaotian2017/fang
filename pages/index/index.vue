@@ -21,7 +21,6 @@
 		<latest-article />
 
 		<auth-dialog v-if="authDialogVisible" />
-
 	</view>
 </template>
 
@@ -59,7 +58,7 @@ export default {
 		getAdv() {
 			this.$ADV_API.getHomeTop().then(data => {
 				this.bannerList = data.adverts
-				this.searchKey = data.serachbar.projectName
+				this.searchKey = data.serachbar && data.serachbar.projectName || ""
 			})
 			this.$ADV_API.getHomeBot().then(data => {
 				this.advList = data.adverts

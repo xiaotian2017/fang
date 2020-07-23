@@ -20,7 +20,7 @@ const TYPE_MAP = {
 export const ADV_API =  {
     _getList(type) {
         return new Promise((resolve, reject) => {
-            getAdv({query: type}).then(data => {
+            getAdv({type: type}).then(data => {
                 resolve(data)
             })
         }) 

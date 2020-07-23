@@ -55,6 +55,8 @@ export default {
 
         this.realtedName = realtedName
         this.realatedId = realatedId
+
+        
     },
     computed: {
         ...mapState('sDetail', ['projectId']),

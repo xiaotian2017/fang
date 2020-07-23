@@ -1,12 +1,12 @@
 <template>
-	<view class="house-layout fz">
+	<view class="house-layout fz" :class="{fixed: filterDownVisible}">
 		<wrap>
 			<top-search :searchKey=searchKey  />
 			<view class="hr20" />
 			<banner type='adv' :list=bannerList />
 		</wrap>
 		
-		<filter-box @getFilterParmas="getFilterParmas" />
+		<filter-box @getFilterParmas="getFilterParmas" v-model="filterDownVisible" />
 		<wrap>
 			<house-list  v-for="(item,i) in houselist" :key="i" :house=item  />
 		</wrap>
@@ -21,6 +21,7 @@ import HouseList from "@/comps/list/house-list.vue"
 import SearchBox from "./house/search-box"
 
 import { getHouseList } from "@/api"
+import { LIST_TYPE } from "common/js/config"
 
 export default {
 	data() {
@@ -29,7 +30,8 @@ export default {
 			searchKey: "",
 			houselist: [],
 			total: 0,
-			keyword: null
+			keyword: null,
+			filterDownVisible: false
 		}
 	},
 	methods: {
@@ -51,6 +53,7 @@ export default {
 			})
 		},
 		getAdv() {
+			console.log(this.pageType)
 			this.$ADV_API.getList(this.pageType).then(data => {
 				this.bannerList = data.adverts
 				this.searchKey = data.serachbar.projectName
@@ -74,7 +77,7 @@ export default {
 		this.pageType = type
 
 		this.searchParams = {
-			pageType: type,
+			pageType: LIST_TYPE[type],
 			pageNum: 1,
 			pageSize: 4
 		}
@@ -85,6 +88,9 @@ export default {
 
 		this.getAdv()
 	},
+	created() {
+		console.log('1123')
+	},
 	components: {
 		Banner,FilterBox,TopSearch,HouseList,SearchBox
 	}
@@ -94,6 +100,9 @@ export default {
 <style lang="scss" scoped>
 .house-layout{
 	padding-top: 30rpx; 
+	&.fixed{
+		position: fixed;
+	}
 	.top-search{
 		margin: 0 $gap;
 	}

@@ -1,6 +1,6 @@
 <template>
     <view class="filter-box" :class="{open: showDropbox}">
-        <view class="mask" @touchstart="showDropbox=false"></view>
+        <view class="mask" @tap="showDropbox=false"></view>
 
         <view class="filter-tab" >
             <view class="tit" v-for="(tit, i) in tabData" :key="i" :class="{active: i==titIndex}" @tap="tabClick(tit, i)" >
@@ -26,12 +26,14 @@
 </template>
 
 <script>
-import { getAreaList } from "@/api"
 import FilterArea from "./filter/filter-area"
 import FilterPrice from "./filter/filter-price"
 import FilterMore from "./filter/filter-more"
 
 export default {
+	props: {
+		value: {}
+	},
     data() {
 		return {
 			titIndex: -1,
@@ -71,7 +73,6 @@ export default {
 
 			this.$emit('getFilterParmas', params)
 			this.showDropbox = false
-			this.titIndex = -1
 		},
 		reset() {
 			this.$refs.filterArea.reset()
@@ -91,7 +92,6 @@ export default {
 			this.titIndex = index
 		},
 		_initData() {
-			
 			
 		}
 	},
@@ -126,6 +126,21 @@ export default {
 	},
 	created() {
 		this._initData()
+	},
+	watch: {
+		value: {
+			immediate: true,
+			handler(flag) {
+				this.showDropbox = flag
+			}
+		},
+		showDropbox(flag) {
+			this.$emit('input', flag)
+
+			if(!flag) {
+				this.titIndex = -1
+			}
+		}
 	},
 	components: {
 		FilterArea, FilterPrice, FilterMore

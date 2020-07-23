@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { LIST_TYPE } from "common/js/config"
     
 export default {
     data() {
@@ -36,7 +35,7 @@ export default {
     methods: {
         toHouseList(item) {
             uni.navigateTo({
-                url: `/pages/house/house?type=${LIST_TYPE[item.type]}`
+                url: `/pages/house/house?type=${item.type}`
             })
         },
     }

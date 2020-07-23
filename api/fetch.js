@@ -8,7 +8,7 @@ export const fetch = (url, opts) => {
                 type: 1
             }
         }else{
-            params = { ...params, type: 1 }
+            params = { ...params }
         }
         return new Promise((resolve, reject) => {
             uni.request({

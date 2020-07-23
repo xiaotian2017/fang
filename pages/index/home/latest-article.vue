@@ -41,8 +41,14 @@ export default {
 			})
 		},
 		getList() {
-			if(!this.tabList[this.activeIndex].listData) {
-				getNewsList({type:1}).then(data => {
+			let cur = this.tabList[this.activeIndex]
+			if(!cur.listData) {
+				let params = {
+					pageNum: 1,
+					pageSize: 99,
+					type: cur.value
+				}
+				getNewsList(params).then(data => {
 					this.tabList[this.activeIndex].listData = data.record
 				})
 			}
