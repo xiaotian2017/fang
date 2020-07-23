@@ -3,7 +3,13 @@
         <view class="more-type" v-for="(first, oi) in otherData" :key="oi">
             <view class="title">{{first.name}}</view>
             <view class="list-con">
-                <view class="list" v-for="(second, si) in first.options" :key="si" :class="{active:active[oi][si]}" @tap="onItemTap(second,oi, si, first.key)">{{second.name}}</view>
+                <view   class="list" 
+                        v-for="(second, si) in first.options" 
+                        :key="si" 
+                        :class="{active:active[oi][si]}" 
+                        @tap="onItemTap(second,oi, si, first.key)">
+                        {{second.name}}
+                </view>
             </view>
         </view>
    </view>

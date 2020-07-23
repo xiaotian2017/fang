@@ -29,8 +29,10 @@ export default {
                 realatedId = parseInt(this.realatedId)
             let params = {
                 content: this.content,
+                //一级评论  传入一级评论realatedId  楼盘： 传入楼盘id
                 toId: realatedId || this.projectId,
                 fromId: id,
+                //一级评论id
                 realatedId
             }
             
