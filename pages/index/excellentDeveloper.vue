@@ -3,22 +3,33 @@
     <view class="developer-show fz">
         <view class="index-tit">优质开发商推荐</view>
         <view class="list-con clearfix">
-            <view class="list" v-for="(item, i) in arr" :key="i">
+            <view class="list" v-for="(item, i) in dataList" :key="i">
                 <view class="list-inner">
-                    <image :src="temp.url" />
-                    <text>{{temp.txt}}</text>
+                    <image :src="item.logoUrl" />
+                    <text>{{item.company}}-{{item.name}}</text>
                 </view>
             </view>
         </view>
     </view>
 </template>
 <script>
+import { getBrandList } from "@/api"
+import ListMixins from "common/js/listMixins"
+
 export default {
     data() {
         return {
             arr: [ 0,0,0,0,0,0,],
-            temp: { url: '../../static/list/product1.jpg', txt: '品牌名称，品牌展' }
+            temp: { url: '../../static/list/product1.jpg', txt: '品牌名称，品牌展' },
+            listApi: getBrandList
         }
+    },
+    mixins: [ ListMixins ],
+    methods: {
+
+    },
+    onLoad() {
+        this._getList()
     }
 }
 </script>

@@ -1,5 +1,6 @@
 import ListMixins from "common/js/listMixins"
 import { getHouseList } from "@/api"
+import { LIST_TYPE } from "common/js/config"
 
 export default {
     data() {

@@ -14,7 +14,16 @@ const TYPE_MAP = {
     checking: 8,
     //少了一个不限购 unlimitedPurchase
     swingSearch: 9,
-    hand: 10
+ 
+    // hand: 11,
+
+    // unlimitedPurchase: 10,
+    // need: 11, 
+    // improve: 12,
+    // luxury: 13,
+    // station: 14,
+    // finding: 15,
+    // yun: 16
 }
 
 export const ADV_API =  {
@@ -38,6 +47,6 @@ export const ADV_API =  {
         页面类型 =》 banner类型  保持一致
     */
     getList(pageType) {
-        return this._getList(TYPE_MAP[ pageType ])
+        return this._getList(TYPE_MAP[ pageType ] || 1)
     }
 }

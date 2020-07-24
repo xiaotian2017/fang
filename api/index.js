@@ -9,7 +9,7 @@ export const getAdviserList = fetch('adviser/list', {
 export const areaList = fetch('area/list', {
     detail: '区划列表'
 })
-export const getBrandList = fetch('brand/list', {
+export const getBrandList = fetch('/decoration/brand/list', {
     detail: '优质开发商品牌'
 })
 export const getNewsDeatil = fetch('news/detail', {
@@ -90,5 +90,4 @@ export const getTrafficStations = fetch('/traffic/stations', {
     detail: '地铁站点'
 })
 
-///api/
 

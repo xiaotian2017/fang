@@ -22,8 +22,6 @@ import SearchBox from "./house/search-box"
 import HouseMixins from "./js/houseMixins"
 
 
-import { LIST_TYPE } from "common/js/config"
-
 export default {
 	data() {
 		return {

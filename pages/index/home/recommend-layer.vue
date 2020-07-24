@@ -6,7 +6,7 @@
                 <view class="text">优质开发商品牌展</view>
                 <image class="img" src="../../../static/list/product1.jpg" />
             </view>
-            <view class="third">
+            <view class="third" @tap="toList('yun')">
                 <view class="mask"></view>
                 <view class="text">乐米云看房</view>
                 <image class="img" src="../../../static/list/product2.png" />
@@ -14,17 +14,17 @@
         </view>
     
         <view class="row">
-            <view class="third">
+            <view class="third" @tap="toList('improve')">
                 <view class="mask"></view>
                 <view class="text"><view class="txt">乐米推荐</view>改善楼盘</view>
                 <image class="img" src="../../../static/list/product1.jpg" />
             </view>
-            <view class="third">
+            <view class="third" @tap="toList('luxury')">
                 <view class="mask"></view>
                 <view class="text"><view class="txt">乐米推荐</view>顶级豪宅</view>
                 <image class="img" src="../../../static/list/product1.jpg" />
             </view>
-            <view class="third">
+            <view class="third" @tap="toList('need')">
                 <view class="mask"></view>
                 <view class="text"><view class="txt">乐米推荐</view>刚需楼盘</view>
                 <image class="img" src="../../../static/list/product2.png" />
@@ -35,13 +35,20 @@
 </template>
 
 <script>
+import { LIST_TYPE } from "common/js/config"
+
 export default {
 	methods: {
 		toDeveloper() {
 			uni.navigateTo({
 				url : "/pages/index/excellentDeveloper",
 			})
-		}
+        },
+        toList(type) {
+            uni.navigateTo({
+                url: `/pages/house/house?type=${type}`
+            })
+        }
 	}
 }
 </script>
