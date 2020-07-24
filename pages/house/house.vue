@@ -8,7 +8,7 @@
 		
 		<filter-box @getFilterParmas="getFilterParmas" v-model="filterDownVisible" />
 		<wrap>
-			<house-list  v-for="(item,i) in houselist" :key="i" :house=item  />
+			<house-list  v-for="(item,i) in dataList" :key="i" :house=item  />
 		</wrap>
 	</view>
 </template>
@@ -19,8 +19,9 @@ import Banner from "@/comps/banner"
 import FilterBox from "./house/filter-box"
 import HouseList from "@/comps/list/house-list.vue"
 import SearchBox from "./house/search-box"
+import HouseMixins from "./js/houseMixins"
 
-import { getHouseList } from "@/api"
+
 import { LIST_TYPE } from "common/js/config"
 
 export default {
@@ -28,68 +29,11 @@ export default {
 		return {
 			bannerList: [],
 			searchKey: "",
-			houselist: [],
-			total: 0,
-			keyword: null,
-			filterDownVisible: false
 		}
 	},
+	mixins: [ HouseMixins ],
 	methods: {
-		getFilterParmas(params) {
-			this.filterParams = params
-			this._getList()
-		},
-		confirmSearch(key) {
-			console.log(key)
-			this.keyword = key
-		},
-		_getList() {
-			getHouseList({ ...this.searchParams, ...this.filterParams }).then(data=>{
-				let { totalNum, pageSize, record } = data
-
-				if(this.total == 0) this.maxPages = Math.ceil(totalNum/pageSize)
-
-				this.houselist = this.houselist.concat(record)
-			})
-		},
-		getAdv() {
-			console.log(this.pageType)
-			this.$ADV_API.getList(this.pageType).then(data => {
-				this.bannerList = data.adverts
-				this.searchKey = data.serachbar.projectName
-			})
-		}
-	},
-	computed: {
-		searchBoxVisible() {
-			return !!this.keyword && !this.pageType
-		}
-	},
-	onReachBottom() {
-		if(this.searchParams.pageNum < this.maxPages) {
-			this.searchParams.pageNum++
-			this._getList()
-		}
-	},
-	onLoad(e) {
-		let { type } = e
-
-		this.pageType = type
-
-		this.searchParams = {
-			pageType: LIST_TYPE[type],
-			pageNum: 1,
-			pageSize: 4
-		}
-
-		//搜索框
-		this.filterParams = {}
-		this._getList()
-
-		this.getAdv()
-	},
-	created() {
-		console.log('1123')
+		
 	},
 	components: {
 		Banner,FilterBox,TopSearch,HouseList,SearchBox

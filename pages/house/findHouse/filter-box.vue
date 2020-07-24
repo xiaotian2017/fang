@@ -1,8 +1,17 @@
 <template>
     <view class="filter-box" :class="{open: showDropbox}">
-        <view class="title">条件筛选</view>
+        <wrap>
+			<top-search :searchKey=searchKey class="mt20" />
+            <view class="title">
+                条件筛选<view class="fr" @tap="showDropbox=true">展开</view>s
+            </view>
+		</wrap>
 
         <view class="filter-con" :class="{hidden:!showDropbox}" >
+            <view class="gap">
+                <banner type='adv' :list=bannerList />
+            </view>
+
             <filter-more  class=“filter-con-wrap” ref="filter" find="find" :otherData=filterData />
 
             <view class="tab-btn">
@@ -15,6 +24,9 @@
 
 <script>
 import FilterMore from "../house/filter/filter-more"
+import { getAreaList } from "@/api"
+import TopSearch from "@/comps/top-search"
+import Banner from "@/comps/banner"
 
 export default {
 	props: {
@@ -25,46 +37,41 @@ export default {
 			titIndex: -1,
 			showDropbox: true,
 			stationOpts: [],
-			filterData: []
+            filterData: [],
+            bannerList: [],
+            searchKey: ""
 		}
 	},
 	methods: {
+        getAdv() {
+			this.$ADV_API.getList('hot').then(data => {
+				this.bannerList = data.adverts
+				this.searchKey = data.serachbar.projectName
+			})
+		},
 		confirm() {
-			
-            this.formModel = this.$refs.filter.getModel()
-            
-            console.log(this.formModel)
-			this.$emit('getFilterParmas', params)
+            let model = this.$refs.filter.getModel();
+			this.$emit('getFilterParmas', model.params )
 			this.showDropbox = false
 		},
 		reset() {
-			this.$refs.filterArea.reset()
-			this.$refs.filterPrice.reset()
-			this.$refs.filterLayout.reset()
-			this.$refs.filterMore.reset()
-
-			this.tabData = [
-				{ key: 'area', name: '区域', },
-				{ key: 'price', name: '价格', },
-				{ key: 'layout', name: '户型'},
-				{ key: 'more', name: '更多' }
-			]
+			this.$refs.filter.reset()
 		},
 		tabClick(tit, index) {
             this.showDropbox = true
 			this.titIndex = index
 		},
 		_initData() {
+            this.cityAreaOpts = [
+                { name: '上城区', value: 1 }
+            ]
+            getAreaList({parentId: 2}).then(data => {
+				this.cityAreaOpts.push(...data)
+			})
 			this.filterData = [
                  {
                     name: '区域', key: 'district',
-                    options: [
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                    ]
+                    options: this.cityAreaOpts
                 },
                 {
                     name: '总价', key: 'minTotalPrice',
@@ -101,31 +108,19 @@ export default {
                         { name: '150以上', value: 6 },
                     ]
                 },
-                {
-                    name: '户型', key: 'houseType',
-                    options: [
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                    ]
-                },
-                {
-                    name: '户型',
-                    options: [
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                        { name: '50万', value: '0' },
-                    ]
-                }
+                { name: '房屋户型',key: 'houseType', options: [
+                        { name: '一室', value: 1 },
+                        { name: '二室', value: 2  },
+                        { name: '三室', value: 3 },
+                        { name: '四室', value: 4 },
+                        { name: '四室以上', value: 5  },
+                ] }
             ]
 		}
 	},
 	created() {
-		this._initData()
+        this._initData()
+        this.getAdv()
 	},
 	watch: {
 		// value: {
@@ -143,7 +138,7 @@ export default {
 		// }
 	},
 	components: {
-		FilterMore
+		FilterMore, TopSearch, Banner
 	}
 }
 </script>
@@ -155,7 +150,7 @@ export default {
         min-height: 100vh; z-index:10;
     }
 	.title{
-        height: 100rpx; line-height: 100rpx;
+        height: 100rpx; line-height: 100rpx; 
     }
 	.filter-con{
 		background: $bg; position: relative;

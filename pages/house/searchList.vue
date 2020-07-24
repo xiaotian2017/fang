@@ -15,6 +15,7 @@ import Banner from "@/comps/banner"
 import FilterBox from "./house/filter-box"
 import HouseList from "@/comps/list/house-list.vue"
 import SearchBox from "./house/search-box"
+import ListMixins from "common/js/listMixins"
 
 import { getHouseList } from "@/api"
 
@@ -28,27 +29,13 @@ export default {
 			keyword: null
 		}
 	},
+	mixins: [ ListMixins ],
 	methods: {
 		confirmSearch(key) {
 			this.keyword = key
 			this.houselist = [] 
 			this.pageNum = 1
 			this._getList()
-		},
-		_getList() {
-			let params = {
-				pageType: this.pageType,
-				pageNum: this.pageNum,
-				keyword: this.keyword,
-				pageSize: 4
-			}
-			getHouseList(params).then(data=>{
-				let { totalNum, pageSize, record } = data
-
-				if(this.total == 0) this.maxPages = Math.ceil(totalNum/pageSize)
-
-				this.houselist = this.houselist.concat(record)
-			})
 		},
 		getAdv() {
 			this.$ADV_API.getList(this.pageType).then(data => {

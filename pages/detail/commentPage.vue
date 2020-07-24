@@ -37,13 +37,13 @@ export default {
     },
     onShow() {
         this.pageNum = 1
+        
         this._getList()
     },
     onLoad() {
         this.addParams = {
             projectId: 1
         }
-        this._getList()
     },
     components: {
         CommentList,HouseList

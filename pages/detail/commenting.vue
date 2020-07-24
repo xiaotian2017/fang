@@ -36,9 +36,9 @@ export default {
                 params = {
                     ...params,
                     //一级评论的id
-                    realatedId: this.realatedId,
-                    //一级评论的用户id
-                    toId: this.fromId
+                    relatedId: parseInt(this.realatedId),
+                    //评论的评论 的用户id
+                    toId: parseInt(this.fromId)
                 }
             }else{
                 params = {

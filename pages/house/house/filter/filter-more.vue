@@ -16,17 +16,9 @@
 </template>
 
 <script>
-export default {
-    props: {
-        otherData:{},
-        value: {},
-        find: {}
-    },
-    data() {
-        return {
-            myModel: {},
-            active: {
-                0: -1,
+
+let DEF = {
+    0: -1,
                 1: -1,
                 2: -1,
                 3: -1,
@@ -43,16 +35,24 @@ export default {
                 14: -1,
                 15: -1,
                 16: -1,
-                17: -1,
-                18: -1,
+                17: -1,18: -1,
+}
+export default {
+    props: {
+        otherData:{},
+        value: {},
+        find: {}
+    },
+    data() {
+        return {
+            myModel: {},
+            active: {
+                ...DEF
             }
         }
     },
     methods: {
         onItemTap(item, findex, index, key) {
-            
-            console.log(this.active)
-
             if(this.active[findex] != index) {
                 this.active[findex] = index
                 this.myModel[key] = item.value
@@ -61,7 +61,6 @@ export default {
                 this.active[findex] = null
 
                 this.myModel[key] = ""
-                
             }
         },
         _onItemTap(item,fIndex, index, key) {
@@ -99,27 +98,32 @@ export default {
             }
         },
         getModel() {
+            let { unitPrice } = this.myModel,
+                params = { ...this.myModel }
+
+            if(unitPrice) {
+                let { minPrice, maxPrice } = unitPrice
+                if(minPrice) params.minPrice = minPrice
+                if(maxPrice) params.maxPrice = maxPrice
+
+                delete params.unitPrice
+            }
+            
             return {
-                params: {
-                    ...this.myModel
-                },
+                params,
                 txtName: this.txtName
             }
         },
         reset() {
             this.txtName = ""
             this.myModel = {}
-            this.active = {
-                0: { 0: null, 1: null, 2: null, 3:null, 4:null },
-                1: { 0: null, 1: null, 2: null, 3:null, 4:null },
-            }
+            this.active = { ...DEF }
         }
     },
     computed: {
         activeObj() {
             return (oi, si) => {
                 let flag = this[`active_${oi}`][si]
-                console.log(flag)
                 return flag
             }
         }
@@ -131,7 +135,7 @@ export default {
 .filter-tab-con{
     height: 600rpx;
     &.find{
-       height: auto;
+       height: auto; padding-bottom: 160rpx;
     }
 }
 .more-type {

@@ -19,7 +19,7 @@
             
             <view class="text-1">
 				{{listdata.content}}
-                <view class="text-2" v-for="(item, i) in listdata.list" :key="i">
+                <view class="text-2" v-for="(item, i) in listdata.list" :key="i" @tap="toCommenting(item)">
                     <!-- <text class="nick">用户A：</text> -->
                     <text class="nick">{{item.fromName}} 回复 {{item.toName}}：</text>
                     {{item.content}}
@@ -57,9 +57,14 @@ export default {
 				this.zanStatus = this.zanStatus == 0 ? 1 : 0
 			})
 		},
-		toCommenting() {
-			let { fromId, fromName, id} = this.listdata
-
+		toCommenting(item) {
+			let { id } = this.listdata
+			if(item) {
+				var { fromId, fromName } = item
+			}else{
+				var { fromId, fromName } = this.listdata
+			}
+			
 			uni.navigateTo({
                 url: `/pages/detail/commenting?fromId=${fromId}&fromName=${fromName}&realatedId=${id}`
             })

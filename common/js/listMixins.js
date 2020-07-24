@@ -11,7 +11,10 @@ export default {
                 pageNum: this.pageNum,
                 pageSize: this.pageSize,
                 ...this.addParams
-            }   
+            }  
+            if(this.pageNum == 1) {
+                this.dataList = []
+            } 
             this.listApi(params).then(data=>{
                 let { totalNum, pageSize, record } = data
 
