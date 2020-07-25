@@ -3,7 +3,7 @@
         <wrap>
 			<top-search :searchKey=searchKey class="mt20" />
             <view class="title">
-                条件筛选<view class="fr" @tap="showDropbox=true">展开</view>s
+                条件筛选<view class="fr" @tap="showDropbox=!showDropbox">{{showDropbox?'关闭':'展开'}}</view>
             </view>
 		</wrap>
 
@@ -123,19 +123,19 @@ export default {
         this.getAdv()
 	},
 	watch: {
-		// value: {
-		// 	immediate: true,
-		// 	handler(flag) {
-		// 		this.showDropbox = flag
-		// 	}
-		// },
-		// showDropbox(flag) {
-		// 	this.$emit('input', flag)
+		value: {
+			immediate: true,
+			handler(flag) {
+				this.showDropbox = flag
+			}
+		},
+		showDropbox(flag) {
+			this.$emit('input', flag)
 
-		// 	if(!flag) {
-		// 		this.titIndex = -1
-		// 	}
-		// }
+			if(!flag) {
+				this.titIndex = -1
+			}
+		}
 	},
 	components: {
 		FilterMore, TopSearch, Banner

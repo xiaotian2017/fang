@@ -121,7 +121,7 @@ export default {
 
 		this._initData()
 
-		this.getDeatilInfo(1).then(() => {
+		this.getDeatilInfo(this.houseId).then(() => {
 			this.loading = false
 		})
 		this.getHouseNews({pageNum:1})

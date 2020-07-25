@@ -75,15 +75,16 @@ export default {
 	computed: {
 		...mapGetters('sDetail', ['lotteryGuides']),
 		guideData() {
-			return this.lotteryGuides[this.tabIndex].guide
+			return this.lotteryGuides[this.tabIndex] && this.lotteryGuides[this.tabIndex].guide
 		},
 		houseTypeData() {
+			let { totalHouseNum,talentHouseNum, secondHouseNum,firstHouseNum } = this.guideData || {}
 			return [
 				{ 	type: '房源套数', 
-					all: this.guideData.totalHouseNum, 
-					person: this.guideData.talentHouseNum, 
-					has: this.guideData.secondHouseNum, 
-					hasnt: this.guideData.firstHouseNum 
+					all: totalHouseNum, 
+					person: talentHouseNum, 
+					has: secondHouseNum, 
+					hasnt: firstHouseNum 
 				}
 			]
 		},

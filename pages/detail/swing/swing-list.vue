@@ -1,5 +1,5 @@
 <template>
-    <view class="swing-list fz gap">
+    <view class="swing-list fz gap" v-if="listdata.lotteryTime">
         <view class="row row1">
             <view class="title">{{listdata.projectName}}</view>
             <view class="price">{{listdata.priceRemark}}</view>

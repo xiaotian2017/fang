@@ -2,7 +2,7 @@
     <view class="find-house">
         <filter-box v-model="filterVisible" @getFilterParmas="getFilterParmas" />
 
-        <wrap>
+        <wrap v-if="!filterVisible">
 			<house-list  v-for="(item,i) in dataList" :key="i" :house=item  />
 		</wrap>
     </view>
@@ -17,7 +17,7 @@ import HouseList from "@/comps/list/house-list.vue"
 export default {
     data() {
         return {
-            filterVisible: false,
+            filterVisible: true,
             listApi: getHouseList
         }
     },

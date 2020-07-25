@@ -7,7 +7,7 @@
 					@click="tabClick(i)"
 					class="tab-list scroll-view-item">{{tab.name}}</view>
 		</scroll-view>
-		<article-list v-for="(item, i) in tabList[activeIndex].listData" :key="i" />
+		<article-list v-for="(item, i) in listData" :listdata=item :key="i" />
 	</view>
 </template>
 
@@ -19,42 +19,67 @@ export default {
 	data() {
 		return {
 			tabList: [
-				{ name: '最新文章', value: 'd1'},
+				{ name: '最新文章', value: 'd1', listData: []},
 				{ name: '摇号指南', value: 'd2'},
 				{ name: '乐米问答', value: 'd3'},
 				{ name: '乐米评盘', value: 'd4'},
 				{ name: '乐米情报', value: 'd5'},
 				{ name: '最新文章', value: 'd6'},
 			],
+			listData: [],
 			activeIndex: 0
 		};
 	},
 	methods: {
 		tabClick(index) {
 			this.activeIndex = index
-			this.getList()
+			this.changeList()
 		},
 		getTypes() {
 			getNewsType().then(data => {
 				this.tabList = data
-				this.getList()
+				this._getList()
 			})
 		},
-		getList() {
+		changeList() {
 			let cur = this.tabList[this.activeIndex]
+			
+			this.listData = []
+			
 			if(!cur.listData) {
-				let params = {
-					pageNum: 1,
-					pageSize: 99,
+				this.pageNum = 1
+				this._getList()
+			}else{
+				this.listData = cur.listData
+			}
+		},
+		_getList() {
+			let cur = this.tabList[this.activeIndex]
+			let params = {
+					pageNum: this.pageNum,
+					pageSize: 3,
 					type: cur.value
 				}
-				getNewsList(params).then(data => {
-					this.tabList[this.activeIndex].listData = data.record
-				})
+			if(this.pageNum == 1) this.listData = []
+
+			getNewsList(params).then(data => {
+				let { record, totalNum, pageSize } = data
+				this.listData = this.listData.concat(record)
+				cur.listData = this.listData
+
+				if(!this.maxPages) this.maxPages = Math.ceil(totalNum/pageSize)
+			})
+		},
+		getMore() {
+			if(this.pageNum < this.maxPages) {
+				this.pageNum++
+				this._getList()
 			}
 		}
 	},
+	
 	created() {
+		this.pageNum = 1
 		this.getTypes()
 	},
 	components:{

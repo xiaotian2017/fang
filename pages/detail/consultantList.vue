@@ -61,7 +61,7 @@ export default {
 		...mapState('sDetail', ['projectId'])
 	},
 	onLoad() {
-		this.addParams = { projectId: 1 }
+		this.addParams = { projectId: this.projectId }
 		this._getList()
 	},
 }

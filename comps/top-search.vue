@@ -56,6 +56,7 @@ $top: 30rpx;
 
 .search-box{
 	height:$hei; position:relative; border-radius: 4rpx; box-shadow: 0 0 6rpx 0 rgba(0,0,0,.2);line-height: $hei;
+	margin-top: 20rpx;
 	.search-icon{
 		position: absolute; left:20rpx; @include top-center;
 	}

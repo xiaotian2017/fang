@@ -18,7 +18,7 @@
 		<!-- 广告条 -->
 		<banner :list="advList" height=130  />
 		<!-- 最新文章 -->
-		<latest-article />
+		<latest-article ref="latestArticle" />
 
 		<auth-dialog v-if="authDialogVisible" />
 	</view>
@@ -70,6 +70,9 @@ export default {
 		_initData() {
 			
 		},
+	},
+	onReachBottom() {
+		this.$refs.latestArticle.getMore()
 	},
 	components: {
 		TopSearch,

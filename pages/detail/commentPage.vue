@@ -42,7 +42,7 @@ export default {
     },
     onLoad() {
         this.addParams = {
-            projectId: 1
+            projectId: this.projectId
         }
     },
     components: {
