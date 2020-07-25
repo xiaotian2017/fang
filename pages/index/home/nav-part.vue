@@ -21,7 +21,7 @@ export default {
                 { name:'正在登记', number: '36', color: '#beb219' , type: 'checking'},
 
                 { name:'摇号查询', icon: 'contact', type: 'swingSearch' },
-                { name:'二手房查价', icon: 'contact' , type: 'hand'},
+                { name:'二手房查价', icon: 'contact' , path: '/hand/price/checkPrice'},
                 { name:'不限购房产', icon: 'contact' , type: 'unlimitedPurchase'},
                 
                 { name:'乐米文章', icon: 'contact' },
@@ -34,9 +34,15 @@ export default {
     },
     methods: {
         toHouseList(item) {
+            let url = item.path
+            if(item.type) {
+                url = `/pages/house/house?type=${item.type}`
+            }
+            console.log(url)
             uni.navigateTo({
-                url: `/pages/house/house?type=${item.type}`
+                url
             })
+            
         },
     }
 }

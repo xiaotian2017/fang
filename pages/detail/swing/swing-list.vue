@@ -44,7 +44,9 @@ export default {
     },
     computed: {
         date() {
-            return getFormatDate(this.listdata.lotteryTime, "yyyy-MM-dd")
+            if(this.listdata) {
+                return getFormatDate(this.listdata.lotteryTime, "yyyy-MM-dd")
+            }
         }
     }
 }

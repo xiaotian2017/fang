@@ -31,7 +31,7 @@
 			</view>
 		</view>
 
-		<step />
+		<step :steps="guideData.items" />
 		<view class="hr30" />
 		<!--房源类型-->
 		<simple-table :headers="houseTypeHeaders" :datas="houseTypeData" />

@@ -1,12 +1,13 @@
 <template>
     <!--二手房查价-->
     <view class="check-price">
+        二手房查价啊
         <!-- <mpvue-echarts class="ec-canvas"  :echarts=echarts @onInit="lineInit" canvasId="line" ref="lineChart" /> -->
     </view>
 </template>
 
 <script>
-// const echarts = require('./echarts.min.js');
+// const echarts = require('./common/echarts.min.js');
 const colors = ['#5793f3', '#d14a61', '#675bba']
 const options = {
     color: colors,
@@ -126,7 +127,7 @@ import mpvueEcharts from '@/components/mpvue-echarts/src/echarts';
 export default {
 	data() {
 		return {
-			echarts: { ...echarts,setCanvasCreator: echarts.setCanvasCreator },
+			// echarts: { ...echarts,setCanvasCreator: echarts.setCanvasCreator },
 			// lineInit: lineInit
 		}
 	},
@@ -148,7 +149,7 @@ export default {
 		}
 	},
     mounted() {
-		console.log('---',this.echarts.setCanvasCreator)
+		// console.log('---',this.echarts.setCanvasCreator)
 		// setTimeout(() => {
 			
 		// }, 1000)

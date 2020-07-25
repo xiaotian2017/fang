@@ -3,7 +3,8 @@ import { getHouseDeatil,getHouseNews } from "@/api"
 const types = {
     HOUSE_DETAIL: 'HOUSE_DETAIL',
     HOUSE_NEWS: 'HOUSE_NEWS',
-    PROJECT_ID: 'PROJECT_ID'
+    PROJECT_ID: 'PROJECT_ID',
+    PROJECT_NAME: 'PROJECT_NAME'
 }
 /**
  *   imgs: [],
@@ -28,6 +29,7 @@ const store = {
     namespaced: true,
     state: {
         projectId: null,
+        projectName: null,
         houseDetail: null,
         houseNews: [],
     },
@@ -66,6 +68,13 @@ const store = {
                 ret = state.houseDetail.lotteryGuides
             }
             return ret
+        },
+        layoutMore(state) {
+            let ret = {}
+            if(state.houseDetail) {
+                ret = state.houseDetail.supply
+            }
+            return ret
         }
     },
     mutations: {
@@ -78,6 +87,9 @@ const store = {
         [types.HOUSE_NEWS]: (state, data) => {
             state.houseNews = state.houseNews.concat(data)
         },
+        [types.PROJECT_NAME]: (state, data) => {
+            state.projectName = data
+        },
     },
     actions: {
         async getDeatilInfo({ commit }, projectId){
@@ -85,6 +97,7 @@ const store = {
 
             await getHouseDeatil({ projectId }).then(data => {
                 commit(types.HOUSE_DETAIL, data)
+                commit(types.PROJECT_NAME, data.project.projectName)
 			})
         },
         getHouseNews({ commit,state }, {pageNum}) {

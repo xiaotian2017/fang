@@ -8,14 +8,21 @@
 		<wrap>
 			<view class="label-tabs"  v-if="tabIndex==0">
 				<view v-for="(label, i) in labelList" :key="i" @tap="onLabelChange(i)" :class="{active: i==labelIndex}">
-					{{label.txt}}({{label.num}})
+					{{label.categoryName}}({{label.count}})
 				</view>
 			</view>
 
-			<view class="layout-con">
+			<template v-if="tabIndex==2">
+				<view class="more">
+					<img-box class="img"  :src="layoutMore.imgUrl" />
+					<view class="txt mt20">{{layoutMore.content}}</view>
+				</view>
+			</template>
+
+			<view v-else class="layout-con">
 				<view class="layout-list" v-for="(item, i) in listData" :key="i">
 					<view class="img-w">
-						<img-box />
+						<img-box :src="item.imgUrl" />
 					</view>
 					<template v-if="tabIndex==0">
 						<ul class="txt-w">
@@ -26,14 +33,16 @@
 						</ul>
 					</template>
 					
-					<template v-else>
+					<template v-else-if="tabIndex==1">
 						<ul class="txt-w">
-							<li><text>登记时间：</text> {{price}}</li>
-							<li><text>房源：</text>：</li>
-							<li><text>房源面积：</text>260㎡</li>
-							<li><text>均价：</text>29000元/㎡</li>
+							<li><text>登记时间：</text> {{item.regTime}}</li>
+							<li><text>房源：</text>{{item.resource}}</li>
+							<li><text>房源面积：</text>{{item.area}}</li>
+							<li><text>均价：</text>{{item.averagePrice}}/㎡</li>
 						</ul>
 					</template>
+
+					
 				</view>
 			</view>
 
@@ -45,12 +54,12 @@
 <script>
 import BotBtns from "./detail/bot-btns"
 import { getHouseModels, getHousePrice } from "@/api"
-import { mapState } from "vuex"
+import { mapState, mapGetters } from "vuex"
 
 export default {
 	data() {
 		return {
-			tabIndex: 0,
+			tabIndex: -1,
 			labelIndex: 0,
 			tabList:[ '户型图', '一房一价', '更多'],
 			labelList: [
@@ -68,33 +77,71 @@ export default {
 		},
 		onLabelChange(index) {
 			this.labelIndex = index
+			this.listData = []
+
+			this.listData = this.layoutList[this.labelIndex].list
 		},
 		getLayouts() {
-			getHouseModels({ projectId: this.projectId }).then(data => {
-				this.listData = data.list
-
-				
-			})
+			this.listData = []
+			if(!this.layoutList) {
+				getHouseModels({ projectId: this.projectId || 1 }).then(data => {
+					this.layoutList = data.list
+					this.labelList = data.type
+					this.listData = this.layoutList[this.labelIndex].list
+				})
+			}
 		},
 		getPriceList() {
-			getHousePrice({ projectId: this.projectId }).then(data => {
-				this.listData = data
+			if(this.pageNum == 1)  this.listData = []
+			
+			getHousePrice({ 
+				pageNum: this.pageNum,
+				pageSize: 6,
+				projectId: this.projectId || 1 
+			}).then(data => {
+				let { totalNum, pageSize, record } = data
+
+                record = record || data
+    
+                if(!this.maxPages) this.maxPages = Math.ceil(totalNum/pageSize)
+    
+				this.listData = this.listData.concat(record)
 			})
+		}
+	},
+	onReachBottom() {
+		if(this.tabIndex == 1) {
+			if(this.pageNum < this.maxPages) {
+				this.pageNum++
+				this.getPriceList()
+			}
 		}
 	},
 	computed: {
-		...mapState('sDetail', ['projectId'])
+		...mapState('sDetail', ['projectId','projectName']),
+		...mapGetters('sDetail', ['layoutMore'])
+	},
+	watch: {
+		tabIndex:{
+			immediate: true,
+			handler(val) {
+				if(val == 1 ) {
+					this.pageNum = 1
+					this.getPriceList()
+				}else if(val==0){
+					this.getLayouts()
+				}
+			}
+		}
 	},
 	onLoad(e) {
-		uni.setNavigationBarTitle({
-		　　title:'悦府-户型图'
-		})
-		if(e.type == 1 ) {
-			this.tabIndex = 1
-		}else{
-			this.getLayouts()
-		}
+		this.tabIndex = e.type || 0
+
 		
+
+		uni.setNavigationBarTitle({
+		　　title: this.projectName
+		})
 	},
 	components: {
 		BotBtns
@@ -136,6 +183,14 @@ export default {
 				color: #999;width: 140rpx; display: inline-block;
 			}
 		}
+	}
+}
+.more{
+	.img{
+
+	}
+	.txt{
+
 	}
 }
 </style>

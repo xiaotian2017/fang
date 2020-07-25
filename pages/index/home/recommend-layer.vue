@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import { LIST_TYPE } from "common/js/config"
-
 export default {
 	methods: {
 		toDeveloper() {

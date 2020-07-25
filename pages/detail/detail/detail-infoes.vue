@@ -21,6 +21,10 @@ const DETAIL_MAP = {
     parkingUnitPercent: '车位比：',
     houseNum: '总户数：'
 }
+const decorateStatus_map = {
+    0: '毛坯',
+    1: '精装'
+}
 export default {
     computed: {
         ...mapGetters('sDetail',['houseInfo']),
@@ -40,7 +44,13 @@ export default {
 
             ret = []
             for(let key in DETAIL_MAP) {
-                ret.push({ label: DETAIL_MAP[key], val: this.houseInfo[key] })
+                let label = DETAIL_MAP[key],
+                    val = this.houseInfo[key]
+               
+                if(key == 'decorateStatus') {
+                    val = decorateStatus_map[val]
+                }
+                ret.push({ label, val })
             }
             return ret
         }

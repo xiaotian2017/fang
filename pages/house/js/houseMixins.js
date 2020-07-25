@@ -27,12 +27,18 @@ export default {
 		},
     },
     onLoad(e) {
-        let { type } = e
-		this.pageType = type
+        let { type } = e,
+            temp =  LIST_TYPE[type]
+        this.pageType = temp[0]
+        
 		this.addParams = {
-			pageType: LIST_TYPE[type],
+			pageType: this.pageType
 		}
-		this._getList()
+        this._getList()
+        
+        uni.setNavigationBarTitle({
+            title:`乐米选房-${temp[1]}`
+        })
 
 		this.getAdv && this.getAdv()
     }

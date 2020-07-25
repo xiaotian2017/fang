@@ -58,7 +58,7 @@
 			},
 			focus: {
 				type: Boolean,
-				default: 100
+				default: false
 			}
 		},
 		data() {

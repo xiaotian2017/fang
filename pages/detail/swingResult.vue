@@ -1,6 +1,6 @@
 <template>
 	<view class="swing-result fz">
-		<uni-search-bar :radius="100" class="search-bar" @confirm="search" @input="input" placeholder="请输入身份证号后四位、登记号、编号查询" ></uni-search-bar>
+		<uni-search-bar :radius="100" class="search-bar" @cancel="search" @confirm="search" placeholder="请输入身份证号后四位、登记号、编号查询" ></uni-search-bar>
 		<view class="result-con">
 			<view class="result-list" v-for="(item, i) in dataList" :key="i">
 				<view class="item">
@@ -45,18 +45,19 @@ export default {
 	},
 	mixins: [ ListMixins ],
 	methods: {
-		search() {
-
-		},
-		input() {
-
+		search(query) {
+			this.pageNum = 1
+			this.addParams = {
+				keyword: query.value
+			}
+			this._getList()
 		}
 	},
 	computed: {
 		...mapState('sDetail', ['projectId'])
 	},
 	onLoad() {
-		this.addParams = { projectId: this.projectId }
+		this.addParams = { projectId: this.projectId || 1 }
 		this._getList()
 	},
 	components: {

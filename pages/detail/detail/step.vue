@@ -1,21 +1,24 @@
 <template>
-	<scroll-view class="step-con fz" scroll-x="true" scroll-with-animation :show-scrollbar=false>
+	<scroll-view v-if="steps.length>0" class="step-con fz" scroll-x="true" scroll-with-animation :show-scrollbar=false>
 		<view 	class="step-item" 
-				v-for="(item, i) in opts" 
+				v-for="(item, i) in steps" 
 				:class="{'active':i==curIndex, 'ed':i<curIndex}"
 				:key="i">
-			<view class="tit">{{item.title}}</view>
-			<view class="time">{{item.desc}}</view>
+			<view class="tit">{{item.process}}</view>
+			<view class="time">{{item.time}}</view>
 		</view>
 	</scroll-view>
 </template>
 
 <script>
-	
 export default {
+	props: {
+		steps: {
+			default: () => []
+		}
+	},
 	data() {
 		return {
-			curIndex: 1,
 			opts: [
 				{
 					title: "预售",
@@ -50,8 +53,20 @@ export default {
 			]
 		}
 	},
-	components:{
-		
+	computed: {
+		curIndex() {
+			let ret = 0
+
+			this.steps.find((item, index) => {
+				if(item.status ==1) {
+					ret = index
+					return true
+				}
+			})
+
+			console.log(ret)
+			return ret
+		}
 	}
 }	
 </script>
