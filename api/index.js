@@ -89,5 +89,12 @@ export const getTrafficRoutes = fetch('/traffic/routes', {
 export const getTrafficStations = fetch('/traffic/stations', {
     detail: '地铁站点'
 })
+export const addConcern = fetch('/user/concern/add', {
+    detail:'关注'
+})
+export const deleteConcern = fetch('/user/concern/delete', {
+    detail:'取消关注'
+})
+
 
 

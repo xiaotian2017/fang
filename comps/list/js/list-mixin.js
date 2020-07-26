@@ -31,8 +31,12 @@ export const houseMixin = {
 	},
 	methods: {
 		toDetail() {
+			let url = `../../pages/detail/detail?id=${this.house.id}`
+
+			//url  = "/pages/detail/map"
+
 			uni.navigateTo({
-				url: `../../pages/detail/detail?id=${this.house.id}`,
+				url ,
 				animationDuration:300,
 				animationType:'pop-in'
 			})

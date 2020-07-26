@@ -29,7 +29,7 @@
 				</view>
 				<view class="location">
 					<uni-icons class="address-icon" color="#1296db" size="14" type="location-filled" />
-					<text>{{houseInfo.address}}</text>
+					<text @tap="toMap">{{houseInfo.address}}</text>
 					<text>></text>
 				</view>
 			</view>
@@ -92,6 +92,11 @@ export default {
 		this._initData()
 	},
 	methods: {
+		toMap() {
+			uni.navigateTo({
+				url: '/pages/detail/map'
+			})
+		},
 		_initData() {
 		},
 		toImgShow(type) {

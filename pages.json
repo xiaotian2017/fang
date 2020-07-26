@@ -108,6 +108,11 @@
 				"navigationBarTitleText": "我要加群"
 			}
 		},{
+			"path" : "pages/detail/map",
+			"style" : {
+				"navigationBarTitleText": "地图"
+			}
+		},{
 			"path" : "pages/article/article",
 			"style" : {
 				"navigationBarTitleText": "公众号文章"

@@ -7,12 +7,15 @@
                 <view>{{focusConfig.txt}}</view>
             </view>
             <button class="consult mybtn" v-if="item.type=='consult'" @tap="toConsult" :key="i">咨询顾问</button>
-            <button class="share mybtn" v-if="item.type=='share'" :key="i">我要分享</button>
+            <button class="share mybtn" v-if="item.type=='share'" open-type="share" :key="i" @tap="onShare">我要分享</button>
         </template>
     </view>
 </template>
 
 <script>
+import { mapState } from "vuex"
+import { addConcern, deleteConcern } from "@/api"
+
 export default {
     props: {
         list: {
@@ -30,13 +33,30 @@ export default {
     },
     methods: {
         toggleFocus() {
-            console.log('is')
             this.isFocus = !this.isFocus
+
+            if(this.isFocus) {
+                addConcern()
+            }
         },
         toConsult() {
             uni.navigateTo({
                 url: '/pages/detail/consultantList'
             })
+        },
+        onShare() {
+            uni.share({
+                provider: "weixin",
+                scene: "WXSceneSession",
+                type: 1,
+                summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+                success: function (res) {
+                    console.log("success:" + JSON.stringify(res));
+                },
+                fail: function (err) {
+                    console.log("fail:" + JSON.stringify(err));
+                }
+            });
         }
     },
     computed: {
@@ -57,7 +77,11 @@ export default {
                 }
             }
             return ret
-        }
+        },
+        ...mapState('sDetail', ['houseDetail'])
+    },
+    mounted() {
+        this.isFocus = this.houseDetail.concern
     }
 }
 </script>

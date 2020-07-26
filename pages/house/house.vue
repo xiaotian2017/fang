@@ -41,7 +41,6 @@ export default {
 
 <style lang="scss" scoped>
 .house-layout{
-	padding-top: 30rpx; 
 	&.fixed{
 		position: fixed; width: 100%;
 	}
