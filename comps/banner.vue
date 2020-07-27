@@ -2,7 +2,7 @@
 	<view class="banner-box">
 		<swiper class="swiper" :style="{height: imgHei}" :circular=true :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
 			<swiper-item v-for="(item, i) in listes" :key="i">
-				<image class="img" :src="item.imgUrl||item" :style="{height: imgHei}"  @tap="toPage"></image>
+				<image class="img" :src="item.imgUrl" :style="{height: imgHei}"  @tap="toPage"></image>
 			</swiper-item>
 		</swiper>
 	</view>
@@ -43,14 +43,14 @@
 				}
 				if(this.type == "adv") {
 					return [
-						{ src: '../static/list/adv.png' },
-						{ src: '../static/list/adv.png' }
+						{ imgUrl: '../static/list/adv.png' },
+						{ imgUrl: '../static/list/adv.png' }
 					]
 				}else{
 					return [
-						{ src: '../static/list/product1.jpg' },
-						{ src: '../static/list/product2.png' },
-						{ src: '../static/list/product1.jpg' },
+						{ imgUrl: '../static/list/product1.jpg' },
+						{ imgUrl: '../static/list/product2.png' },
+						{ imgUrl: '../static/list/product1.jpg' },
 					]
 				}
 			}

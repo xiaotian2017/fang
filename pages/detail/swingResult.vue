@@ -18,6 +18,9 @@
 				<view class="item">
 					<text class="txt">摇号编码：</text>{{item.lotteryNo}}
 				</view>
+				<view class="item">
+					<text class="txt">摇号楼栋：</text>16栋
+				</view>
 			</view>
 			
 		</view>
