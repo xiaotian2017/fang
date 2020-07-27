@@ -188,6 +188,7 @@
 		font-size: $uni-font-size-base;
 		color: $uni-text-color-placeholder;
 		margin-left: 5px;
+		line-height: 55rpx;
 	}
 
 	.uni-searchbar__cancel {

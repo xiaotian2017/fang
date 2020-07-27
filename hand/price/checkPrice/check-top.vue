@@ -1,6 +1,6 @@
 <template>
     <view class="check-top">
-        <uni-search-bar :radius="100" class="search-bar" @cancel="search" @confirm="search" placeholder="输入关键词查询" ></uni-search-bar>
+        <uni-search-bar :radius="100" class="search-bar" @cancel="search" @confirm="search" placeholder="输入楼盘、小区名查询" ></uni-search-bar>
 
         <analysis-list :dataList="analysisData" />
     </view>
@@ -37,3 +37,11 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.search-bar{
+    position: fixed; width:100%; z-index: 10; background: #fff; left:0; top:0;
+}
+.check-top{
+    padding-top: 120rpx;
+}
+</style>
