@@ -1,6 +1,5 @@
 <template>
     <view class="bot-btns">
-        
         <template v-for="(item, i) in list" >
             <view class="focus" v-if="item.type=='focus'" :key="i" @tap="toggleFocus" :class="{focused: isFocus}">
                 <uni-icons :type="focusConfig.type" size="16" :color="focusConfig.color" />
@@ -35,8 +34,9 @@ export default {
     methods: {
         toggleFocus() {
             //this.isFocus = !this.isFocus
+            console.log(this.houseInfo)
             if(!this.isFocus) {
-                CONCERN_API.focusProject(this.projectId, this.houseDetail.projectName).then(data => {
+                CONCERN_API.focusProject(this.projectId, this.houseDetail.project.name).then(data => {
                     this.setConcernStatus(1)
                 })
             }else{
@@ -111,7 +111,7 @@ export default {
 		}
     }
     .focus{
-        width: 110rpx; text-align:center; font-size: 28rpx;
+        width: 114rpx; text-align:center; font-size: 28rpx;
         &.focused{
             color: red;
         }

@@ -1,7 +1,7 @@
 <template>
 	<view class="detail-info">
 		<view class="tabs-top">
-			<view class="tab active" v-for="(tab, i) in lotteryGuides" :key="i" :class="{active: i==tabIndex}">{{tab.building}}</view>
+			<view class="tab" v-for="(tab, i) in lotteryGuides" :key="i" @tap="changeTab(i)" :class="{active: i==tabIndex}">{{tab.building}}</view>
 		</view>
 		<view class="tit ">摇号指南</view>
 		<view class="guide-t">
@@ -57,6 +57,9 @@ export default {
 		}
 	},
 	methods: {
+		changeTab(index) {
+			this.tabIndex = index
+		},
 		_initData() {
 			this.houseTypeHeaders = [
 				{ label: '房源类型', key: 'type' },
@@ -68,7 +71,7 @@ export default {
 		},
 		toResult() {
 			uni.navigateTo({
-				url:'/pages/detail/swingResult'
+				url:`/pages/detail/swingResult?building=${this.lotteryGuides[this.tabIndex].building}`
 			})
 		}
 	},
