@@ -1,10 +1,10 @@
 import { setAuth } from "@/api"
+import { User_Info } from "@/api/storage"
 
 export const dealAuth = () => {
     return new Promise((resolve, reject) => {
 
-        return
-        if(uni.getStorageSync('userInfo')) {
+        if(User_Info.userInfo) {
             return 
         }
         
@@ -21,7 +21,7 @@ export const dealAuth = () => {
                                 ...userInfo, 
                                 openId: openid
                             }).then(data => {
-                                uni.setStorageSync('userInfo', data)   
+                                User_Info.userInfo = data
                             })
                         })
                     }

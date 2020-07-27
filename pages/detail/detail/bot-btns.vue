@@ -13,8 +13,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState, mapActions } from "vuex"
 import { addConcern, deleteConcern } from "@/api"
+import { CONCERN_API } from "@/api/complex"
 
 export default {
     props: {
@@ -28,15 +29,20 @@ export default {
     },
     data() {
         return {
-            isFocus: false
+            //isFocus: false
         }
     },
     methods: {
         toggleFocus() {
-            this.isFocus = !this.isFocus
-
-            if(this.isFocus) {
-                addConcern()
+            //this.isFocus = !this.isFocus
+            if(!this.isFocus) {
+                CONCERN_API.focusProject(this.projectId, this.houseDetail.projectName).then(data => {
+                    this.setConcernStatus(1)
+                })
+            }else{
+                CONCERN_API.cancelFocusProject(this.projectId).then(data => {
+                    this.setConcernStatus(0)
+                })
             }
         },
         toConsult() {
@@ -57,7 +63,8 @@ export default {
                     console.log("fail:" + JSON.stringify(err));
                 }
             });
-        }
+        },
+        ...mapActions('sDetail', ['setConcernStatus'])
     },
     computed: {
         focusConfig() {
@@ -78,10 +85,13 @@ export default {
             }
             return ret
         },
-        ...mapState('sDetail', ['houseDetail'])
+        isFocus() {
+            return this.houseDetail.project.concern
+        },
+        ...mapState('sDetail', ['houseDetail','projectId'])
     },
     mounted() {
-        this.isFocus = this.houseDetail.concern
+        //this.isFocus = this.houseDetail.concern
     }
 }
 </script>

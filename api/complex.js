@@ -1,4 +1,5 @@
-import { getAdv } from "./index"
+import { getAdv, addConcern, deleteConcern } from "./index"
+import { User_Info } from "@/api/storage"
 
 export const ADV_API =  {
     TYPE_MAP:  {
@@ -52,7 +53,38 @@ export const ADV_API =  {
 
 export const CONCERN_API = {
     concernType: {
+        // 楼盘
         project: 0,
-        const
+        // 顾问
+        consultant: 1,
+        // 文章
+        article: 2,
+        // 品牌
+        brand: 3
+    },
+    addConcern({ type, id, name}) {
+        let params = {
+            concernId: id,
+            concernName: name,
+            type: this.concernType[type],
+            userId: User_Info.id,
+        }
+        return addConcern(params).then(data => {
+
+        })
+    },
+    cancelConcern({ type, id }) {
+        let params = {
+            concernId: id,
+            type: this.concernType[type],
+            userId: User_Info.id,
+        }
+        return deleteConcern(params)
+    },
+    focusProject(id, name) {
+        return this.addConcern({ type: 'project', id, name  })
+    },
+    cancelFocusProject(id) {
+        return this.cancelConcern({ type:'project', id })
     }
 }

@@ -89,6 +89,8 @@ export default {
 					this.labelList = data.type
 					this.listData = this.layoutList[this.labelIndex].list
 				})
+			}else{
+				this.listData = this.layoutList[this.labelIndex].list
 			}
 		},
 		getPriceList() {

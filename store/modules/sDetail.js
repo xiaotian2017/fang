@@ -89,7 +89,7 @@ const store = {
         },
         [types.PROJECT_NAME]: (state, data) => {
             state.projectName = data
-        },
+        }
     },
     actions: {
         async getDeatilInfo({ commit }, projectId){
@@ -109,6 +109,13 @@ const store = {
             getHouseNews(params).then(data => {
                 commit(types.HOUSE_NEWS, data.record)
             })
+        },
+        setConcernStatus({ commit, state }, status ) {
+            let houseDetail = { ...state.houseDetail }
+
+            houseDetail.project.concern = status
+
+            commit(types.HOUSE_DETAIL, houseDetail)
         }
     }
 }

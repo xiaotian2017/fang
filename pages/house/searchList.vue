@@ -3,8 +3,8 @@
 		<search-box @confirmSearch="confirmSearch" />
 		
 		<wrap>
-			<view v-if="houselist.length==0">数据为空，换个关键词搜索看看</view>
-			<house-list v-else v-for="(item,i) in houselist" :key="i" :house=item  />
+			<view v-if="dataList.length==0">数据为空，换个关键词搜索看看</view>
+			<house-list v-else v-for="(item,i) in dataList" :key="i" :house=item  />
 		</wrap>
 	</view>
 </template>
@@ -15,9 +15,8 @@ import Banner from "@/comps/banner"
 import FilterBox from "./house/filter-box"
 import HouseList from "@/comps/list/house-list.vue"
 import SearchBox from "./house/search-box"
-import ListMixins from "common/js/listMixins"
 
-import { getHouseList } from "@/api"
+import HouseMixins from "./js/houseMixins"
 
 export default {
 	data() {
@@ -29,12 +28,15 @@ export default {
 			keyword: null
 		}
 	},
-	mixins: [ ListMixins ],
+	mixins: [ HouseMixins ],
 	methods: {
 		confirmSearch(key) {
 			this.keyword = key
 			this.houselist = [] 
 			this.pageNum = 1
+			this.addParams = {
+				keyword: key
+			}
 			this._getList()
 		},
 		getAdv() {
@@ -55,16 +57,17 @@ export default {
 			this._getList()
 		}
 	},
-	onLoad(e) {
-		let { type } = e
-
-		this.pageType = type
-
-		this.pageSize = 10
-		this.pageNum = 1
+	onLoad() {
+		console.log('xxx')
+        this.pageType = 1
+        this.addParams = {
+            pageType: this.pageType,
+        }
+        
 		this._getList()
-
-		this.getAdv()
+	},
+	created() {
+		//this.pageType = "hot"
 	},
 	components: {
 		Banner,FilterBox,TopSearch,HouseList,SearchBox

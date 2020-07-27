@@ -34,7 +34,7 @@ export default {
         }
     },
     created() {
-        getHouseList({pageType: 1}).then(data => {
+        getHouseList({pageType: 1, pageNum:1, pageSize: 10}).then(data => {
             this.topOne = data.record.slice(0, 1)[0]
             this.houseList = data.record.splice(0,3)
         })
