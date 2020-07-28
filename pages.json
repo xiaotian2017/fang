@@ -151,6 +151,12 @@
 				"style" : {
 					"navigationBarTitleText": "二手房查价"
 				}
+			},
+			{
+				"path" : "detail/detail",
+				"style" : {
+					"navigationBarTitleText": "乐米选房-二手房详情"
+				}
 			}
 		]
 	}],

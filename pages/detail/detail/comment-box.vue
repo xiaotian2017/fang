@@ -1,5 +1,5 @@
 <template>
-    <view class="comments">
+    <view class="comments" v-if="houseDetail.userComment">
         <view class="detail-tit">
             评论
             <view class="more" @tap="toCommentPage">更多评论></view>

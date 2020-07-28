@@ -17,8 +17,8 @@ export default {
         }
     },
     methods: {
-        search() {
-
+        search(query) {
+            this.$emit('searchHandList', query.value)
         },
         _initData() {
             this.analysisData = [

@@ -1,5 +1,5 @@
 <template>
-	<view class="detail-info">
+	<view class="detail-info" v-if="lotteryGuides.length>0">
 		<view class="tabs-top">
 			<view class="tab active" v-for="(tab, i) in lotteryGuides" :key="i" :class="{active: i==tabIndex}">{{tab.building}}</view>
 		</view>

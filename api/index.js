@@ -95,6 +95,9 @@ export const addConcern = fetch('/user/concern/add', {
 export const deleteConcern = fetch('/user/concern/delete', {
     detail:'取消关注'
 })
+export const getGroups = fetch('/wx/group/list', {
+    detail:'获取微信群'
+})
 
 
 

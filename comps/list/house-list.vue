@@ -5,7 +5,7 @@
 		<view class="text-w">
 			<view class="tit">{{house.name}}</view>
 			<view class="pricearea">
-				<text class="price">{{house.minPrice}}-{{house.maxPrice}}元/m²</text>
+				<text class="price">{{priceTxt}}</text>
 				<text class="area">{{house.minArea}}-{{house.maxArea}}m²</text>
 			</view>
 			<view class="local">

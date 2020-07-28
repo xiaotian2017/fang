@@ -69,6 +69,7 @@ export default {
 			}
 
 			.lable {
+				height: 50rpx; overflow: hidden;
 				.txt {
 					margin-right: 10rpx;
 					font-size: 20rpx;

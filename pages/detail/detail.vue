@@ -20,7 +20,7 @@
 
 		<view class="hl10" />
 
-		<view class="trends-box">
+		<view class="trends-box" v-if="houseNews[0]">
 			<view class="detail-tit">
 				楼盘动态
 				<view class="more fr" @tap="toMoreTrends">更多></view>
@@ -33,7 +33,7 @@
 
 		<view class="hl10" />
 		
-		<view class="swing-box">
+		<view class="swing-box" v-if="houseDetail.lotteryLog">
 			<view class="detail-tit gap">
 				历史摇号
 				<view class="more fr" @tap="toMoreSwing">更多></view>

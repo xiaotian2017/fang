@@ -2,7 +2,7 @@
     <!--二手房查价-->
     <view class="check-price">
         <wrap>
-            <check-top />
+            <check-top @searchHandList="searchHandList" />
             <!-- <chart /> -->
             <nav-part />
         </wrap>
@@ -14,8 +14,10 @@
 
         <view class="hl10"></view>
         <wrap>
-            <lasted-handes />
+            <lasted-hands />
         </wrap>
+
+        <searched-hands :query="query" />
     </view>
 </template>
 
@@ -23,23 +25,26 @@
 import Chart from "./checkPrice/chart"
 import NavPart from "./checkPrice/nav-part"
 import RealQuote from "./checkPrice/real-quote"
-import LastedHandes from "./checkPrice/lasted-handes"
+import LastedHands from "./checkPrice/lasted-hands"
+import SearchedHands from "./checkPrice/searched-hands"
 import CheckTop from "./checkPrice/check-top"
 
 export default {
 	data() {
 		return {
-			
+            query: ''
 		}
 	},
 	methods: {
-		
+        searchHandList(query) {
+            this.query=query
+        }
 	},
     mounted() {
 		
     },
     components: {
-       Chart, NavPart, RealQuote, LastedHandes, CheckTop
+       Chart, NavPart, RealQuote, LastedHands, CheckTop, SearchedHands
     }
 }
 </script>

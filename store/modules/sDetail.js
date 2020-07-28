@@ -42,35 +42,35 @@ const store = {
             return ret
         },
         medias(state) {
-            let ret = []
+            let ret = null
             if(state.houseDetail) {
                 ret = state.houseDetail.medias
             }
             return ret
         },
         houseInfo(state) {
-            let ret = {}
+            let ret = null
             if(state.houseDetail) {
                 ret = state.houseDetail.project
             }
             return ret
         },
         advisers(state) {
-            let ret = {}
+            let ret = null
             if(state.houseDetail) {
                 ret = state.houseDetail.advisers
             }
             return ret
         },
         lotteryGuides(state) {
-            let ret = {}
+            let ret = null
             if(state.houseDetail) {
                 ret = state.houseDetail.lotteryGuides
             }
             return ret
         },
         layoutMore(state) {
-            let ret = {}
+            let ret = null
             if(state.houseDetail) {
                 ret = state.houseDetail.supply
             }

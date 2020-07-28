@@ -8,9 +8,28 @@
             乐米助手会审核并拉你进最适合你的群。进群以后请自觉退中转群，谢谢合作。
         </text>
 
-        <img-box type="qrcode.jpg" class="img-box" />
+        <img-box :src="qrCode" class="img-box" />
     </view>
 </template>
+
+<script>
+import { getGroups } from "@/api"
+
+export default {
+    data() {
+        return {
+            qrCode: "",
+            txt: ""
+        }
+    },
+    created() {
+        getGroups().then(data => {
+            this.qrCode = data[0].wxQrcodeUrl
+        })
+    }
+}
+</script>
+
 
 <style lang="scss" scoped>
 .join-group{

@@ -14,12 +14,21 @@ Object.defineProperty(User_Info, 'userInfo', {
 })
 
 Object.defineProperty(User_Info, 'id', {
-    set(id) {
-        setInfo({ id: id })
-        return temp
-    },
+    // set(id) {
+    //     setInfo({ id: id })
+    //     return temp
+    // },
     get() {
         return getInfo('id')
+    }
+})
+Object.defineProperty(User_Info, 'isVip', {
+    // set(id) {
+    //     setInfo({ id: id })
+    //     return temp
+    // },
+    get() {
+        return getInfo('isVip')
     }
 })
 

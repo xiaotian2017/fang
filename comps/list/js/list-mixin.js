@@ -48,6 +48,9 @@ export const houseMixin = {
 			let { saleStatus, tag } = this.house
 				
 			return concatLabels(saleStatus, tag)
+		},
+		priceTxt() {
+			return this.house.priceRemark || this.house.minPrice+'-'+this.house.maxPrice+'元/m²'
 		}
 	}
 }

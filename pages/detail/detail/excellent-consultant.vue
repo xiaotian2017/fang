@@ -1,5 +1,5 @@
 <template>
-    <view class="excellent-consultant fz">
+    <view class="excellent-consultant fz" v-if="advisers&&advisers.length>0">
         <view class="detail-tit fl">优秀置业顾问</view>
         <view class="more fr" @tap="toMore">更多置业顾问></view>
 
